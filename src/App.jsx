@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useNetworkStatus } from "./hooks/useNetworkStatus";
-import HomePage from "./components/HomePage/HomePage";
+import HomePage from "./components/HomePage/Homepage";
 import ContactPage from "./components/ContactUs/ContactPage";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
