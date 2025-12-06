@@ -1,24 +1,25 @@
+import { motion } from "framer-motion";
 import { CheckCircle, Award, Users, Shield } from "lucide-react";
-import MotionWrapper from "../MotionWrapper";
-
-// Simple fade-in animation (only for mobile)
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
 
 const WhyChooseUs = () => {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
   return (
     <section className="py-12 px-6 md:px-12 lg:px-20 relative bg-orange-50">
       <div className="max-w-7xl mx-auto">
-        <MotionWrapper
+        <motion.div
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          whileInView="show"
+          viewport={{ once: true }}
           variants={fadeInUp}
           className="text-center mb-16"
         >
@@ -29,14 +30,14 @@ const WhyChooseUs = () => {
           <p className="text-2xl text-gray-500 max-w-4xl mx-auto">
             Your success, our mission
           </p>
-        </MotionWrapper>
+        </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-10 items-center">
           {/* Left Side - Image */}
-          <MotionWrapper 
+          <motion.div 
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            whileInView="show"
+            viewport={{ once: true }}
             variants={fadeInUp}
             className="w-full lg:w-1/2"
           >
@@ -53,7 +54,7 @@ const WhyChooseUs = () => {
                 </p>
               </div>
             </div>
-          </MotionWrapper>
+          </motion.div>
 
           {/* Right Side - 2x2 Grid */}
           <div className="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -79,14 +80,14 @@ const WhyChooseUs = () => {
                 description: "We're here for you even after project completion."
               }
             ].map((item, index) => (
-              <MotionWrapper
+              <motion.div
                 key={item.title}
                 initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
+                whileInView="show"
+                viewport={{ once: true }}
                 variants={fadeInUp}
-                transition={{ delay: index * 0.1 }}
-                className="group flex flex-col items-start gap-3 bg-white rounded-2xl shadow-md p-6 border border-orange-100 h-full"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group flex flex-col items-start gap-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-6 h-full"
               >
                 <div>
                   {item.icon}
@@ -99,7 +100,7 @@ const WhyChooseUs = () => {
                     {item.description}
                   </p>
                 </div>
-              </MotionWrapper>
+              </motion.div>
             ))}
           </div>
         </div>

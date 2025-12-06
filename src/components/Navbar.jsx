@@ -12,10 +12,17 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 10);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -39,29 +46,24 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-white/90 backdrop-blur-md"
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-200 ${
+        scrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-white/90 backdrop-blur-sm"
       }`}
+      style={{ willChange: 'background-color, box-shadow' }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex-shrink-0"
-          >
+          <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <motion.img
+              <img
                 src={logoImg}
                 alt="Lorvens Solutions"
                 className="h-10 md:h-12 w-auto"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                loading="eager"
               />
             </Link>
-          </motion.div>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4">
@@ -94,9 +96,10 @@ const Navbar = () => {
             <button
               onClick={() => setOpen(!open)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-orange-600 hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500 transition-colors"
-              aria-expanded="false"
+              aria-expanded={open}
+              aria-label={open ? "Close menu" : "Open menu"}
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
               {open ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
               ) : (
@@ -108,40 +111,35 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, maxHeight: 0 }}
+            animate={{ opacity: 1, maxHeight: 500 }}
+            exit={{ opacity: 0, maxHeight: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
             className="lg:hidden bg-white shadow-lg overflow-hidden"
+            style={{ willChange: 'opacity, max-height' }}
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navLinks.map(({ to, icon: Icon, label }, index) => (
-                <motion.div
+              {navLinks.map(({ to, icon: Icon, label }) => (
+                <Link
                   key={to}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  to={to}
+                  onClick={() => setOpen(false)}
+                  className={`relative flex items-center px-3 py-3 rounded-md text-base font-medium transition-colors duration-150 ${
+                    isActive(to)
+                      ? "bg-orange-50 text-orange-600"
+                      : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                  }`}
                 >
-                  <Link
-                    to={to}
-                    onClick={() => setOpen(false)}
-                    className={`relative flex items-center px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
-                      isActive(to)
-                        ? "bg-orange-50 text-orange-600"
-                        : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
-                    }`}
-                  >
-                    <Icon size={20} className="mr-3 flex-shrink-0" />
-                    <span>{label}</span>
-                    {/* Mobile underline effect */}
-                    {isActive(to) && (
-                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-600 rounded-full" />
-                    )}
-                  </Link>
-                </motion.div>
+                  <Icon size={20} className="mr-3 flex-shrink-0" />
+                  <span>{label}</span>
+                  {/* Mobile underline effect */}
+                  {isActive(to) && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-600 rounded-full" />
+                  )}
+                </Link>
               ))}
             </div>
           </motion.div>

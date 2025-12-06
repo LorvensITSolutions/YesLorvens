@@ -1,32 +1,37 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import WorkTogether from "./WorkTogether";
-import MotionWrapper from "../MotionWrapper";
 
 const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg";
 const mobileBg = "https://res.cloudinary.com/di4caiech/image/upload/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png";
 
-// Simple fade-in animation (only for mobile)
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
-
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Preload images for faster loading (browser caching)
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
+  // Preload images immediately for faster loading
   useEffect(() => {
+    // Preload images as soon as component mounts
     const desktopImg = new Image();
     const mobileImg = new Image();
 
-    // Start loading images immediately (browser will cache them)
     desktopImg.src = desktopBg;
     mobileImg.src = mobileBg;
+
+    // Set loading priority
+    desktopImg.loading = 'eager';
+    mobileImg.loading = 'eager';
   }, []);
 
   const handleWorkTogetherClick = () => {
@@ -40,19 +45,25 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-start h-screen w-full overflow-hidden"
-      style={{
-        backgroundColor: "#111827",
-        backgroundImage: `url(${desktopBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat"
-      }}
+      className="relative flex items-center justify-start h-screen w-full overflow-hidden bg-gray-900"
     >
+      {/* Desktop background */}
+      <div
+        className="hidden md:block absolute inset-0 w-full h-full"
+        style={{
+          backgroundColor: "#111827",
+          backgroundImage: `url(${desktopBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        }}
+      />
+
       {/* Mobile background */}
       <div
         className="md:hidden absolute inset-0 w-full h-full"
         style={{
+          backgroundColor: "#111827",
           backgroundImage: `url(${mobileBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -60,14 +71,15 @@ const Hero = () => {
         }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-6">
-        <MotionWrapper
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/40"></div>
+
+      {/* Content - Left aligned */}
+      <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-left space-y-6">
+        <motion.div
           variants={fadeInUp}
-          transition={{ delay: 0.1 }}
+          initial="hidden"
+          animate="show"
         >
           <h1 className="font-extrabold leading-snug">
             <span className="block text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
@@ -78,43 +90,41 @@ const Hero = () => {
               <span className="text-orange-500">growth & scale</span>
             </span>
           </h1>
-        </MotionWrapper>
+        </motion.div>
 
-        <MotionWrapper
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+        <motion.div
           variants={fadeInUp}
+          initial="hidden"
+          animate="show"
           transition={{ delay: 0.2 }}
         >
-          <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-xl max-[420px]:text-sm">
+          <p className="text-base sm:text-lg md:text-xl text-white max-w-xl max-[420px]:text-sm">
             At <strong className="text-orange-500">YES LORVENS</strong>, we help
             startups & enterprises launch websites, apps, and full-stack digital
             solutions tailored for real results.
           </p>
-        </MotionWrapper>
+        </motion.div>
 
-        <MotionWrapper
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+        <motion.div
           variants={fadeInUp}
+          initial="hidden"
+          animate="show"
           transition={{ delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center gap-3 max-w-md w-full"
+          className="flex flex-col sm:flex-row items-start gap-3 max-w-md w-full"
         >
           <Link
             to="/services"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 bg-white/10 text-white border border-white/20 rounded-md hover:bg-white/20 font-medium"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 bg-gray-800/80 text-white border border-gray-700 rounded-md hover:bg-gray-700/80 font-medium transition-colors"
           >
             Our services
           </Link>
           <button
-            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-14 rounded-md hover:bg-orange-600 font-medium"
+            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-14 rounded-md hover:bg-orange-600 font-medium transition-colors"
             onClick={handleWorkTogetherClick}
           >
             Work Together
           </button>
-        </MotionWrapper>
+        </motion.div>
       </div>
 
       {/* Work Together Modal */}

@@ -26,12 +26,16 @@
   <!-- Favicon for browser and Google search -->
   <link rel="icon" type="image/png" href="/ICON.png" />
 
+  <!-- Preconnect to Cloudinary for faster image loading -->
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+  <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
   <!-- Preload Hero images for instant loading -->
   <link rel="preload" as="image" href="https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg"
-    fetchpriority="high" />
+    fetchpriority="high" media="(min-width: 768px)" />
   <link rel="preload" as="image"
     href="https://res.cloudinary.com/di4caiech/image/upload/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png"
-    fetchpriority="high" />
+    fetchpriority="high" media="(max-width: 767px)" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2G25FM9V94"></script>

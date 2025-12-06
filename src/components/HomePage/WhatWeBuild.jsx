@@ -1,24 +1,25 @@
+import { motion } from "framer-motion";
 import { Lightbulb, Rocket, Building2, UserSearch } from "lucide-react";
-import MotionWrapper from "../MotionWrapper";
-
-// Simple fade-in animation (only for mobile)
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
 
 const WhatWeBuild = () => {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
   return (
     <section className="relative py-20 px-4 md:px-12 overflow-hidden">
       {/* Section Header */}
-      <MotionWrapper
+      <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        whileInView="show"
+        viewport={{ once: true }}
         variants={fadeInUp}
         className="text-center mb-16 relative z-10"
       >
@@ -29,7 +30,7 @@ const WhatWeBuild = () => {
         <p className="max-w-5xl mx-auto text-gray-500 text-base sm:text-lg md:text-xl font-normal px-4 sm:px-6 text-center">
           From idea to launch — we craft solutions that are fast, scalable, and designed for impact.
         </p>
-      </MotionWrapper>
+      </motion.div>
 
       {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
@@ -65,14 +66,14 @@ const WhatWeBuild = () => {
             desc: "Secure, scalable, and future-ready deployments.",
           },
         ].map((service, index) => (
-          <MotionWrapper
+          <motion.div
             key={service.title}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
+            whileInView="show"
+            viewport={{ once: true }}
             variants={fadeInUp}
-            transition={{ delay: index * 0.1 }}
-            className="group flex items-start gap-4 bg-gradient-to-br from orange-20 to-orange-50 rounded-2xl shadow-md p-6 border border-orange-100"
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className="group flex items-start gap-4 bg-gradient-to-br from orange-20 to-orange-50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-6"
           >
             <div>
               {service.icon}
@@ -83,7 +84,7 @@ const WhatWeBuild = () => {
               </h3>
               <p className="text-gray-600 text-sm">{service.desc}</p>
             </div>
-          </MotionWrapper>
+          </motion.div>
         ))}
       </div>
     </section>

@@ -1,24 +1,25 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import MotionWrapper from "../MotionWrapper";
-
-// Simple fade-in animation (only for mobile)
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
 
 const ReadyTransform = () => {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
   return (
     <section className="py-12 px-6 md:px-12 lg:px-20 relative">
       <div className="max-w-7xl mx-auto">
-        <MotionWrapper
+        <motion.div
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          whileInView="show"
+          viewport={{ once: true }}
           variants={fadeInUp}
           className="text-center mb-16"
         >
@@ -29,7 +30,7 @@ const ReadyTransform = () => {
           <p className="text-xl text-gray-500 max-w-4xl mx-auto">
             Let's build something extraordinary together
           </p>
-        </MotionWrapper>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {[
@@ -48,14 +49,14 @@ const ReadyTransform = () => {
               primary: false
             }
           ].map((item, index) => (
-            <MotionWrapper
+            <motion.div
               key={item.title}
               initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+              whileInView="show"
+              viewport={{ once: true }}
               variants={fadeInUp}
-              transition={{ delay: index * 0.1 }}
-              className="group flex flex-col bg-gradient-to-br from-orange-50 to-orange-20 rounded-2xl shadow-md p-8 border border-orange-100"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="group flex flex-col bg-gradient-to-br from-orange-50 to-orange-20 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-8"
             >
               <div className="flex-1">
                 <h3 className="text-2xl font-semibold text-gray-600 mb-4">
@@ -89,7 +90,7 @@ const ReadyTransform = () => {
                   />
                 </svg>
               </Link>
-            </MotionWrapper>
+            </motion.div>
           ))}
         </div>
       </div>

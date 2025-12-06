@@ -26,7 +26,7 @@ const Footer = () => {
           <h2 className="text-2xl font-bold text-white mb-4 tracking-wide text-center sm:text-left">
             YES LORVENS
           </h2>
-          <p className="text-sm text-gray-300 hover:text-orange-400 transition-colors text-center sm:text-left max-w-xs">
+          <p className="text-sm text-gray-300 hover:text-orange-400 transition-colors text-center sm:text-left max-w-xs cursor-default">
             Crafting innovative tech solutions tailored to your business goals.
           </p>
 
