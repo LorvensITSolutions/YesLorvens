@@ -45,7 +45,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-start h-screen w-full overflow-hidden bg-gray-900"
+      className="relative flex items-center justify-center md:justify-start h-screen w-full overflow-hidden bg-gray-900"
     >
       {/* Desktop background */}
       <div
@@ -61,7 +61,7 @@ const Hero = () => {
 
       {/* Mobile background */}
       <div
-        className="md:hidden absolute inset-0 w-full h-full"
+        className="md:hidden absolute inset-0 w-full h-[100vh]"
         style={{
           backgroundColor: "#111827",
           backgroundImage: `url(${mobileBg})`,
@@ -74,8 +74,8 @@ const Hero = () => {
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40"></div>
 
-      {/* Content - Left aligned */}
-      <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-left space-y-6">
+      {/* Content - Center aligned on mobile, left aligned on md and up */}
+      <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-6">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -110,7 +110,7 @@ const Hero = () => {
           initial="hidden"
           animate="show"
           transition={{ delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-start gap-3 max-w-md w-full"
+          className="flex flex-col sm:flex-row justify-center md:justify-start items-center md:items-start gap-3 max-w-md w-full mx-auto md:mx-0"
         >
           <Link
             to="/services"
