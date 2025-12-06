@@ -114,9 +114,7 @@ const Footer = () => {
             <li><Link to="/service/ui-ux-design" className="text-gray-300 hover:text-orange-400 transition">UI/UX Design</Link></li>
             <li><Link to="/service/digital-marketing" className="text-gray-300 hover:text-orange-400 transition">Digital Marketing</Link></li>
             <li><Link to="/service/ai-ml-integration" className="text-gray-300 hover:text-orange-400 transition">AI/ML Integrations</Link></li>
-            <li><Link to="/service/school-website" className="text-gray-300 hover:text-orange-400 transition">School Website Development</Link></li>
-            <li><Link to="/service/ecommerce-website" className="text-gray-300 hover:text-orange-400 transition">E-Commerce Websites</Link></li>
-            <li><Link to="/service/portfolio-building" className="text-gray-300 hover:text-orange-400 transition">Portfolio Building</Link></li>
+           
           </ul>
         </div>
         {/* Contact */}
