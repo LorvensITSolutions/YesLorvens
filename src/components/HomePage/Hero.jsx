@@ -163,7 +163,7 @@ const Hero = React.memo(() => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/50" />
       {/* Content - single container for viewport optimization */}
       <motion.div
-        className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-left space-y-6 pt-20"
+        className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-6 pt-20"
         variants={containerVariants}
         initial="hidden"
         animate="show"

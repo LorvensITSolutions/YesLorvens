@@ -333,7 +333,7 @@ const ServiceDetail = () => {
               onClick={() => navigate("/contact")}
               className="bg-orange-600 text-white hover:bg-orange-700 px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              Get a Free Consultation
+              Get Started
             </button>
             <button
               onClick={() => navigate("/contact")}
