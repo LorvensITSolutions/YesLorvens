@@ -6,27 +6,12 @@ import {
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 // Project images
-const onlineshop = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843907/onlineshop_ctyxwy.jpg"
-const onlineshopp = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843908/onlineshopp_z9ilo0.jpg"
-const onlineshoppp = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843909/onlineshoppp_rkkau1.jpg"
 const uiux = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843912/uiux_cyixmv.jpg"
-const uiuxx = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843920/uiuxx_ijxjpy.jpg"
-const uiuxxx = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843920/uiuxxx_txfbsm.jpg"
 const digital = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843903/digital_eqfadq.jpg"
-const digitall = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843904/digitall_u2v3by.jpg"
-const digitalll = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843903/digitalll_u1qeem.jpg"
 const learn = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843908/learn_nmd0i2.jpg"
-const learnn = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843905/learnn_zqkbvk.jpg"
-const learnnn = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843907/learnnn_gxcafn.jpg"
 const school = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843912/school_wvhikn.jpg"
-const schooll = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843933/schooll_ozujui.jpg"
-const schoolll = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764844918/schoolll_-min_srrq7f.jpg"
 const qa1 = "https://res.cloudinary.com/di4caiech/image/upload/v1764951185/qa1_v9imdu.jpg"
-const qa2 = "https://res.cloudinary.com/di4caiech/image/upload/v1764951166/qa2_hat9qp.jpg"
-const qa3 = "https://res.cloudinary.com/di4caiech/image/upload/v1764951244/qa3_vukwtr.jpg"
-const lumiere1 = "https://res.cloudinary.com/di4caiech/image/upload/v1764952317/lumiere_grpipb.jpg"
-const lumiere2 = "https://res.cloudinary.com/di4caiech/image/upload/v1764952309/lumiere2_a3jlcj.jpg"
-const lumiere3 = "https://res.cloudinary.com/di4caiech/image/upload/v1764952419/lumiere4_fc5jhv.jpg"
+const lumiere1 = "https://res.cloudinary.com/di4caiech/image/upload/v1765021789/ChatGPT_Image_Dec_6_2025_05_19_10_PM_apvoja.png"
 
 // ✨ Enhanced Animation Variants
 const slideVariants = {
@@ -83,10 +68,7 @@ const projects = [
     title: "AI-ML Integration Platform",
     subtitle: "Intelligent Business Analytics",
     description: "A cutting-edge analytics platform that leverages advanced machine learning algorithms to transform raw data into actionable business insights. The system provides real-time predictive analytics, natural language processing capabilities, and automated decision-making tools. Our solution helped the client achieve 85% improvement in prediction accuracy and reduced manual analysis time by 70%.",
-    images: [learn, learnn, learnnn],
-    //technologies: ["Python", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "Matplotlib"],
-    //duration: "6 months",
-    //team: "3 ML Engineers, 2 Data Scientists",
+    images: [learn],
     category: "AI/ML",
     impact: "85% accuracy improvement, 70% faster analysis",
     color: "from-green-500 to-teal-600"
@@ -96,10 +78,7 @@ const projects = [
     title: "Edu Reach",
     subtitle: "Smart Learning Environment",
     description: "A comprehensive educational platform serving over 5,000+ students and 200+ faculty members. The system features automated attendance tracking, grade management, assignment submission, and real-time communication tools. Our solution reduced administrative workload by 60% and improved parent-teacher engagement by 75% through its intuitive interface and mobile responsiveness.",
-    images: [school, schooll, schoolll],
-    //technologies: ["MongoDB", "Express.js", "React", "Node.js", "Redux", "Material-UI"],
-    //duration: "5 months",
-    //team: "4 Full-stack Developers, 1 UI/UX Designer, 1 QA Engineer",
+    images: [school],
     category: "App Development",
     impact: "60% reduction in administrative work, 75% better engagement",
     color: "from-orange-500 to-red-600"
@@ -109,10 +88,7 @@ const projects = [
     title: "Lumiere Luxe",
     subtitle: "Premium Salon Booking Platform",
     description: "A sophisticated online booking system designed exclusively for high-end salons, providing seamless appointment scheduling, service management, and client relationship tools. The platform features real-time availability, automated reminders, and a personalized client portal. Our solution increased booking conversions by 65% and reduced no-shows by 50% through smart notifications and a user-friendly interface.",
-    images: [lumiere1, lumiere2, lumiere3],
-    //technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redux", "Material-UI"],
-    //duration: "4 months",
-    //team: "3 Full-stack Developers, 1 UI/UX Designer",
+    images: [lumiere1],
     category: "Web Development",
     impact: "65% more bookings, 50% fewer no-shows, 40% admin time saved",
     color: "from-rose-500 to-pink-600"
@@ -122,10 +98,7 @@ const projects = [
     title: "Digital Marketing Campaign",
     subtitle: "Growth-Driven Strategy",
     description: "A 360-degree digital marketing campaign that delivered exceptional results for our e-commerce client. We implemented a data-driven approach combining SEO optimization, PPC advertising, social media marketing, and email automation. The campaign achieved a 400% ROI, increased organic traffic by 250%, and boosted conversion rates by 180% through A/B testing and continuous optimization.",
-    images: [digital, digitall, digitalll],
-    //technologies: ["Google Ads", "Facebook Ads", "Google Analytics", "SEO", "Content Marketing", "Email Automation"],
-    //duration: "4 months",
-    //team: "2 Digital Marketers, 1 Content Strategist, 1 Graphic Designer",
+    images: [digital],
     category: "Digital Marketing",
     impact: "400% ROI, 250% traffic increase, 180% conversion boost",
     color: "from-pink-500 to-violet-600"
@@ -135,10 +108,7 @@ const projects = [
     title: "UI/UX Redesign",
     subtitle: "Modern User-Centered Experience",
     description: "A complete UI/UX overhaul for a financial services mobile app, focusing on enhancing user experience and accessibility. Our design process included user research, wireframing, prototyping, and usability testing. The new design improved task completion rates by 65%, reduced bounce rates by 45%, and received a 4.8/5 user satisfaction rating. The responsive design ensures seamless experience across all devices while maintaining brand consistency.",
-    images: [uiux, uiuxx, uiuxxx],
-    //technologies: ["Figma", "Adobe XD", "User Research", "Prototyping", "Usability Testing", "Design Systems"],
-    //duration: "2 months",
-    //team: "2 UI/UX Designers, 1 UX Researcher",
+    images: [uiux],
     category: "UI/UX Development",
     impact: "65% better task completion, 45% lower bounce rate, 4.8/5 satisfaction",
     color: "from-purple-500 to-pink-600"
@@ -148,10 +118,7 @@ const projects = [
     title: "Quality Assurance Framework",
     subtitle: "Comprehensive Software Testing Solutions",
     description: "A robust QA framework implemented for a SaaS platform serving 50,000+ users. We established automated testing pipelines, performance testing protocols, and security testing measures that reduced production bugs by 80% and accelerated release cycles by 60%. The framework includes unit tests, integration tests, E2E tests, and performance benchmarks, ensuring 98% test coverage across the entire application.",
-    images: [qa1, qa2, qa3],
-    //technologies: ["Selenium", "Jest", "JMeter", "Cypress", "Postman", "GitHub Actions"],
-    //duration: "Ongoing",
-    //team: "3 QA Engineers, 1 DevOps Specialist",
+    images: [qa1],
     category: "Quality Assurance",
     impact: "98% test coverage, 80% fewer bugs, 60% faster releases",
     color: "from-indigo-500 to-blue-600"

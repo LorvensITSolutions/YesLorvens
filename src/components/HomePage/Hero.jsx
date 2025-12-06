@@ -82,7 +82,7 @@ const Hero = () => {
           animate="show"
         >
           <h1 className="font-extrabold leading-snug">
-            <span className="block text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block text-white text-4xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
               Digital solutions built
             </span>
             <span className="block mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
@@ -114,7 +114,7 @@ const Hero = () => {
         >
           <Link
             to="/services"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 bg-gray-800/80 text-white border border-gray-700 rounded-md hover:bg-gray-700/80 font-medium transition-colors"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 bg-gray-800/80 text-orange-400 border border-orange-500 rounded-md hover:bg-gray-700/80 font-semibold transition-colors"
           >
             Our services
           </Link>

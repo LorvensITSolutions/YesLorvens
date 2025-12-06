@@ -104,13 +104,24 @@ const staggerContainer = {
 };
 
 const ContactPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    subject: false,
+    message: false
+  });
+  
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
+  const [formError, setFormError] = useState(null);
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
@@ -125,70 +136,141 @@ const ContactPage = () => {
     }
   }, [controls, isInView]);
 
+  // Validation functions
+  const validateField = (name, value) => {
+    let error = "";
+    
+    switch (name) {
+      case 'name':
+        if (!value.trim()) error = 'Name is required';
+        else if (value.trim().length < 2) error = 'Name must be at least 2 characters';
+        break;
+      case 'email':
+        if (!value) error = 'Email is required';
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+          error = 'Invalid email address';
+        }
+        break;
+      case 'subject':
+        if (!value.trim()) error = 'Subject is required';
+        else if (value.trim().length < 5) error = 'Subject must be at least 5 characters';
+        break;
+      case 'message':
+        if (!value.trim()) error = 'Message is required';
+        else if (value.trim().length < 10) error = 'Message must be at least 10 characters';
+        break;
+      default:
+        break;
+    }
+    
+    return error;
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+    
+    Object.keys(formData).forEach(field => {
+      const error = validateField(field, formData[field]);
+      if (error) {
+        newErrors[field] = error;
+        isValid = false;
+      }
+    });
+    
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleBlur = (field) => (e) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const error = validateField(field, formData[field]);
+    setErrors(prev => ({ ...prev, [field]: error || '' }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      const error = validateField(name, value);
+      setErrors(prev => ({
+        ...prev,
+        [name]: error || ''
+      }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate form fields
-    if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
-      setError("Please fill in all required fields.");
-      setTimeout(() => setError(null), 5000);
+    
+    // Mark all fields as touched
+    const newTouched = {};
+    Object.keys(touched).forEach(field => {
+      newTouched[field] = true;
+    });
+    setTouched(newTouched);
+    
+    // Validate form
+    const isValid = validateForm();
+    if (!isValid) {
+      setFormError("Please correct the errors in the form.");
+      setTimeout(() => setFormError(null), 5000);
       return;
     }
 
     setLoading(true);
     setSuccess(false);
-    setError(null);
+    setFormError(null);
 
     try {
-      // Use iframe method for reliable submission (avoids CORS and timeout issues)
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.style.width = "0";
-      iframe.style.height = "0";
-      iframe.style.border = "none";
-      iframe.name = "hidden_iframe_" + Date.now();
-      document.body.appendChild(iframe);
+      // Create form data with all required fields
+      const formData = new URLSearchParams();
+      formData.append('name', formData.name);
+      formData.append('email', formData.email);
+      formData.append('subject', formData.subject);
+      formData.append('message', formData.message);
+      formData.append('_captcha', 'false');
+      formData.append('_template', 'table');
+      formData.append('_subject', 'New Contact Form Submission from YES LORVENS Website');
+      formData.append('_next', window.location.href);
 
-      // Create a temporary form to submit via iframe
-      const form = e.target;
-      const tempForm = document.createElement("form");
-      tempForm.method = "POST";
-      tempForm.action = "https://formsubmit.co/bhanu.rupa2003@gmail.com";
-      tempForm.target = iframe.name;
-      tempForm.style.display = "none";
+      // Submit using fetch API
+      const response = await fetch('https://formsubmit.co/ajax/bhanu.rupa2003@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString()
+      });
 
-      // Copy all form data including hidden inputs
-      const formData = new FormData(form);
-      for (const [key, value] of formData.entries()) {
-        if (key === "_next") continue;
+      const result = await response.json();
+      
+      if (response.ok && result.success === 'true') {
 
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        tempForm.appendChild(input);
+        // Show success message
+        setSuccess(true);
+        setLoading(false);
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+        setTouched({
+          name: false,
+          email: false,
+          subject: false,
+          message: false
+        });
+        setErrors({});
+      } else {
+        throw new Error(result.message || 'Failed to send message');
       }
-
-      document.body.appendChild(tempForm);
-      tempForm.submit();
-
-      // Show success message immediately (iframe submission is reliable)
-      setSuccess(true);
-      setLoading(false);
-      setName("");
-      setEmail("");
-      setSubject("");
-      setMessage("");
-
-      // Clean up after submission
-      setTimeout(() => {
-        if (tempForm.parentNode) {
-          document.body.removeChild(tempForm);
-        }
-        if (iframe.parentNode) {
-          document.body.removeChild(iframe);
-        }
-      }, 1000);
 
       // Hide success message after 5 seconds
       setTimeout(() => {
@@ -196,13 +278,15 @@ const ContactPage = () => {
       }, 5000);
     } catch (err) {
       console.error("❌ Error submitting contact form:", err);
-      setError("Failed to send message. Please try again.");
+      setFormError(`Failed to send message: ${err.message}. Please try again or contact us directly.`);
       setLoading(false);
 
       // Hide error message after 5 seconds
-      setTimeout(() => {
-        setError(null);
+      const errorTimeout = setTimeout(() => {
+        setFormError(null);
       }, 5000);
+      
+      return () => clearTimeout(errorTimeout);
     }
   };
 
@@ -310,59 +394,95 @@ const ContactPage = () => {
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1 ml-1">Name</label>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1 ml-1">
+                        Name <span className="text-red-500">*</span>
+                      </label>
                       <input
                         id="name"
                         type="text"
                         name="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="John Doe *"
-                        required
-                        className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
+                        value={formData.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur('name')}
+                        placeholder="John Doe"
+                        className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                          errors.name && touched.name
+                            ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
+                            : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
+                        }`}
                       />
+                      {errors.name && touched.name && (
+                        <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                      )}
                     </div>
                     <div className="relative">
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 ml-1">Email</label>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 ml-1">
+                        Email <span className="text-red-500">*</span>
+                      </label>
                       <input
                         id="email"
                         type="email"
                         name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="john@example.com *"
-                        required
-                        className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
+                        value={formData.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur('email')}
+                        placeholder="john@example.com"
+                        className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                          errors.email && touched.email
+                            ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
+                            : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
+                        }`}
                       />
+                      {errors.email && touched.email && (
+                        <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
                   <div className="relative">
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1 ml-1">Subject</label>
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1 ml-1">
+                      Subject <span className="text-red-500">*</span>
+                    </label>
                     <input
                       id="subject"
                       type="text"
                       name="subject"
-                      value={subject}
-                      onChange={(e) => setSubject(e.target.value)}
-                      placeholder="How can we help you? *"
-                      required
-                      className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      onBlur={handleBlur('subject')}
+                      placeholder="How can we help you?"
+                      className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                        errors.subject && touched.subject
+                          ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
+                          : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
+                      }`}
                     />
+                    {errors.subject && touched.subject && (
+                      <p className="mt-1 text-sm text-red-600">{errors.subject}</p>
+                    )}
                   </div>
 
                   <div className="relative">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1 ml-1">Message</label>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1 ml-1">
+                      Message <span className="text-red-500">*</span>
+                    </label>
                     <textarea
                       id="message"
                       name="message"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Tell us more about your project... *"
-                      required
-                      className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
+                      value={formData.message}
+                      onChange={handleChange}
+                      onBlur={handleBlur('message')}
+                      placeholder="Tell us more about your project..."
+                      className={`w-full px-5 py-3 text-base border rounded-xl resize-none focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                        errors.message && touched.message
+                          ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
+                          : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
+                      }`}
                       rows="5"
                     ></textarea>
+                    {errors.message && touched.message && (
+                      <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -400,13 +520,13 @@ const ContactPage = () => {
                   </div>
                 )}
 
-                {error && (
+                {formError && (
                   <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
                     <div className="flex items-center gap-3">
-                      <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="h-5 w-5 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                       </svg>
-                      <p className="text-sm font-medium text-red-800">{error}</p>
+                      <p className="text-sm font-medium text-red-800">{formError}</p>
                     </div>
                   </div>
                 )}
