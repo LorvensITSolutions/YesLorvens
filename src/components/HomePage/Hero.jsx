@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { X, CheckCircle, Send } from "lucide-react";
-const HeroBg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg"
+const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg"
+const mobileBg = "https://res.cloudinary.com/di4caiech/image/upload/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png"
 const containerVariants = {
   hidden: { opacity: 0 },
   show: {
@@ -154,13 +155,24 @@ const Hero = React.memo(() => {
       className="relative flex items-center justify-start h-screen w-screen overflow-hidden"
       style={{
         backgroundColor: "#111827", // Fallback color for instant load
-        backgroundImage: `url(${HeroBg})`,
+        backgroundImage: `url(${desktopBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
       }}
     >
-      {/* Optimized gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/50" />
+      {/* Mobile background image */}
+      <div 
+        className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${mobileBg})`,
+        }}
+      >
+        <div className="absolute inset-0 bg-black/70" />
+      </div>
+      
+      {/* Desktop gradient overlay */}
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/50" />
       {/* Content - single container for viewport optimization */}
       <motion.div
         className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-6 pt-20"
