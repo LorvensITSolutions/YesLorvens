@@ -1,9 +1,17 @@
 @import "tailwindcss";
 
-html, body {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-  overflow: auto; /* Ensure scrolling still works */
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+  overflow: auto;
+  /* Ensure scrolling still works */
 }
 
 /* Chrome, Edge, Safari */
@@ -14,17 +22,22 @@ body::-webkit-scrollbar {
 
 /* Optional: hide scrollbars for all scrollable elements too */
 * {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
 }
 
 *::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;
+  /* Chrome, Safari, Edge */
 }
+
 @keyframes spin-slow {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

@@ -381,8 +381,8 @@ const StatsCounter = ({ number, label, icon: Icon }) => {
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 10 },
-  show: { 
-    opacity: 1, 
+  show: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.4,
@@ -418,24 +418,24 @@ const ProjectsPage = () => {
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/40"></div>
 
-<motion.div 
+        <motion.div
           className="relative z-10 text-center"
           variants={fadeInUp}
           initial="hidden"
           animate="show"
         >
-          <motion.h1 
+          <motion.h1
             variants={fadeInUp}
             className="text-4xl md:text-6xl font-bold text-orange-100 mb-4"
           >
             Our Projects
           </motion.h1>
-          <motion.h2 
+          <motion.h2
             variants={fadeInUp}
             transition={{ delay: 0.2 }}
             className="text-xl md:text-2xl font-normal text-orange-100 max-w-2xl mx-auto"
           >
-           Discover the innovative solutions we've crafted with Passion & Technology.
+            Discover the innovative solutions we've crafted with Passion & Technology.
           </motion.h2>
         </motion.div>
       </section>

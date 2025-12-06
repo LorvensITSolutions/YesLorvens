@@ -124,16 +124,28 @@ const Footer = () => {
           <ul className="space-y-3 text-sm">
             <li className="flex items-center justify-center sm:justify-start gap-2">
               <Phone className="h-4 w-4 text-orange-600 flex-shrink-0" />
-              <a 
-                href="tel:+919952365555" 
-                className="hover:text-orange-600 transition p-1 -m-1"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href = 'tel:+919952365555';
-                }}
-              >
-                +91 7013814030
-              </a>
+              <div className="flex flex-col gap-1">
+                <a 
+                  href="tel:+917013814030" 
+                  className="hover:text-orange-600 transition p-1 -m-1"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'tel:+917013814030';
+                  }}
+                >
+                  +91 7013814030
+                </a>
+                <a 
+                  href="tel:+914031985921" 
+                  className="hover:text-orange-600 transition p-1 -m-1"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'tel:+914031985921';
+                  }}
+                >
+                  +91 4031985921
+                </a>
+              </div>
             </li>
             <li className="flex items-start gap-3">
               <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600 mt-0.5 flex-shrink-0" />

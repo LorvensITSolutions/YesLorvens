@@ -1,17 +1,64 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { X, CheckCircle, Send } from "lucide-react";
+import WorkTogether from "./WorkTogether";
 
 const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg";
 const mobileBg = "https://res.cloudinary.com/di4caiech/image/upload/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png";
-const Hero = React.memo(() => {
+
+const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
+  const [desktopImageLoaded, setDesktopImageLoaded] = useState(false);
+  const [mobileImageLoaded, setMobileImageLoaded] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Lazy load background images using IntersectionObserver
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // If IntersectionObserver is not supported, load immediately
+    if (!("IntersectionObserver" in window)) {
+      const desktopImg = new Image();
+      const mobileImg = new Image();
+      desktopImg.onload = () => setDesktopImageLoaded(true);
+      mobileImg.onload = () => setMobileImageLoaded(true);
+      desktopImg.src = desktopBg;
+      mobileImg.src = mobileBg;
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Load desktop image
+            const desktopImg = new Image();
+            desktopImg.onload = () => setDesktopImageLoaded(true);
+            desktopImg.src = desktopBg;
+
+            // Load mobile image
+            const mobileImg = new Image();
+            mobileImg.onload = () => setMobileImageLoaded(true);
+            mobileImg.src = mobileBg;
+
+            observer.unobserve(section);
+          }
+        });
+      },
+      {
+        rootMargin: "50px", // Start loading 50px before entering viewport
+        threshold: 0.01,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => {
+      if (observer && section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
 
   const handleWorkTogetherClick = () => {
     setIsModalOpen(true);
@@ -19,126 +66,34 @@ const Hero = React.memo(() => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    // Reset form state when closing
-    setTimeout(() => {
-      setName("");
-      setEmail("");
-      setSuccess(false);
-      setError(null);
-    }, 300);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Validate form fields
-    if (!name.trim() || !email.trim()) {
-      setError("Please fill in all required fields.");
-      setTimeout(() => setError(null), 5000);
-      return;
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      setError("Please enter a valid email address.");
-      setTimeout(() => setError(null), 5000);
-      return;
-    }
-
-    setLoading(true);
-    setSuccess(false);
-    setError(null);
-
-    // Use iframe method for fast, reliable submission
-    try {
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.style.width = "0";
-      iframe.style.height = "0";
-      iframe.style.border = "none";
-      iframe.name = "hidden_iframe_" + Date.now();
-      document.body.appendChild(iframe);
-
-      const tempForm = document.createElement("form");
-      tempForm.method = "POST";
-      tempForm.action = "https://formsubmit.co/bhanu.rupa2003@gmail.com";
-      tempForm.target = iframe.name;
-      tempForm.style.display = "none";
-
-      // Add form fields
-      const fields = [
-        { name: 'name', value: name.trim() },
-        { name: 'email', value: email.trim() },
-        { name: '_captcha', value: 'false' },
-        { name: '_template', value: 'table' },
-        { name: '_subject', value: 'New Contact from Hero Section - YES LORVENS Website' }
-      ];
-
-      fields.forEach(field => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = field.name;
-        input.value = field.value;
-        tempForm.appendChild(input);
-      });
-
-      document.body.appendChild(tempForm);
-      tempForm.submit();
-
-      // Show success immediately (iframe submission is instant)
-      setSuccess(true);
-      setLoading(false);
-      setName("");
-      setEmail("");
-
-      // Clean up after a short delay
-      setTimeout(() => {
-        if (tempForm.parentNode) {
-          document.body.removeChild(tempForm);
-        }
-        if (iframe.parentNode) {
-          document.body.removeChild(iframe);
-        }
-      }, 1000);
-
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        setSuccess(false);
-      }, 5000);
-    } catch (err) {
-      console.error("❌ Error submitting form:", err);
-      setError("Failed to send message. Please try again.");
-      setLoading(false);
-      setTimeout(() => {
-        setError(null);
-      }, 5000);
-    }
   };
 
   return (
     <section
+      ref={sectionRef}
       id="home"
-      className="relative flex items-center justify-start h-screen w-screen overflow-hidden"
+      className="relative flex items-center justify-start h-screen w-full overflow-hidden"
       style={{
         backgroundColor: "#111827",
-        backgroundImage: `url(${desktopBg})`,
+        backgroundImage: desktopImageLoaded ? `url(${desktopBg})` : "none",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat"
+        backgroundRepeat: "no-repeat",
+        transition: "background-image 0.3s ease-in-out"
       }}
     >
       {/* Mobile background */}
-      <div 
+      <div
         className="md:hidden absolute inset-0 w-full h-full"
         style={{
-          backgroundImage: `url(${mobileBg})`,
+          backgroundImage: mobileImageLoaded ? `url(${mobileBg})` : "none",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          transition: "background-image 0.3s ease-in-out"
         }}
       />
-      
+
       {/* Content */}
       <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-6">
         <h1 className="font-extrabold leading-snug">
@@ -156,16 +111,16 @@ const Hero = React.memo(() => {
           startups & enterprises launch websites, apps, and full-stack digital
           solutions tailored for real results.
         </p>
-        
+
         <div className="flex flex-col sm:flex-row items-center gap-3 max-w-md w-full">
           <Link
             to="/services"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 bg-white/10 text-white border border-white/20 rounded-md hover:bg-white/20 transition-colors font-medium"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 bg-white/10 text-white border border-white/20 rounded-md hover:bg-white/20 font-medium"
           >
             Our services
           </Link>
           <button
-            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-14 rounded-md hover:bg-orange-600 transition-colors font-medium"
+            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-14 rounded-md hover:bg-orange-600 font-medium"
             onClick={handleWorkTogetherClick}
           >
             Work Together
@@ -173,126 +128,10 @@ const Hero = React.memo(() => {
         </div>
       </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={handleCloseModal}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            >
-              {/* Modal Content */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 md:p-8 relative"
-              >
-                {/* Close Button */}
-                <button
-                  onClick={handleCloseModal}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <X size={24} />
-                </button>
-
-                {/* Modal Header */}
-                <div className="mb-6">
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                    Let's Work Together
-                  </h2>
-                  <p className="text-gray-600">
-                    Enter your details and we'll get back to you soon.
-                  </p>
-                </div>
-
-                {/* Form */}
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-4"
-                >
-                  {/* Name Input */}
-                  <div>
-                    <input
-                      type="text"
-                      name="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your name *"
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none"
-                    />
-                  </div>
-
-                  {/* Email Input */}
-                  <div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email *"
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-3 px-6 rounded-xl font-semibold shadow-lg disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
-                  >
-                    {loading ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Sending...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send size={20} />
-                        <span>Submit</span>
-                      </>
-                    )}
-                  </button>
-                </form>
-
-                {/* Success Message */}
-                {success && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 p-4 bg-green-100 border border-green-300 text-green-700 rounded-xl flex items-center gap-2"
-                  >
-                    <CheckCircle size={20} className="flex-shrink-0" />
-                    <span className="font-medium">Message sent successfully! We'll get back to you soon.</span>
-                  </motion.div>
-                )}
-
-                {/* Error Message */}
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 p-4 bg-red-100 border border-red-300 text-red-700 rounded-xl"
-                  >
-                    <p className="font-medium">{error}</p>
-                  </motion.div>
-                )}
-              </motion.div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Work Together Modal */}
+      <WorkTogether isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
   );
-});
-
-Hero.displayName = 'Hero';
+};
 
 export default Hero;
