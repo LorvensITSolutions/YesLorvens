@@ -1,21 +1,20 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useNetworkStatus } from "./hooks/useNetworkStatus";
-
-import HomePage from "./Pages/HomePage";
-import ContactPage from "./Pages/ContactPage";
+import HomePage from "./components/HomePage/HomePage";
+import ContactPage from "./components/ContactUs/ContactPage";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
-import Services from "./Pages/Services";
-import ServiceDetail from "./Pages/ServiceDetail";
-import ProjectsPage from "./Pages/ProjectPage";
-import AboutPage from "./Pages/AboutPage";
-import Footer from "./components/Footer";
-import PrivacyPolicy from "./components/PrivacyPolicy";
-import TermsOfUse from "./components/TermsOfUse";
-
-import NetworkError from "./Pages/NetworkError";
-import NotFound from "./Pages/NotFound";
+import Services from "./components/Services/Services";
+import ServiceDetail from "./components/Services/ServiceDetail";
+import ProjectsPage from "./components/Projects/ProjectPage";
+import AboutPage from "./components/AboutUs/AboutPage";
+import Footer from "./components/Footer/Footer";
+import PrivacyPolicy from "./components/Footer/PrivacyPolicy";
+import TermsOfUse from "./components/Footer/TermsOfUse";
+import NetworkError from "./components/NetworkError";
+import ErrorPage from "./components/ErrorPage";
+import CookieConsent from "./components/CookieConsent";
 
 function App() {
   const isOnline = useNetworkStatus();
@@ -31,11 +30,11 @@ function App() {
     return <NetworkError />;
   }
 
-  // ✔ If NotFound page, render standalone without Navbar/Footer/Background
+  // ✔ If ErrorPage (404), render standalone without Navbar/Footer/Background
   if (isNotFoundPage) {
     return (
       <>
-        <NotFound />
+        <ErrorPage />
         <Toaster />
       </>
     );
@@ -43,12 +42,7 @@ function App() {
 
   // ✔ When online → whole website loads normally
   return (
-    <div className="min-h-screen text-[#1F1F1F] relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.3)_0%,rgba(10,80,60,0.2)_45%,rgba(0,0,0,0.1)_100%)]" />
-      </div>
-
+    <div className="min-h-screen text-[#1F1F1F] relative">
       <ScrollToTop />
       <Navbar />
 
@@ -66,6 +60,7 @@ function App() {
       </main>
 
       <Footer />
+      <CookieConsent />
       <Toaster />
     </div>
   );
