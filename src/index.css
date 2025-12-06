@@ -50,3 +50,9 @@ body::-webkit-scrollbar {
 .orange-glow {
   filter: drop-shadow(0 0 20px orange);
 }
+
+/* Smooth animations for all devices */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

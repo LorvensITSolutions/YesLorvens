@@ -32,12 +32,12 @@ const HomePage = () => {
       {/* Lazy loaded sections */}
       <Suspense fallback={<LoadingFallback />}>
         {/* What We Build */}
-        <WhatWeBuild />
+        <WhyUs />
       </Suspense>
       
       <Suspense fallback={<LoadingFallback />}>
         {/* Why Choose Us */}
-        <WhyUs />
+        <WhatWeBuild />
       </Suspense>
       
       <Suspense fallback={<LoadingFallback />}>
