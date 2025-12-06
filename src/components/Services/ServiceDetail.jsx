@@ -53,6 +53,18 @@ const services = [
     icon: "🤖"
   },
   {
+    id: "quality-assurance",
+    title: "Quality Assurance",
+    description: "Ensure your software meets the highest quality standards",
+    fullDetails: "Our comprehensive Quality Assurance services help you deliver flawless software that meets the highest industry standards. We implement rigorous testing methodologies to identify and resolve issues before they impact your users. From manual testing to automated test suites, we ensure your application performs flawlessly across all devices and platforms, providing a seamless user experience.",
+    image: "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    features: ["Manual Testing", "Automated Testing", "Performance Testing", "Security Testing", "Cross-browser Testing", "Mobile Testing"],
+    deliveryTime: "2-6 weeks",
+    technologies: ["Selenium", "Jest", "Cypress", "JIRA", "Postman"],
+    benefits: ["Bug-free software", "Improved user experience", "Higher customer satisfaction", "Reduced maintenance costs", "Faster time to market"],
+    icon: "🔍"
+  },
+  {
     id: "ui-ux-design",
     title: "UI/UX Designing",
     description: "Design intuitive and engaging interfaces for users",
