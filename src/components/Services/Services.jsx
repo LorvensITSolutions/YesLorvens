@@ -404,7 +404,7 @@ const Services = () => {
             />
             <br />
             <motion.p 
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              className="text-xl text-gray-600 max-w-4xl mx-auto"
               variants={fadeInUp}
             >
               Comprehensive digital solutions designed to accelerate your business growth

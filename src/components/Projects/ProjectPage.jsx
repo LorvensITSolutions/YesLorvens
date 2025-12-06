@@ -162,69 +162,36 @@ const projects = [
 
 // 🎴 Enhanced Project Card - Performance Optimized
 const ProjectCard = ({ project, index }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [hovering, setHovering] = useState(false);
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, amount: 0.2 });
 
   // Ensure project.images exists and has items
   const hasImages = project.images && project.images.length > 0;
   const images = hasImages ? project.images : [];
-  const imageCount = images.length;
-
-  useEffect(() => {
-    if (!hasImages) return;
-
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % imageCount);
-    }, hovering ? 1500 : 3000);
-    return () => clearInterval(interval);
-  }, [hasImages, imageCount, hovering]);
-
-  const nextImage = () => {
-    if (!hasImages) return;
-    setCurrentImageIndex((prev) => (prev + 1) % imageCount);
-  };
-
-  const prevImage = () => {
-    if (!hasImages) return;
-    setCurrentImageIndex((prev) =>
-      prev === 0 ? imageCount - 1 : prev - 1
-    );
-  };
 
   return (
     <motion.div
       ref={cardRef}
       className={`relative group mb-16 lg:mb-24`}
-      initial={{ opacity: 0, y: 100 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-      transition={{ duration: 0.8, delay: index * 0.2 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
     >
 
       <div
         className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
           }`}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
       >
         {/* Enhanced Image Section */}
         <div className="lg:w-1/2 relative group">
           <div className="relative h-80 sm:h-[32rem] lg:h-[40rem] overflow-hidden">
-            {/* Image carousel */}
+            {/* Static image */}
             {hasImages ? (
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentImageIndex}
-                  src={images[currentImageIndex]}
-                  alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  initial={{ opacity: 0, scale: 1.1, rotateY: 90 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, rotateY: -90 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                />
-              </AnimatePresence>
+              <img
+                src={images[0]} // Only show the first image
+                alt={project.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                 <span className="text-gray-500">No images available</span>
@@ -233,45 +200,6 @@ const ProjectCard = ({ project, index }) => {
 
             {/* Overlay gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-            {/* Image navigation - Only show if there are images */}
-            {hasImages && (
-              <>
-                <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={prevImage}
-                    className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
-                  >
-                    <ChevronLeft size={20} />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={nextImage}
-                    className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
-                  >
-                    <ChevronRight size={20} />
-                  </motion.button>
-                </div>
-
-                {/* Image indicators - Only show if there are images */}
-                {imageCount > 1 && (
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                    {images.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50'
-                          }`}
-                        aria-label={`View image ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
 
             {/* Status badge removed as requested */}
           </div>
@@ -308,9 +236,9 @@ const ProjectCard = ({ project, index }) => {
 
           {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base"
           >
             {project.description}
@@ -355,10 +283,10 @@ const ProjectCard = ({ project, index }) => {
           {/* Technologies - Unrolled for Performance */}
           {project.technologies && project.technologies.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="mb-8"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="mb-3"
             >
               <div className="flex flex-wrap gap-2">
                 {project.technologies.slice(0, 4).map((tech, idx) => (
@@ -452,12 +380,13 @@ const StatsCounter = ({ number, label, icon: Icon }) => {
 
 // Animation variants
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 10 },
   show: { 
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.6
+      duration: 0.4,
+      ease: 'easeOut'
     }
   }
 };

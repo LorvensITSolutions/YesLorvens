@@ -132,7 +132,7 @@ const Footer = () => {
                   window.location.href = 'tel:+919952365555';
                 }}
               >
-                +91 99523 65555
+                +91 7013814030
               </a>
             </li>
             <li className="flex items-start gap-3">

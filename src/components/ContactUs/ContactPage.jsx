@@ -317,7 +317,7 @@ const ContactPage = () => {
                         name="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="John Doe"
+                        placeholder="John Doe *"
                         required
                         className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
                       />
@@ -330,7 +330,7 @@ const ContactPage = () => {
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="john@example.com"
+                        placeholder="john@example.com *"
                         required
                         className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
                       />
@@ -345,7 +345,7 @@ const ContactPage = () => {
                       name="subject"
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      placeholder="How can we help you?"
+                      placeholder="How can we help you? *"
                       required
                       className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
                     />
@@ -358,7 +358,7 @@ const ContactPage = () => {
                       name="message"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Tell us more about your project..."
+                      placeholder="Tell us more about your project... *"
                       required
                       className="w-full px-5 py-3 text-base border rounded-xl border-gray-200 resize-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all outline-none bg-white/50 backdrop-blur-sm"
                       rows="5"
