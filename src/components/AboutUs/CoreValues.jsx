@@ -80,7 +80,7 @@ const CoreValues = () => {
             transition={{ delay: 0.1 }}
           >
             <img 
-              src="https://res.cloudinary.com/durbtkhbz/image/upload/v1764936823/ChatGPT_Image_Dec_5_2025_05_43_26_PM_pjzpe6.png" 
+              src="https://res.cloudinary.com/dnxi81qzk/image/upload/v1765177730/ofice_ht9cso.jpg" 
               alt="Our Team"
               className="w-full h-full object-cover"
             />
@@ -143,7 +143,7 @@ const CoreValues = () => {
             transition={{ delay: 0.3 }}
           >
             <img 
-              src="https://res.cloudinary.com/durbtkhbz/image/upload/v1764936823/ChatGPT_Image_Dec_5_2025_05_43_26_PM_pjzpe6.png" 
+              src="https://res.cloudinary.com/dnxi81qzk/image/upload/v1765177912/office_ecjv1l.jpg" 
               alt="Our Workspace"
               className="w-full h-full object-cover"
             />

@@ -5,7 +5,12 @@ import { useState, useEffect } from 'react';
  * @returns {boolean} isOnline - true when connected, false when offline
  */
 export function useNetworkStatus() {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return navigator.onLine;
+    }
+    return true; // Default to online for SSR
+  });
 
   useEffect(() => {
     // Update state when network status changes

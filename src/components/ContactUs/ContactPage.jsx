@@ -127,7 +127,15 @@ const ContactPage = () => {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Scroll to top immediately when component mounts
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    // Also ensure document elements are at top
+    if (document.documentElement) {
+      document.documentElement.scrollTop = 0;
+    }
+    if (document.body) {
+      document.body.scrollTop = 0;
+    }
   }, []);
 
   useEffect(() => {
@@ -135,6 +143,16 @@ const ContactPage = () => {
       controls.start("visible");
     }
   }, [controls, isInView]);
+
+  // Auto-hide error message after 5 seconds
+  useEffect(() => {
+    if (formError) {
+      const timeout = setTimeout(() => {
+        setFormError(null);
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [formError]);
 
   // Validation functions
   const validateField = (name, value) => {
@@ -229,23 +247,23 @@ const ContactPage = () => {
 
     try {
       // Create form data with all required fields
-      const formData = new URLSearchParams();
-      formData.append('name', formData.name);
-      formData.append('email', formData.email);
-      formData.append('subject', formData.subject);
-      formData.append('message', formData.message);
-      formData.append('_captcha', 'false');
-      formData.append('_template', 'table');
-      formData.append('_subject', 'New Contact Form Submission from YES LORVENS Website');
-      formData.append('_next', window.location.href);
+      const formPayload = new URLSearchParams();
+      formPayload.append('name', formData.name);
+      formPayload.append('email', formData.email);
+      formPayload.append('subject', formData.subject);
+      formPayload.append('message', formData.message);
+      formPayload.append('_captcha', 'false');
+      formPayload.append('_template', 'table');
+      formPayload.append('_subject', 'New Contact Form Submission from YES LORVENS Website');
+      formPayload.append('_next', window.location.href);
 
       // Submit using fetch API
-      const response = await fetch('https://formsubmit.co/ajax/yeslorvens@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/Bhanu.rupa2003@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData.toString()
+        body: formPayload.toString()
       });
 
       const result = await response.json();
@@ -269,7 +287,12 @@ const ContactPage = () => {
         });
         setErrors({});
       } else {
-        throw new Error(result.message || 'Failed to send message');
+        // Check for activation error specifically
+        const errorMessage = result.message || 'Failed to send message';
+        if (errorMessage.toLowerCase().includes('activation') || errorMessage.toLowerCase().includes('actived')) {
+          throw new Error('Form activation required. Please check your email (yeslorvens@gmail.com) for the activation link from FormSubmit.co and click it to activate the form.');
+        }
+        throw new Error(errorMessage);
       }
 
       // Hide success message after 5 seconds
@@ -280,13 +303,6 @@ const ContactPage = () => {
       console.error("❌ Error submitting contact form:", err);
       setFormError(`Failed to send message: ${err.message}. Please try again or contact us directly.`);
       setLoading(false);
-
-      // Hide error message after 5 seconds
-      const errorTimeout = setTimeout(() => {
-        setFormError(null);
-      }, 5000);
-      
-      return () => clearTimeout(errorTimeout);
     }
   };
 
