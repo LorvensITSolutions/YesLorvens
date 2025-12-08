@@ -79,14 +79,14 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content - Center aligned on mobile, left aligned on md and up */}
-      <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-4 md:space-y-6">
+      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-4 md:space-y-6">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           animate="show"
         >
           <h1 className="font-extrabold leading-snug">
-            <span className="block text-white text-4xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block text-white text-5xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
               Digital solutions built
             </span>
             <span className="block mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
