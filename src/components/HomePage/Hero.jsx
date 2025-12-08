@@ -45,7 +45,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-20"
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-26"
       style={{
         minHeight: '100vh' // Full viewport height, padding-top pushes content below navbar
       }}
