@@ -45,9 +45,9 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-start md:items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-20 md:pt-36 pb-8 md:pb-0"
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-36"
       style={{
-        minHeight: '100vh' // Full viewport height
+        height: '100vh' // Full viewport height - content will be centered vertically
       }}
     >
       {/* Desktop background */}
