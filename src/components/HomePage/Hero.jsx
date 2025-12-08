@@ -45,9 +45,9 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-36"
+      className="relative flex items-start md:items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-20 md:pt-36 pb-8 md:pb-0"
       style={{
-        minHeight: '100vh' // Full viewport height, padding-top pushes content below navbar
+        minHeight: '100vh' // Full viewport height
       }}
     >
       {/* Desktop background */}
@@ -64,13 +64,14 @@ const Hero = () => {
 
       {/* Mobile background */}
       <div
-        className="md:hidden absolute inset-0 w-full h-[100vh]"
+        className="md:hidden absolute inset-0 w-full"
         style={{
           backgroundColor: "#111827",
           backgroundImage: `url(${mobileBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          minHeight: '100%'
         }}
       />
 
@@ -78,7 +79,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content - Center aligned on mobile, left aligned on md and up */}
-      <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-6">
+      <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-4 md:space-y-6">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
