@@ -39,7 +39,7 @@ const WhyChooseUs = () => {
             whileInView="show"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="w-full lg:w-1/2"
+            className="w-full md:w-[80%] lg:w-1/2"
           >
             <div className="relative group overflow-hidden rounded-2xl shadow-lg">
               <img 

@@ -1,4 +1,4 @@
-import React from 'react';
+// React import not needed in React 17+
 import { motion } from 'framer-motion';
 
 const CoreValues = () => {
@@ -57,7 +57,7 @@ const CoreValues = () => {
             className="w-32 h-1 mx-auto bg-orange-500 mt-3 rounded-full"
           />
           <motion.p 
-            className="text-base text-gray-500 max-w-2xl mx-auto mt-4"
+            className="text-base text-gray-600 max-w-2xl mx-auto mt-4"
             variants={fadeIn}
             initial="hidden"
             whileInView="show"
@@ -80,9 +80,10 @@ const CoreValues = () => {
             transition={{ delay: 0.1 }}
           >
             <img 
-              src="https://res.cloudinary.com/dnxi81qzk/image/upload/v1765177730/ofice_ht9cso.jpg" 
+              src="https://res.cloudinary.com/dnxi81qzk/image/upload/w_800,f_auto,q_auto/v1765177730/ofice_ht9cso.jpg" 
               alt="Our Team"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </motion.div>
 
@@ -101,7 +102,7 @@ const CoreValues = () => {
                 <h3 className="text-lg font-semibold text-gray-600 mb-1">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-600">
                   {feature.desc}
                 </p>
               </motion.div>
@@ -126,7 +127,7 @@ const CoreValues = () => {
                 <h3 className="text-lg font-semibold text-gray-600 mb-1">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-600">
                   {feature.desc}
                 </p>
               </motion.div>
@@ -143,9 +144,10 @@ const CoreValues = () => {
             transition={{ delay: 0.3 }}
           >
             <img 
-              src="https://res.cloudinary.com/dnxi81qzk/image/upload/v1765177912/office_ecjv1l.jpg" 
+              src="https://res.cloudinary.com/dnxi81qzk/image/upload/w_800,f_auto,q_auto/v1765177912/office_ecjv1l.jpg" 
               alt="Our Workspace"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </motion.div>
         </div>

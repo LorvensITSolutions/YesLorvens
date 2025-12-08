@@ -1,4 +1,4 @@
-import React from "react";
+// React import not needed in React 17+
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye, Shield, CheckCircle2, Globe, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -96,9 +96,9 @@ const services = [
 const HeroSection = () => {
   return (
     <section 
-      className="relative min-h-[80vh] flex items-center justify-center px-6 lg:px-12 overflow-hidden"
+      className="relative min-h-[80vh]  flex items-center justify-center px-6 md:pt-18 lg:px-12 overflow-hidden"
       style={{
-        backgroundImage: 'url(https://res.cloudinary.com/di4caiech/image/upload/v1764957807/service_g9f7bo.jpg)',
+        backgroundImage: 'url(https://res.cloudinary.com/di4caiech/image/upload/w_1920,h_1080,f_auto,q_auto/v1764957807/service_g9f7bo.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -181,6 +181,7 @@ const ServiceCard = ({ service, index }) => {
                 className="w-full py-4 px-6 bg-orange-500 text-white font-bold rounded-2xl flex items-center justify-center gap-3 hover:bg-orange-600 cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label={`Explore ${service.title} solution`}
               >
                 <span>Explore Solution</span>
                 <ArrowRight className="h-5 w-5" />
@@ -292,7 +293,7 @@ const WhyChooseUsSection = () => {
               <h3 className="text-xl font-semibold mb-3 text-gray-600">
                 {reason.title}
               </h3>
-              <p className="text-gray-500 text-base leading-relaxed">
+              <p className="text-gray-600 text-base leading-relaxed">
                 {reason.description}
               </p>
             </motion.div>
@@ -342,14 +343,14 @@ const CTASection = () => {
           variants={fadeInUp}
         >
           <Link to="/contact" className="w-full sm:w-auto">
-            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1" aria-label="Get started with our services">
               <span>Get Started Today</span>
               <ArrowRight className="h-5 w-5" />
             </button>
           </Link>
           
           <Link to="/projects" className="w-full sm:w-auto">
-            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1" aria-label="View our portfolio and projects">
               <Eye className="h-5 w-5" />
               <span>View Our Work</span>
             </button>

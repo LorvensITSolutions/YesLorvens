@@ -12,7 +12,7 @@ const Footer = () => {
       viewport={{ once: true }}
       className="text-white pt-4 pb-4 px-4 sm:px-6 md:px-12 relative overflow-hidden bg-cover bg-center"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/durbtkhbz/image/upload/v1764907243/software_project_mdtyuu.jpg')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/durbtkhbz/image/upload/w_1920,h_1080,f_auto,q_auto/v1764907243/software_project_mdtyuu.jpg')`,
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundSize: 'cover'

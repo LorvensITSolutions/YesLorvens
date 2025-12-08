@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Cookie } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -8,16 +8,30 @@ const CookieConsent = () => {
   const [cookieConsent, setCookieConsent] = useState(null);
 
   useEffect(() => {
-    // Load saved preference
-    const savedConsent = localStorage.getItem("cookieConsent");
-    if (savedConsent) {
-      setCookieConsent(savedConsent);
-      setIsOpen(false); // Don't show if already made a choice
+    // Load saved preference - use requestIdleCallback for non-critical operation
+    const loadConsent = () => {
+      try {
+        const savedConsent = localStorage.getItem("cookieConsent");
+        if (savedConsent) {
+          setCookieConsent(savedConsent);
+          setIsOpen(false); // Don't show if already made a choice
+        } else {
+          // Show banner if no preference saved - delay to not block initial render
+          setTimeout(() => {
+            setIsOpen(true);
+          }, 1000);
+        }
+      } catch (e) {
+        // Handle localStorage errors gracefully
+        console.warn('Cookie consent storage error:', e);
+      }
+    };
+
+    // Use requestIdleCallback if available, otherwise setTimeout - increased timeout for better performance
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadConsent, { timeout: 4000 });
     } else {
-      // Show banner if no preference saved
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 1000);
+      setTimeout(loadConsent, 100);
     }
   }, []);
 
@@ -25,7 +39,11 @@ const CookieConsent = () => {
     localStorage.setItem("cookieConsent", "accepted");
     setCookieConsent("accepted");
     setIsOpen(false); // Close the banner
-    // You can add analytics or other tracking code here
+    // Trigger Google Analytics loading if not already loaded
+    if (typeof window !== 'undefined' && !window.dataLayer) {
+      const event = new Event('cookieConsentAccepted');
+      window.dispatchEvent(event);
+    }
   };
 
   const handleReject = () => {
@@ -74,12 +92,14 @@ const CookieConsent = () => {
                 <button
                   onClick={handleReject}
                   className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-semibold transition-colors duration-200 text-sm"
+                  aria-label="Reject cookies"
                 >
                   Reject
                 </button>
                 <button
                   onClick={handleAccept}
                   className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold transition-colors duration-200 text-sm shadow-md"
+                  aria-label="Accept cookies"
                 >
                   Accept
                 </button>

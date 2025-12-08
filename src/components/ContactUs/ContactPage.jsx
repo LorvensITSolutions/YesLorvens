@@ -1,5 +1,5 @@
 // ContactPage.jsx
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import {
   Mail,
@@ -124,23 +124,27 @@ const ContactPage = () => {
   const [formError, setFormError] = useState(null);
   const controls = useAnimation();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  // Optimize useInView to reduce forced reflows - use rootMargin to trigger earlier
+  const isInView = useInView(ref, { 
+    once: true, 
+    amount: 0.1,
+    margin: '50px' // Trigger earlier to avoid layout reads during scroll
+  });
 
   useEffect(() => {
-    // Scroll to top immediately when component mounts
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    // Also ensure document elements are at top
-    if (document.documentElement) {
-      document.documentElement.scrollTop = 0;
-    }
-    if (document.body) {
-      document.body.scrollTop = 0;
-    }
+    // Scroll to top - batched to avoid forced reflow
+    // ScrollToTop component handles this, but ensure it works here too
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
   }, []);
 
   useEffect(() => {
+    // Batch animation start to avoid forced reflow
     if (isInView) {
-      controls.start("visible");
+      requestAnimationFrame(() => {
+        controls.start("visible");
+      });
     }
   }, [controls, isInView]);
 
@@ -188,14 +192,16 @@ const ContactPage = () => {
     const newErrors = {};
     let isValid = true;
     
-    Object.keys(formData).forEach(field => {
+    // Batch validation - use for...of for better performance than forEach
+    for (const field of Object.keys(formData)) {
       const error = validateField(field, formData[field]);
       if (error) {
         newErrors[field] = error;
         isValid = false;
       }
-    });
+    }
     
+    // Batch state update to avoid multiple re-renders
     setErrors(newErrors);
     return isValid;
   };
@@ -226,11 +232,11 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Mark all fields as touched
+    // Mark all fields as touched - use for...of for better performance
     const newTouched = {};
-    Object.keys(touched).forEach(field => {
+    for (const field of Object.keys(touched)) {
       newTouched[field] = true;
-    });
+    }
     setTouched(newTouched);
     
     // Validate form
@@ -308,7 +314,7 @@ const ContactPage = () => {
 
   return (
     <motion.div 
-      className="min-h-screen bg-white relative overflow-hidden"
+      className="min-h-screen md:pt-18 bg-white relative overflow-hidden"
       initial="hidden"
       animate={controls}
       variants={staggerContainer}
@@ -318,7 +324,7 @@ const ContactPage = () => {
       <motion.section 
         className="relative py-16 sm:py-20 lg:py-30 text-center bg-cover bg-center" 
         style={{
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=75')",
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
@@ -390,7 +396,7 @@ const ContactPage = () => {
                 <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
                   Send us a Message
                 </h3>
-                <p className="text-gray-500 mt-2">We'll get back to you within 24 hours</p>
+                <p className="text-gray-600 mt-2">We'll get back to you within 24 hours</p>
               </div>
 
               <form
@@ -507,6 +513,7 @@ const ContactPage = () => {
                     type="submit"
                     disabled={loading}
                     className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-4 px-6 rounded-xl font-semibold shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 text-lg flex items-center justify-center gap-3 group"
+                    aria-label={loading ? "Sending message" : "Submit contact form"}
                   >
                     {loading ? (
                       <>
@@ -564,7 +571,7 @@ const ContactPage = () => {
                   <a href="mailto:yeslorvenssolutions@gmail.com" className="block hover:text-orange-600 transition-colors font-medium">
                     yeslorvenssolutions@gmail.com
                   </a>
-                  <p className="text-sm text-gray-500 mt-2">Connect with our team for any inquiries</p>
+                  <p className="text-sm text-gray-600 mt-2">Connect with our team for any inquiries</p>
                 </div>
               </div>
             </div>
@@ -584,7 +591,7 @@ const ContactPage = () => {
                   <a href="tel:+914031985921" className="block hover:text-blue-600 transition-colors font-medium">
                     +91 4031985921
                   </a>
-                  <p className="text-sm text-gray-500 mt-2">Available Mon-Fri, 9AM-6PM</p>
+                  <p className="text-sm text-gray-600 mt-2">Available Mon-Fri, 9AM-6PM</p>
                 </div>
               </div>
             </div>

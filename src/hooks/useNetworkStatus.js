@@ -17,11 +17,11 @@ export function useNetworkStatus() {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    // Add event listeners
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    // Add event listeners with passive option for better performance
+    window.addEventListener('online', handleOnline, { passive: true });
+    window.addEventListener('offline', handleOffline, { passive: true });
 
-    // Cleanup
+    // Cleanup - critical for back/forward cache
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);

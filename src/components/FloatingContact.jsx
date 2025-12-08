@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Mail, Phone, MessageSquare } from 'lucide-react';
 
@@ -65,6 +65,8 @@ const FloatingContact = () => {
         className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-white ${
           isOpen ? 'bg-orange-600' : 'bg-orange-500 hover:bg-orange-600'
         } transition-colors`}
+        aria-label={isOpen ? "Close contact menu" : "Open contact menu"}
+        aria-expanded={isOpen}
       >
         {isOpen ? (
           <X className="w-6 h-6" />

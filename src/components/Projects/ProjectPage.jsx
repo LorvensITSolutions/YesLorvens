@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Target, Trophy } from "lucide-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
-// Project images
-const uiux = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843912/uiux_cyixmv.jpg"
-const digital = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843903/digital_eqfadq.jpg"
-const learn = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843908/learn_nmd0i2.jpg"
-const school = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843912/school_wvhikn.jpg"
-const qa1 = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765169839/ChatGPT_Image_Dec_8_2025_10_27_11_AM_wad68l.png"
-const lumiere1 = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765169181/ChatGPT_Image_Dec_8_2025_10_15_15_AM_ghors1.png"
-const smiles1="https://res.cloudinary.com/durbtkhbz/image/upload/v1765169442/ChatGPT_Image_Dec_8_2025_10_20_32_AM_e1ot2u.png"
-const slim1="https://res.cloudinary.com/durbtkhbz/image/upload/v1765169560/ChatGPT_Image_Dec_8_2025_10_22_29_AM_q09vhf.png"
+// Project images - Optimized with Cloudinary transformations for better performance
+const uiux = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1764843912/uiux_cyixmv.jpg"
+const digital = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1764843903/digital_eqfadq.jpg"
+const learn = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1764843908/learn_nmd0i2.jpg"
+const school = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1764843912/school_wvhikn.jpg"
+const qa1 = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169839/ChatGPT_Image_Dec_8_2025_10_27_11_AM_wad68l.png"
+const lumiere1 = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169181/ChatGPT_Image_Dec_8_2025_10_15_15_AM_ghors1.png"
+const smiles1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169442/ChatGPT_Image_Dec_8_2025_10_20_32_AM_e1ot2u.png"
+const slim1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169560/ChatGPT_Image_Dec_8_2025_10_22_29_AM_q09vhf.png"
 
 // Animation variants
 const fadeInUp = {
@@ -143,7 +143,7 @@ const ProjectCard = ({ project, index }) => {
               <img
                 src={images[0]} // Only show the first image
                 alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full md:h-75 object-cover"
               />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -309,16 +309,11 @@ const Marquee = ({ items, speed = 100, className = "" }) => {
 const ProjectsPage = () => {
   const [filter, setFilter] = useState("All");
 
-  // Scroll to top when component mounts
+  // Scroll to top when component mounts - batched to avoid forced reflow
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    // Also ensure document elements are at top
-    if (document.documentElement) {
-      document.documentElement.scrollTop = 0;
-    }
-    if (document.body) {
-      document.body.scrollTop = 0;
-    }
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
   }, []);
 
   // Get unique categories from projects
@@ -331,12 +326,12 @@ const ProjectsPage = () => {
     : projects.filter((p) => p.category === filter);
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-orange-50">
+    <div className="min-h-screen relative overflow-hidden md:pt-18 bg-orange-50">
       {/* Hero Section */}
       <section
         className="relative min-h-[80vh] flex items-center justify-center px-6 lg:px-12 overflow-hidden"
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/di4caiech/image/upload/v1764953574/project_hero_dpc5nv.jpg')",
+          backgroundImage: "url('https://res.cloudinary.com/di4caiech/image/upload/w_1920,h_1080,f_auto,q_auto/v1764953574/project_hero_dpc5nv.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

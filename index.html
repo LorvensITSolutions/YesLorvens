@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Performance optimizations -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="keywords" content=yes lorvens,lorvens solutions,lorvens it solutions,lorvens,web services company,yes
     lorvens it solutions,Software development company in Hyderabad,School ERP softwar,App development company in
     Telangana,IT solutions for schools and businesses,Website design company in Hyderabad,Website design company in
@@ -13,8 +16,12 @@
   <!-- 🔶 Title -->
   <title>YES LORVENS | Software Solutions</title>
 
-  <!-- ✅ Google Font: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- ✅ Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- ✅ Google Font: Poppins with async loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" /></noscript>
 
   <!-- ✅ Meta tags for SEO (optional but recommended) -->
   <meta name="title" content="Yes Lorvens Solutions Pvt Ltd | Leading Software & ERP Company in Hyderabad" />
@@ -26,25 +33,82 @@
   <!-- Favicon for browser and Google search -->
   <link rel="icon" type="image/png" href="/ICON.png" />
 
-  <!-- Preconnect to Cloudinary for faster image loading -->
+  <!-- Preconnect to Cloudinary and Unsplash for faster image loading -->
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
   <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
-  <!-- Preload Hero images for instant loading -->
-  <link rel="preload" as="image" href="https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg"
+  <!-- Preload only critical above-the-fold images for homepage -->
+  <link rel="preload" as="image" href="https://res.cloudinary.com/durbtkhbz/image/upload/w_400,h_72,f_auto,q_auto/v1764843906/lorvensIT_lghlz6.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="https://res.cloudinary.com/durbtkhbz/image/upload/w_1920,h_1080,f_auto,q_auto/v1764843926/website_e2hdje.jpg"
     fetchpriority="high" media="(min-width: 768px)" />
   <link rel="preload" as="image"
-    href="https://res.cloudinary.com/di4caiech/image/upload/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png"
+    href="https://res.cloudinary.com/di4caiech/image/upload/w_800,h_1200,f_auto,q_auto/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png"
     fetchpriority="high" media="(max-width: 767px)" />
+  <!-- Preload Contact page LCP image with fetchpriority -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=75" fetchpriority="high" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2G25FM9V94"></script>
+  <!-- Preconnect to Google Analytics for faster loading -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  
+  <!-- Google tag (gtag.js) - Optimized to reduce third-party cookies -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-2G25FM9V94');
+    // Only load GA if user has consented to cookies - optimized to not block
+    function loadGoogleAnalytics() {
+      if (typeof window !== 'undefined') {
+        let consent = null;
+        try {
+          consent = localStorage.getItem('cookieConsent');
+        } catch (e) {
+          // If localStorage fails, default to loading (non-blocking)
+          consent = null;
+        }
+        // Only load if user accepted cookies or hasn't made a choice yet (default to load)
+        if (consent !== 'rejected') {
+          // Load GA script
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-2G25FM9V94';
+          document.head.appendChild(script);
+          
+          // Initialize GA with cookie settings to reduce third-party cookies
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', 'G-2G25FM9V94', {
+            'anonymize_ip': true,
+            'cookie_flags': 'SameSite=None;Secure',
+            'allow_google_signals': false,
+            'allow_ad_personalization_signals': false
+          });
+        }
+      }
+    }
+    
+    // Load GA after page load to not block rendering - use requestIdleCallback for better performance
+    function scheduleGALoad() {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGoogleAnalytics, { timeout: 5000 });
+      } else {
+        // Fallback: load after a delay to not block initial render
+        setTimeout(loadGoogleAnalytics, 1000);
+      }
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scheduleGALoad, { passive: true });
+    } else {
+      scheduleGALoad();
+    }
+    
+    // Listen for cookie consent acceptance - debounced
+    let consentTimeout;
+    window.addEventListener('cookieConsentAccepted', () => {
+      clearTimeout(consentTimeout);
+      consentTimeout = setTimeout(loadGoogleAnalytics, 100);
+    }, { passive: true });
   </script>
 
 </head>

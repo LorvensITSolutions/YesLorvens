@@ -139,7 +139,7 @@ const ServiceDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white text-gray-800">
+    <div className="min-h-screen bg-white md:pt-18 text-gray-800">
       <Navbar />
       
       {/* Hero Section */}

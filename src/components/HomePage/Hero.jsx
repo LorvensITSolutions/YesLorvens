@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import WorkTogether from "./WorkTogether";
 
-const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg";
-const mobileBg = "https://res.cloudinary.com/di4caiech/image/upload/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png";
+// Optimized images with Cloudinary transformations for better performance
+const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/w_1920,h_1080,f_auto,q_auto/v1764843926/website_e2hdje.jpg";
+const mobileBg = "https://res.cloudinary.com/di4caiech/image/upload/w_800,h_1200,f_auto,q_auto/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,7 +46,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-36"
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-30"
       style={{
         height: '100vh' // Full viewport height - content will be centered vertically
       }}
@@ -64,7 +65,7 @@ const Hero = () => {
 
       {/* Mobile background */}
       <div
-        className="md:hidden absolute inset-0 w-full h-[70vh]"
+        className="md:hidden absolute inset-0 w-full h-[20vh]"
         style={{
           backgroundColor: "#111827",
           backgroundImage: `url(${mobileBg})`,
@@ -86,10 +87,10 @@ const Hero = () => {
           animate="show"
         >
           <h1 className="font-extrabold leading-snug">
-            <span className="block text-white text-5xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block text-white text-3xl sm:text-4xl md:text-4xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
               Digital solutions built
             </span>
-            <span className="block mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block mt-2 text-3xl sm:text-4xl md:text-4xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
               <span className="text-white">for </span>
               <span className="text-orange-500">growth & scale</span>
             </span>
@@ -102,7 +103,7 @@ const Hero = () => {
           animate="show"
           transition={{ delay: 0.2 }}
         >
-          <p className="text-base sm:text-lg md:text-xl text-white max-w-xl max-[420px]:text-sm">
+          <p className="text-base sm:text-lg md:text-[15px] text-white max-w-xl max-[420px]:text-sm">
             At <strong className="text-orange-500">YES LORVENS</strong>, we help
             startups & enterprises launch websites, apps, and full-stack digital
             solutions tailored for real results.
@@ -118,13 +119,14 @@ const Hero = () => {
         >
           <Link
             to="/services"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 bg-gray-800/80 text-orange-400 border border-orange-500 rounded-md hover:bg-gray-700/80 font-semibold transition-colors"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-12 bg-gray-800/90 text-orange-300 border border-orange-500 rounded-md hover:bg-gray-700/90 font-semibold transition-colors"
           >
             Our services
           </Link>
           <button
-            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-14 rounded-md hover:bg-orange-600 font-medium transition-colors"
+            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-12 rounded-md hover:bg-orange-600 font-medium transition-colors"
             onClick={handleWorkTogetherClick}
+            aria-label="Open Work Together modal to get in touch"
           >
             Work Together
           </button>

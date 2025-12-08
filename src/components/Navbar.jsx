@@ -1,10 +1,11 @@
 // src/components/Navbar.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Home, Info, Briefcase, Phone, Menu, X, Folder } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-const logoImg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843906/lorvensIT_lghlz6.png";
+// Optimized logo with Cloudinary transformations for responsive sizing
+const logoImg = "https://res.cloudinary.com/durbtkhbz/image/upload/w_400,h_72,f_auto,q_auto/v1764843906/lorvensIT_lghlz6.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -12,26 +13,41 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
     let ticking = false;
+    
     const handleScroll = () => {
+      // Store scroll position to avoid reading it multiple times
+      lastScrollY = window.scrollY;
+      
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 10);
+          // Use stored value to avoid reading scrollY again (prevents forced reflow)
+          setScrolled(lastScrollY > 10);
           ticking = false;
         });
         ticking = true;
       }
     };
+    
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
+    let resizeTimeout;
     const handleResize = () => {
-      if (window.innerWidth >= 1024) setOpen(false);
+      // Debounce resize for better performance
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (window.innerWidth >= 1024) setOpen(false);
+      }, 150);
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const isActive = (path) => location.pathname === path;
@@ -61,6 +77,9 @@ const Navbar = () => {
                 alt="Lorvens Solutions"
                 className="h-10 md:h-12 w-auto"
                 loading="eager"
+                width="331"
+                height="60"
+                fetchPriority="high"
               />
             </Link>
           </div>

@@ -1,20 +1,32 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useNetworkStatus } from "./hooks/useNetworkStatus";
-import HomePage from "./components/HomePage/Homepage";
-import ContactPage from "./components/ContactUs/ContactPage";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
-import Services from "./components/Services/Services";
-import ServiceDetail from "./components/Services/ServiceDetail";
-import ProjectsPage from "./components/Projects/ProjectPage";
-import AboutPage from "./components/AboutUs/AboutPage";
-import Footer from "./components/Footer/Footer";
-import PrivacyPolicy from "./components/Footer/PrivacyPolicy";
-import TermsOfUse from "./components/Footer/TermsOfUse";
 import NetworkError from "./components/NetworkError";
-import ErrorPage from "./components/ErrorPage";
-import CookieConsent from "./components/CookieConsent";
+
+// Lazy load non-critical components for better initial performance
+const Footer = lazy(() => import("./components/Footer/Footer"));
+const CookieConsent = lazy(() => import("./components/CookieConsent"));
+
+// Lazy load routes for code splitting and better performance
+const HomePage = lazy(() => import("./components/HomePage/Homepage"));
+const ContactPage = lazy(() => import("./components/ContactUs/ContactPage"));
+const Services = lazy(() => import("./components/Services/Services"));
+const ServiceDetail = lazy(() => import("./components/Services/ServiceDetail"));
+const ProjectsPage = lazy(() => import("./components/Projects/ProjectPage"));
+const AboutPage = lazy(() => import("./components/AboutUs/AboutPage"));
+const PrivacyPolicy = lazy(() => import("./components/Footer/PrivacyPolicy"));
+const TermsOfUse = lazy(() => import("./components/Footer/TermsOfUse"));
+const ErrorPage = lazy(() => import("./components/ErrorPage"));
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 function App() {
   const isOnline = useNetworkStatus();
@@ -34,7 +46,9 @@ function App() {
   if (isNotFoundPage) {
     return (
       <>
-        <ErrorPage />
+        <Suspense fallback={<LoadingFallback />}>
+          <ErrorPage />
+        </Suspense>
         <Toaster />
       </>
     );
@@ -47,20 +61,26 @@ function App() {
       <Navbar />
 
       <main className="relative z-10">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/service/:serviceId" element={<ServiceDetail />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-use" element={<TermsOfUse />} />
-        </Routes>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/service/:serviceId" element={<ServiceDetail />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+          </Routes>
+        </Suspense>
       </main>
 
-      <Footer />
-      <CookieConsent />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
+      <Suspense fallback={null}>
+        <CookieConsent />
+      </Suspense>
       <Toaster />
     </div>
   );

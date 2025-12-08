@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Home } from "lucide-react";
 
-const questionMark="https://res.cloudinary.com/durbtkhbz/image/upload/v1764843910/questionmark_znc9hf.webp"
+// Optimized image with Cloudinary transformations
+const questionMark="https://res.cloudinary.com/durbtkhbz/image/upload/w_500,f_auto,q_auto/v1764843910/questionmark_znc9hf.webp"
 
 const ErrorPage = () => {
     useEffect(() => {
@@ -25,6 +26,7 @@ const ErrorPage = () => {
                         src={questionMark} 
                         alt="Question mark" 
                         className="w-full h-auto max-h-[300px] md:max-h-[500px] opacity-80 object-contain"
+                        loading="lazy"
                     />
                 </motion.div>
 
