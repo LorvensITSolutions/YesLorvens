@@ -54,7 +54,7 @@ const WorkTogether = ({ isOpen, onClose }) => {
 
       const tempForm = document.createElement('form');
       tempForm.method = 'POST';
-      tempForm.action = 'https://formsubmit.co/yeslorvenssolutions@gmail.com';
+      tempForm.action = 'https://formsubmit.co/yeslorvens@gmail.com';
       tempForm.target = iframe.name;
       tempForm.style.display = 'none';
 

@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  ExternalLink, Calendar, Users, Code, ArrowRight, Filter, Sparkles, Zap, Target, Trophy, MousePointer, ChevronLeft, ChevronRight
-} from "lucide-react";
+import { ArrowRight, Sparkles, Target, Trophy } from "lucide-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 // Project images
@@ -10,59 +8,37 @@ const uiux = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843912/uiux
 const digital = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843903/digital_eqfadq.jpg"
 const learn = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843908/learn_nmd0i2.jpg"
 const school = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843912/school_wvhikn.jpg"
-const qa1 = "https://res.cloudinary.com/di4caiech/image/upload/v1764951185/qa1_v9imdu.jpg"
-const lumiere1 = "https://res.cloudinary.com/di4caiech/image/upload/v1765021789/ChatGPT_Image_Dec_6_2025_05_19_10_PM_apvoja.png"
+const qa1 = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765169839/ChatGPT_Image_Dec_8_2025_10_27_11_AM_wad68l.png"
+const lumiere1 = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765169181/ChatGPT_Image_Dec_8_2025_10_15_15_AM_ghors1.png"
+const smiles1="https://res.cloudinary.com/durbtkhbz/image/upload/v1765169442/ChatGPT_Image_Dec_8_2025_10_20_32_AM_e1ot2u.png"
+const slim1="https://res.cloudinary.com/durbtkhbz/image/upload/v1765169560/ChatGPT_Image_Dec_8_2025_10_22_29_AM_q09vhf.png"
 
-// ✨ Enhanced Animation Variants
-const slideVariants = {
-  hiddenLeft: {
-    opacity: 0,
-    x: -100,
-    scale: 0.9,
-    filter: "blur(10px)"
-  },
-  hiddenRight: {
-    opacity: 0,
-    x: 100,
-    scale: 0.9,
-    filter: "blur(10px)"
-  },
-  visible: {
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
     opacity: 1,
-    x: 0,
-    scale: 1,
-    filter: "blur(0px)",
+    y: 0,
     transition: {
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
-      staggerChildren: 0.1
-    },
-  },
-};
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
+      duration: 0.4,
+      ease: 'easeOut'
     }
   }
 };
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
-
-// 🔥 Enhanced Projects Data - Unrolled for Performance
+// Projects Data
 const projects = [
-
+  
+  {
+    id: 1,
+    title: "Sasha Slimming",
+    subtitle: "Slimming Care Clinic Website",
+    description: "A modern, responsive website for Sasha Slimming Care Clinic showcasing their weight loss programs, treatments, and success stories. Features include online consultations, program booking, progress tracking, and a blog section.",
+    images: [slim1],
+    category: "Web Development",
+    impact: "75% more inquiries, 40% online bookings, 60% social engagement increase",
+    color: "from-purple-500 to-pink-600"
+  },
   {
     id: 2,
     title: "AI-ML Integration Platform",
@@ -74,7 +50,7 @@ const projects = [
     color: "from-green-500 to-teal-600"
   },
   {
-    id: 1,
+    id: 3,
     title: "Edu Reach",
     subtitle: "Smart Learning Environment",
     description: "A comprehensive educational platform serving over 5,000+ students and 200+ faculty members. The system features automated attendance tracking, grade management, assignment submission, and real-time communication tools. Our solution reduced administrative workload by 60% and improved parent-teacher engagement by 75% through its intuitive interface and mobile responsiveness.",
@@ -84,7 +60,7 @@ const projects = [
     color: "from-orange-500 to-red-600"
   },
   {
-    id: 6,
+    id: 4,
     title: "Lumiere Luxe",
     subtitle: "Premium Salon Booking Platform",
     description: "A sophisticated online booking system designed exclusively for high-end salons, providing seamless appointment scheduling, service management, and client relationship tools. The platform features real-time availability, automated reminders, and a personalized client portal. Our solution increased booking conversions by 65% and reduced no-shows by 50% through smart notifications and a user-friendly interface.",
@@ -94,8 +70,8 @@ const projects = [
     color: "from-rose-500 to-pink-600"
   },
   {
-    id: 3,
-    title: "Digital Marketing Campaign",
+    id: 5,
+    title: "Digital Marketing",
     subtitle: "Growth-Driven Strategy",
     description: "A 360-degree digital marketing campaign that delivered exceptional results for our e-commerce client. We implemented a data-driven approach combining SEO optimization, PPC advertising, social media marketing, and email automation. The campaign achieved a 400% ROI, increased organic traffic by 250%, and boosted conversion rates by 180% through A/B testing and continuous optimization.",
     images: [digital],
@@ -104,7 +80,17 @@ const projects = [
     color: "from-pink-500 to-violet-600"
   },
   {
-    id: 4,
+    id: 6,
+    title: "Sasha Smiles",
+    subtitle: "Dental Clinic Booking System",
+    description: "A comprehensive online booking system for Sasha Smiles Dental Clinic, featuring appointment scheduling, service catalog, dentist profiles, and patient management. The platform includes automated reminders, secure payment processing, and a patient portal for managing appointments.",
+    images: [smiles1],
+    category: "Web Development",
+    impact: "60% more bookings, 45% fewer no-shows, 50% admin time saved",
+    color: "from-blue-500 to-cyan-600"
+  },
+  {
+    id: 7,
     title: "UI/UX Redesign",
     subtitle: "Modern User-Centered Experience",
     description: "A complete UI/UX overhaul for a financial services mobile app, focusing on enhancing user experience and accessibility. Our design process included user research, wireframing, prototyping, and usability testing. The new design improved task completion rates by 65%, reduced bounce rates by 45%, and received a 4.8/5 user satisfaction rating. The responsive design ensures seamless experience across all devices while maintaining brand consistency.",
@@ -114,7 +100,7 @@ const projects = [
     color: "from-purple-500 to-pink-600"
   },
   {
-    id: 5,
+    id: 8,
     title: "Quality Assurance Framework",
     subtitle: "Comprehensive Software Testing Solutions",
     description: "A robust QA framework implemented for a SaaS platform serving 50,000+ users. We established automated testing pipelines, performance testing protocols, and security testing measures that reduced production bugs by 80% and accelerated release cycles by 60%. The framework includes unit tests, integration tests, E2E tests, and performance benchmarks, ensuring 98% test coverage across the entire application.",
@@ -139,7 +125,7 @@ const ProjectCard = ({ project, index }) => {
   return (
     <motion.div
       ref={cardRef}
-      className={`relative group mb-16 lg:mb-24`}
+      className={`relative group mb-14 lg:mb-18`}
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -151,7 +137,7 @@ const ProjectCard = ({ project, index }) => {
       >
         {/* Enhanced Image Section */}
         <div className="lg:w-1/2 relative group">
-          <div className="relative h-80 sm:h-[32rem] lg:h-[40rem] overflow-hidden">
+          <div className="relative h-58 sm:h-64 lg:h-88 overflow-hidden">
             {/* Static image */}
             {hasImages ? (
               <img
@@ -167,13 +153,11 @@ const ProjectCard = ({ project, index }) => {
 
             {/* Overlay gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-            {/* Status badge removed as requested */}
           </div>
         </div>
 
         {/* Enhanced Content Section */}
-        <div className="lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center relative">
+        <div className="lg:w-1/2 p-4 sm:p-5 lg:p-6 flex flex-col justify-center relative">
           {/* Category tag */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -193,7 +177,7 @@ const ProjectCard = ({ project, index }) => {
             transition={{ delay: 0.4 }}
             className="mb-4"
           >
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
+            <h3 className="text-2xl sm:text-3xl lg:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
               {project.title}
             </h3>
             <p className="text-orange-500 font-medium text-sm sm:text-base">
@@ -206,7 +190,7 @@ const ProjectCard = ({ project, index }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.2 }}
-            className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base"
+            className="text-gray-600 mb-4 leading-relaxed text-xs sm:text-sm line-clamp-3"
           >
             {project.description}
           </motion.p>
@@ -216,11 +200,11 @@ const ProjectCard = ({ project, index }) => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6 }}
-            className="mb-6 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg border border-orange-200"
+            className="mb-4 p-2 bg-gradient-to-r from-orange-50 to-orange-100 rounded-md border border-orange-200 text-xs"
           >
             <div className="flex items-center">
-              <Trophy size={16} className="text-orange-500 mr-2" />
-              <span className="text-orange-700 font-semibold text-sm">
+              <Trophy size={14} className="text-orange-500 mr-1.5" />
+              <span className="text-orange-700 font-medium text-xs">
                 Impact: {project.impact}
               </span>
             </div>
@@ -233,18 +217,6 @@ const ProjectCard = ({ project, index }) => {
             transition={{ delay: 0.7 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6"
           >
-            <motion.div
-              whileHover={{ scale: 1.05, x: 5 }}
-              className="flex items-center text-gray-600 group"
-            >
-
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05, x: 5 }}
-              className="flex items-center text-gray-600 group"
-            >
-
-            </motion.div>
           </motion.div>
 
           {/* Technologies - Unrolled for Performance */}
@@ -299,63 +271,39 @@ const FilterButton = ({ category, isActive, onClick }) => (
   </motion.button>
 );
 
-// 🌟 Stats Counter Component
-const StatsCounter = ({ number, label, icon: Icon }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
 
-  useEffect(() => {
-    if (isInView) {
-      const timer = setInterval(() => {
-        setCount(prev => {
-          if (prev < number) {
-            return prev + Math.ceil(number / 50);
-          }
-          return number;
-        });
-      }, 30);
-      return () => clearInterval(timer);
-    }
-  }, [isInView, number]);
 
+// Marquee Component for horizontal scrolling text
+const Marquee = ({ items, speed = 100, className = "" }) => {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.6 }}
-      className="text-center group"
-    >
-      <motion.div
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-3 inline-block"
-      >
-        <Icon size={24} className="text-white" />
-      </motion.div>
-      <motion.div
-        className="text-2xl sm:text-3xl font-bold text-white mb-1"
-        animate={{ scale: isInView ? [1, 1.1, 1] : 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        {count}+
-      </motion.div>
-      <div className="text-white/80 text-sm font-medium">{label}</div>
-    </motion.div>
+    <div className={`relative overflow-hidden ${className}`}>
+      <div className="flex w-max">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="flex whitespace-nowrap items-center"
+            animate={{
+              x: ['0%', '-100%'],
+            }}
+            transition={{
+              duration: speed * 2, // Slowed down further by doubling the duration
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          >
+            {items.map((item, idx) => (
+              <React.Fragment key={idx}>
+                <span className="text-xl md:text-2xl font-bold text-orange-500 px-4 py-2 bg-gradient-to-r from-orange-20 to-orange-50 backdrop-blur-sm rounded-full shadow-md mx-2 cursor-default">
+               {item}
+                </span>
+                
+              </React.Fragment>
+            ))}
+          </motion.div>
+        ))}
+      </div>
+    </div>
   );
-};
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 10 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: 'easeOut'
-    }
-  }
 };
 
 const ProjectsPage = () => {
@@ -363,6 +311,7 @@ const ProjectsPage = () => {
 
   // Get unique categories from projects
   const allCategories = ["All", ...new Set(projects.map(p => p.category))];
+  const projectTitles = projects.map(p => p.title);
 
   // Filter projects based on selected category
   const filteredProjects = filter === "All"
@@ -406,6 +355,11 @@ const ProjectsPage = () => {
           </motion.h2>
         </motion.div>
       </section>
+
+      {/* Project Names Marquee */}
+      <div className="py-8 bg-white/90 border-t border-b border-gray-100">
+        <Marquee items={[...projectTitles, projectTitles[0]]} speed={100} className="py-3" />
+      </div>
 
       {/* Enhanced Filter Section - Unrolled Categories */}
       <motion.div

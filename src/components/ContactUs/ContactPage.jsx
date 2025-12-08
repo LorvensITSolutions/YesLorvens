@@ -240,7 +240,7 @@ const ContactPage = () => {
       formData.append('_next', window.location.href);
 
       // Submit using fetch API
-      const response = await fetch('https://formsubmit.co/ajax/bhanu.rupa2003@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/yeslorvens@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -378,7 +378,7 @@ const ContactPage = () => {
               </div>
 
               <form
-                action="https://formsubmit.co/yeslorvenssolutions@gmail.com"
+                action="https://formsubmit.co/yeslorvens@gmail.com"
                 method="POST"
                 onSubmit={handleSubmit}
                 className="space-y-5"

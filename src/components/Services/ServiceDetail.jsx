@@ -190,20 +190,6 @@ const ServiceDetail = () => {
                   ))}
                 </div>
               </div>
-
-              <div className="mt-12 bg-orange-50 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold mb-6">Technologies We Use</h3>
-                <div className="flex flex-wrap gap-3">
-                  {service.technologies.map((tech, index) => (
-                    <span 
-                      key={index}
-                      className="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm border border-orange-100"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Sidebar */}
@@ -249,42 +235,6 @@ const ServiceDetail = () => {
                   >
                     Back to Services
                   </Link>
-                </div>
-              </div>
-
-              {/* Why Choose Us Card */}
-              <div className="bg-gray-900 text-white rounded-2xl p-6 shadow-xl">
-                <h3 className="text-xl font-bold mb-4">Why Choose Us</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 bg-orange-600/20 rounded-lg">
-                      <Shield className="h-5 w-5 text-orange-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Proven Expertise</h4>
-                      <p className="text-sm text-gray-300">Years of experience delivering world-class solutions</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 bg-orange-600/20 rounded-lg">
-                      <Zap className="h-5 w-5 text-orange-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Fast Delivery</h4>
-                      <p className="text-sm text-gray-300">Quick turnaround without compromising on quality</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 bg-orange-600/20 rounded-lg">
-                      <Users className="h-5 w-5 text-orange-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Dedicated Support</h4>
-                      <p className="text-sm text-gray-300">24/7 support for all your needs</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
