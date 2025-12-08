@@ -127,29 +127,15 @@ const ContactPage = () => {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   useEffect(() => {
-    // Enhanced scroll to top for mobile and desktop
-    const scrollToTop = () => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      if (document.documentElement) {
-        document.documentElement.scrollTop = 0;
-      }
-      if (document.body) {
-        document.body.scrollTop = 0;
-      }
-    };
-
-    // Immediate scroll
-    scrollToTop();
-    
-    // Scroll after frame (for desktop)
-    requestAnimationFrame(() => {
-      scrollToTop();
-    });
-    
-    // Additional scrolls for mobile (gives time for layout)
-    setTimeout(() => scrollToTop(), 0);
-    setTimeout(() => scrollToTop(), 50);
-    setTimeout(() => scrollToTop(), 100);
+    // Scroll to top immediately when component mounts
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    // Also ensure document elements are at top
+    if (document.documentElement) {
+      document.documentElement.scrollTop = 0;
+    }
+    if (document.body) {
+      document.body.scrollTop = 0;
+    }
   }, []);
 
   useEffect(() => {
