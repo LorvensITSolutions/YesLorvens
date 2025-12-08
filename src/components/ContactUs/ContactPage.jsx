@@ -127,15 +127,29 @@ const ContactPage = () => {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   useEffect(() => {
-    // Scroll to top immediately when component mounts
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    // Also ensure document elements are at top
-    if (document.documentElement) {
-      document.documentElement.scrollTop = 0;
-    }
-    if (document.body) {
-      document.body.scrollTop = 0;
-    }
+    // Enhanced scroll to top for mobile and desktop
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      if (document.documentElement) {
+        document.documentElement.scrollTop = 0;
+      }
+      if (document.body) {
+        document.body.scrollTop = 0;
+      }
+    };
+
+    // Immediate scroll
+    scrollToTop();
+    
+    // Scroll after frame (for desktop)
+    requestAnimationFrame(() => {
+      scrollToTop();
+    });
+    
+    // Additional scrolls for mobile (gives time for layout)
+    setTimeout(() => scrollToTop(), 0);
+    setTimeout(() => scrollToTop(), 50);
+    setTimeout(() => scrollToTop(), 100);
   }, []);
 
   useEffect(() => {
@@ -258,7 +272,7 @@ const ContactPage = () => {
       formPayload.append('_next', window.location.href);
 
       // Submit using fetch API
-      const response = await fetch('https://formsubmit.co/ajax/Bhanu.rupa2003@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/harshithaborusu33@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

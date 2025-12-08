@@ -309,16 +309,30 @@ const Marquee = ({ items, speed = 100, className = "" }) => {
 const ProjectsPage = () => {
   const [filter, setFilter] = useState("All");
 
-  // Scroll to top when component mounts
+  // Scroll to top when component mounts (enhanced for mobile)
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    // Also ensure document elements are at top
-    if (document.documentElement) {
-      document.documentElement.scrollTop = 0;
-    }
-    if (document.body) {
-      document.body.scrollTop = 0;
-    }
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      if (document.documentElement) {
+        document.documentElement.scrollTop = 0;
+      }
+      if (document.body) {
+        document.body.scrollTop = 0;
+      }
+    };
+
+    // Immediate scroll
+    scrollToTop();
+    
+    // Scroll after frame (for desktop)
+    requestAnimationFrame(() => {
+      scrollToTop();
+    });
+    
+    // Additional scrolls for mobile (gives time for layout)
+    setTimeout(() => scrollToTop(), 0);
+    setTimeout(() => scrollToTop(), 50);
+    setTimeout(() => scrollToTop(), 100);
   }, []);
 
   // Get unique categories from projects

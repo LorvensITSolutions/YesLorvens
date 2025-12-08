@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNetworkStatus } from "./hooks/useNetworkStatus";
 import HomePage from "./components/HomePage/Homepage";
@@ -19,6 +20,13 @@ import CookieConsent from "./components/CookieConsent";
 function App() {
   const isOnline = useNetworkStatus();
   const location = useLocation();
+  
+  // Disable browser scroll restoration (prevents mobile browsers from restoring scroll position)
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
   
   // Define valid routes
   const validRoutes = ["/", "/about", "/services", "/projects", "/contact", "/privacy-policy", "/terms-of-use"];
