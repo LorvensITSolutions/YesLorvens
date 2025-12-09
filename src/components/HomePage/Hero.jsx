@@ -46,7 +46,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 lg:pt-26 md:pt-16"
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 md:pt-26 lg:pt-26 "
       style={{
         minHeight: 'calc(var(--vh, 1vh) * 100)',
         height: 'auto',
@@ -91,10 +91,10 @@ const Hero = () => {
           animate="show"
         >
           <h1 className="font-extrabold leading-snug ">
-            <span className="block text-white text-4xl sm:text-4xl md:text-4xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block text-white text-4xl sm:text-4xl md:text-3xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
               Digital solutions built
             </span>
-            <span className="block mt-2 text-4xl sm:text-4xl md:text-4xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block mt-2 text-4xl sm:text-4xl md:text-3xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
               <span className="text-white">for </span>
               <span className="text-orange-500">growth & scale</span>
             </span>
