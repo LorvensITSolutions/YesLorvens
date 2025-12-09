@@ -46,7 +46,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 lg:pt-26"
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 lg:pt-26 md:pt-16"
       style={{
         minHeight: 'calc(var(--vh, 1vh) * 100)',
         height: 'auto',
