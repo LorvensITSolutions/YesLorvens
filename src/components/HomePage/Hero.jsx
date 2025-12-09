@@ -120,11 +120,11 @@ const Hero = () => {
           initial="hidden"
           animate="show"
           transition={{ delay: 0.3 }}
-          className="flex flex-col sm:flex-row justify-center md:justify-start items-center md:items-start gap-3 max-w-md w-full mx-auto md:mx-0"
+          className="flex flex-col landscape:flex-row justify-center md:justify-start items-center gap-3 max-w-md w-full mx-auto md:mx-0"
         >
           <Link
             to="/services"
-            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-10 bg-gray-800/90 text-orange-300 border border-orange-500 rounded-md hover:bg-gray-700/90 font-semibold transition-colors mb-4 lg:mb-0"
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-10 bg-gray-800/90 text-orange-300 border border-orange-500 rounded-md hover:bg-gray-700/90 font-semibold transition-colors mb-4 landscape:mb-0"
           >
             Our services
           </Link>
