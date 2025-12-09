@@ -18,6 +18,15 @@ body {
   touch-action: pan-y; /* Enable vertical panning for better mobile scrolling */
 }
 
+/* iOS Safe Area Support - Use CSS variables for safe area insets */
+@supports (padding: max(0px)) {
+  html,
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
 /* Chrome, Edge, Safari */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -58,4 +67,22 @@ body::-webkit-scrollbar {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* iOS Viewport Height Fix - Use CSS custom properties for better iOS Safari support */
+:root {
+  --vh: 1vh; /* Will be updated via JavaScript for iOS */
+}
+
+/* Fix for iOS Safari viewport height issues */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari only */
+  html,
+  body {
+    height: -webkit-fill-available;
+  }
+  
+  section {
+    min-height: -webkit-fill-available;
+  }
 }

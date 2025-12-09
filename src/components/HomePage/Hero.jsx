@@ -46,7 +46,15 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-24 min-h-[85vh] md:h-[110vh]"
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900"
+      style={{
+        minHeight: 'calc(var(--vh, 1vh) * 85)',
+        height: 'auto',
+        paddingTop: 'max(4rem, calc(4rem + env(safe-area-inset-top)))',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        paddingLeft: 'max(0.5rem, env(safe-area-inset-left))',
+        paddingRight: 'max(0.5rem, env(safe-area-inset-right))'
+      }}
     >
       {/* Desktop background */}
       <div
@@ -76,7 +84,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content - Center aligned on mobile, left aligned on md and up */}
-      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-4 md:space-y-6">
+      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-4 md:space-y-6 w-full">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
