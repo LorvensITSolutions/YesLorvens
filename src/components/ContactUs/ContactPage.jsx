@@ -2,19 +2,8 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import {
-  Mail,
-  MapPin,
-  Phone,
-  CheckCircle,
-  Globe,
-  MessageCircle,
-  Send,
-} from "lucide-react";
+import {Mail,MapPin,Phone,CheckCircle,Globe,MessageCircle,Send} from "lucide-react";
 
-// -----------------------------------------
-// ContactInfoCard
-// -----------------------------------------
 const ContactInfoCard = ({ icon: Icon, title, info, gradient }) => {
   const safeInfo = String(info || "");
 
@@ -366,7 +355,7 @@ const ContactPage = () => {
         }}
         variants={fadeInUp}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-orange-500/30 to-orange-600/40"></div>
+        <div className="absolute inset-0"></div>
         <div className="relative z-10">
           <motion.h1 
             className="text-4xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg"

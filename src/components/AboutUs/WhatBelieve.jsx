@@ -44,14 +44,7 @@ const WhatBelieve = () => {
             Our Core Beliefs
           </h2>
           
-          <motion.div 
-            className="w-32 h-1 mx-auto bg-orange-500 mb-6 rounded-full"
-            variants={fadeIn}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          />
+         
 
           <motion.p 
             className="text-lg text-gray-600 max-w-3xl mx-auto"

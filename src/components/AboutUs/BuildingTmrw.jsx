@@ -61,13 +61,7 @@ const BuildingTmrw = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-orange-500 mb-6">
             Building Tomorrow
           </h2>
-          <motion.div
-            variants={scaleVariant}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="w-40 h-1 mx-auto bg-orange-500 mt-4 rounded-full"
-          /><br />
+          
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             As a young startup, every day is a new milestone. We're not just building a company—we're crafting a legacy of innovation that will shape the future of digital transformation.
           </p>

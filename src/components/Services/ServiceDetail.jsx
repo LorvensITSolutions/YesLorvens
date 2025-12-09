@@ -2,6 +2,20 @@ import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { ArrowRight, CheckCircle2, Clock, Users, Shield, Zap, Star, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+// Animation variants
+const fadeInUp = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
+};
 
 const services = [
   {
@@ -21,7 +35,7 @@ const services = [
     title: "Mobile App Development",
     description: "Transform your ideas into powerful mobile experiences",
     fullDetails: "We create high-performing native and cross-platform mobile apps designed for both iOS and Android. Our focus is on delivering apps with intuitive user interfaces, smooth performance, and reliable functionality that enhance the user experience. From concept to launch, we build mobile solutions that are scalable, secure, and tailored to your business needs.",
-    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://res.cloudinary.com/durbtkhbz/image/upload/v1765297568/ChatGPT_Image_Dec_9_2025_09_55_55_PM_pftijw.png",
     features: ["Native iOS & Android", "Cross-Platform Solutions", "App Store Optimization", "Push Notifications", "Offline Support", "API Integration"],
     deliveryTime: "6-12 weeks",
     technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase"],
@@ -33,7 +47,7 @@ const services = [
     title: "Digital Marketing",
     description: "Amplify your brand's reach with data-driven strategies",
     fullDetails: "We design targeted digital marketing campaigns to increase your brand's online visibility and drive more conversions. From SEO and content marketing to paid advertising, we use proven strategies to attract the right audience and grow your business. Our goal is to deliver measurable results that help you stand out in the digital space.",
-    image: "https://images.pexels.com/photos/3184315/pexels-photo-3184315.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1200",
     features: ["SEO Optimization", "Social Media Marketing", "Content Strategy", "Analytics & Reporting", "PPC Advertising", "Email Marketing"],
     deliveryTime: "2-4 weeks",
     technologies: ["Google Analytics", "Google Ads", "Facebook Ads", "SEO Tools", "Email Marketing Platforms"],
@@ -45,7 +59,7 @@ const services = [
     title: "AI/ML Integrations",
     description: "Leverage artificial intelligence to drive insights and automation",
     fullDetails: "We develop and integrate AI and Machine Learning solutions to help businesses work smarter. From automating processes and analyzing data to delivering predictive insights, our solutions empower you to make better decisions and improve efficiency. We tailor every AI solution to fit your business needs and goals.",
-    image: "https://images.pexels.com/photos/5474297/pexels-photo-5474297.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1200",
     features: ["Machine Learning Models", "Natural Language Processing", "Computer Vision", "Predictive Analytics", "Chatbots", "Recommendation Systems"],
     deliveryTime: "8-16 weeks",
     technologies: ["Python", "TensorFlow", "PyTorch", "OpenCV", "NLTK"],
@@ -57,7 +71,7 @@ const services = [
     title: "Quality Assurance",
     description: "Ensure your software meets the highest quality standards",
     fullDetails: "Our comprehensive Quality Assurance services help you deliver flawless software that meets the highest industry standards. We implement rigorous testing methodologies to identify and resolve issues before they impact your users. From manual testing to automated test suites, we ensure your application performs flawlessly across all devices and platforms, providing a seamless user experience.",
-    image: "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=1200",
     features: ["Manual Testing", "Automated Testing", "Performance Testing", "Security Testing", "Cross-browser Testing", "Mobile Testing"],
     deliveryTime: "2-6 weeks",
     technologies: ["Selenium", "Jest", "Cypress", "JIRA", "Postman"],
@@ -75,42 +89,6 @@ const services = [
     technologies: ["Figma", "Sketch", "Adobe XD", "InVision", "Framer"],
     benefits: ["Improved user satisfaction", "Higher conversion rates", "Reduced development costs", "Faster time to market", "Brand consistency"],
     icon: "🎨"
-  },
-  {
-    id: "school-website",
-    title: "School Website Development",
-    description: "Build modern, interactive school websites",
-    fullDetails: "We build comprehensive school websites designed to improve communication and efficiency in education. With features like student portals, teacher dashboards, online admissions, and event management, we create platforms that make learning more accessible and organized. Our solutions are secure, user-friendly, and tailored to meet the needs of schools, teachers, students, and parents.",
-    image: "https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: ["Student Portal", "Teacher Dashboard", "Online Admissions", "Grade Management", "Event Calendar", "Parent Portal"],
-    deliveryTime: "6-10 weeks",
-    technologies: ["React", "Node.js", "MongoDB", "Firebase", "AWS"],
-    benefits: ["Improved communication", "Streamlined administration", "Better parent engagement", "Enhanced learning experience", "Secure data management"],
-    icon: "🏫"
-  },
-  {
-    id: "portfolio-building",
-    title: "Portfolio Building",
-    description: "Create professional portfolios to showcase your work",
-    fullDetails: "We create professional digital portfolios for individuals and companies to showcase achievements, projects, and skills effectively. Our designs are modern, visually appealing, and optimized for performance, ensuring your portfolio makes a strong impression. Whether personal or corporate, we tailor each portfolio to highlight your strengths and tell your story in the best way.",
-    image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: ["Responsive Design", "Project Showcases", "Contact Integration", "SEO Optimization", "Blog Integration", "Analytics"],
-    deliveryTime: "2-4 weeks",
-    technologies: ["React", "Gatsby", "Next.js", "Contentful", "Netlify"],
-    benefits: ["Professional online presence", "Showcase your work", "Attract opportunities", "Build credibility", "Stand out from competition"],
-    icon: "📂"
-  },
-  {
-    id: "ecommerce-website",
-    title: "E-Commerce Website",
-    description: "Launch powerful online stores with secure payment and seamless shopping experiences",
-    fullDetails: "We design and develop feature-rich e-commerce platforms that provide smooth shopping experiences. From product catalogs and secure checkouts to inventory management and analytics, our e-commerce solutions help you grow your business online. We focus on creating fast, secure, and user-friendly online stores that convert visitors into customers.",
-    image: "https://images.pexels.com/photos/5632407/pexels-photo-5632407.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: ["Product Catalog", "Secure Checkout", "Inventory Management", "Order Tracking", "Payment Gateway Integration", "Mobile Responsive"],
-    deliveryTime: "6-10 weeks",
-    technologies: ["Shopify", "WooCommerce", "Magento", "React", "Node.js"],
-    benefits: ["24/7 online sales", "Global reach", "Reduced overhead costs", "Automated processes", "Data-driven decisions"],
-    icon: "🛒"
   }
 ];
 
@@ -143,7 +121,7 @@ const ServiceDetail = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section 
+      <motion.section 
         className="relative min-h-[80vh] flex items-center justify-center px-6 lg:px-12 overflow-hidden"
         style={{
           backgroundImage: `url(${service.image})`,
@@ -152,64 +130,150 @@ const ServiceDetail = () => {
           backgroundRepeat: 'no-repeat',
           position: 'relative'
         }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { 
+            opacity: 1,
+            transition: { duration: 0.8 }
+          }
+        }}
       >
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/40"></div>
 
-        <div className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-orange-100 mb-4">
+        <motion.div 
+          className="relative z-10 text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+        >
+          <motion.h1 
+            variants={fadeInUp}
+            className="text-4xl md:text-6xl font-bold text-orange-100 mb-4"
+          >
             {service.title}
-          </h1>
-          <h2 className="text-xl md:text-2xl font-normal text-orange-100 max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.h2 
+            variants={fadeInUp}
+            className="text-xl md:text-2xl font-normal text-orange-100 max-w-2xl mx-auto"
+          >
             {service.description}
-          </h2>
-        </div>
-      </section>
+          </motion.h2>
+        </motion.div>
+      </motion.section>
 
       {/* Service Details */}
-      <section className="py-16 md:py-24 bg-white">
+      <motion.section 
+        className="py-16 md:py-24 bg-white"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.6 }
+          }
+        }}
+      >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-12">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                  delayChildren: 0.2
+                }
+              }
+            }}
+          >
             {/* Main Content */}
-            <div className="md:col-span-2">
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold mb-6">About This Service</h2>
-                <div className="prose max-w-none text-gray-600 leading-relaxed space-y-6">
+            <motion.div 
+              className="md:col-span-2"
+              variants={fadeInUp}
+            >
+              <motion.div 
+                className="mb-12"
+                variants={fadeInUp}
+              >
+                <motion.h2 
+                  className="text-3xl font-bold mb-6"
+                  variants={fadeInUp}
+                >
+                  About This Service
+                </motion.h2>
+                <motion.div 
+                  className="prose max-w-none text-gray-600 leading-relaxed space-y-6"
+                  variants={fadeInUp}
+                >
                   <p>{service.fullDetails}</p>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div className="mt-12">
-                <h3 className="text-2xl font-bold mb-6">Key Features</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <motion.div 
+                className="mt-12"
+                variants={fadeInUp}
+              >
+                <motion.h3 
+                  className="text-2xl font-bold mb-6"
+                  variants={fadeInUp}
+                >
+                  Key Features
+                </motion.h3>
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.05
+                      }
+                    }
+                  }}
+                >
                   {service.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
+                    <motion.div 
+                      key={index} 
+                      className="flex items-start gap-3"
+                      variants={fadeInUp}
+                    >
                       <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                       <span className="text-gray-700">{feature}</span>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
-              </div>
-            </div>
-
+                </motion.div>
+              </motion.div>
+            </motion.div>
+            
             {/* Sidebar */}
-            <div>
+            <motion.div
+              variants={fadeInUp}
+              className="sticky top-24"
+            >
               <div className="sticky top-24 bg-white rounded-2xl shadow-lg p-6 mb-8">
                 <div className="text-5xl mb-6">{service.icon}</div>
                 <h3 className="text-2xl font-bold mb-4">Service Details</h3>
                 
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-orange-100 rounded-lg">
-                      <Clock className="h-5 w-5 text-orange-600" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Delivery Time</p>
-                      <p className="font-medium">{service.deliveryTime}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="pt-4 border-t border-gray-100">
+                  <div className="pt-4">
                     <h4 className="font-medium mb-3">Benefits</h4>
                     <ul className="space-y-2">
                       {service.benefits.map((benefit, index) => (
@@ -237,10 +301,10 @@ const ServiceDetail = () => {
                   </Link>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Related Services */}
       {relatedServices.length > 0 && (
@@ -310,6 +374,6 @@ const ServiceDetail = () => {
       {/* <Footer /> */}
     </div>
   );
-};
+}
 
 export default ServiceDetail;

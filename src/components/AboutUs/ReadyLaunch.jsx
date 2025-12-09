@@ -62,13 +62,7 @@ const ReadyLaunch = () => {
         >
           Ready to Launch Your Vision?
         </motion.h2>
-        <motion.div
-          variants={scaleVariant}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="w-40 h-1 mx-auto bg-orange-500 mt-4 rounded-full"
-        /><br />
+       
         <motion.p 
           variants={item}
           className="text-xl text-gray-600 max-w-3xl mx-auto mb-10"

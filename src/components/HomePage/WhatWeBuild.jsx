@@ -23,10 +23,9 @@ const WhatWeBuild = () => {
         variants={fadeInUp}
         className="text-center mb-16 relative z-10"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-orange-500">
+        <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-6">
           What We Build for You
         </h2>
-        <div className="w-50 h-1 mx-auto bg-orange-500 mt-3 mb-5 rounded-full" />
         <p className="max-w-5xl mx-auto text-gray-500 text-base sm:text-lg md:text-xl font-normal px-4 sm:px-6 text-center">
           From idea to launch — we craft solutions that are fast, scalable, and designed for impact.
         </p>

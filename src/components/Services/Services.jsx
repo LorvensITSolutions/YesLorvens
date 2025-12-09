@@ -3,6 +3,38 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Eye, Shield, CheckCircle2, Globe, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
+// Marquee Component for horizontal scrolling text
+const Marquee = ({ items, speed = 100, className = "" }) => {
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      <div className="flex w-max">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="flex whitespace-nowrap items-center"
+            animate={{
+              x: ['0%', '-100%'],
+            }}
+            transition={{
+              duration: speed * 2,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          >
+            {items.map((item, idx) => (
+              <div key={idx}>
+                <span className="text-xl md:text-[18px] font-bold text-orange-500 px-5 py-2 bg-gradient-to-r from-orange-50 to-orange-100 backdrop-blur-sm rounded-full mx-2 cursor-default">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // Animation variants
 const fadeInUp = {
   hidden: { y: 20, opacity: 0 },
@@ -11,7 +43,7 @@ const fadeInUp = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
+      ease: 'easeOut'
     }
   }
 };
@@ -47,7 +79,7 @@ const services = [
     fullDetails: "Our team develops native and cross-platform mobile apps with excellent performance and intuitive user interfaces. Perfect for iOS and Android.",
     gradient: "from-purple-500 to-indigo-600",
     bgGradient: "from-purple-50 to-indigo-50",
-    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://res.cloudinary.com/durbtkhbz/image/upload/v1765297568/ChatGPT_Image_Dec_9_2025_09_55_55_PM_pftijw.png",
     features: ["Native iOS & Android", "Cross-Platform Solutions", "App Store Optimization", "Push Notifications"],
   },
   {
@@ -108,14 +140,32 @@ const HeroSection = () => {
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40"></div>
 
-      <div className="relative z-10 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-orange-100 mb-4">
+      <motion.div
+        className="relative z-10 text-center"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.1
+            }
+          }
+        }}
+      >
+        <motion.h1
+          variants={fadeInUp}
+          className="text-4xl md:text-6xl font-bold text-orange-100 mb-4"
+        >
           Our Services
-        </h1>
-        <h2 className="text-xl md:text-2xl font-normal text-orange-100 max-w-2xl mx-auto">
+        </motion.h1>
+        <motion.h2
+          variants={fadeInUp}
+          className="text-xl md:text-2xl font-normal text-orange-100 max-w-2xl mx-auto"
+        >
           We provide a range of cutting-edge solutions designed to help your business grow and thrive in the digital landscape.
-        </h2>
-      </div>
+        </motion.h2>
+      </motion.div>
     </section>
   );
 };
@@ -146,14 +196,14 @@ const ServiceCard = ({ service, index }) => {
         {/* Content Section */}
         <div className="p-8 flex flex-col flex-1">
           <motion.h3 
-            className="text-2xl font-bold text-gray-900 mb-3"
-            whileHover={{ color: "#f97316" }}
+            className="text-2xl font-bold text-gray-600 mb-3"
+          
             transition={{ duration: 0.3 }}
           >
             {service.title}
           </motion.h3>
 
-          <p className="text-gray-600 leading-relaxed mb-4 text-sm sm:text-base">
+          <p className="text-gray-500 leading-relaxed mb-4 text-sm sm:text-base">
             {service.description}
           </p>
 
@@ -251,7 +301,7 @@ const WhyChooseUsSection = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <motion.h2 
-            className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-orange-500"
+            className="text-4xl sm:text-5xl lg:text-5xl font-black mb-6 text-orange-500"
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -259,13 +309,7 @@ const WhyChooseUsSection = () => {
           >
             Excellence Delivered
           </motion.h2>
-          <motion.div
-            variants={scaleIn}
-            className="w-24 h-1 mx-auto bg-orange-500 rounded-full my-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          />
+          
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
             variants={fadeInUp}
@@ -318,7 +362,7 @@ const CTASection = () => {
     >
       <div className="max-w-5xl mx-auto text-center">
         <motion.h2 
-          className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-orange-500"
+          className="text-4xl sm:text-5xl lg:text-5xl font-black mb-6 text-orange-500"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -374,9 +418,18 @@ const Services = () => {
     >
       <HeroSection />
 
+      {/* Services Marquee */}
+      <div className="py-8 bg-white/90 border-t border-b border-gray-100">
+        <Marquee 
+          items={services.map(s => s.title)} 
+          speed={100} 
+          className="py-3" 
+        />
+      </div>
+
       {/* Services Grid Section */}
       <motion.section 
-        className="py-16 px-6 lg:px-20"
+        className="pt-12 pb-8 px-6 lg:px-20"
         style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
       >
         <motion.div 
@@ -398,16 +451,11 @@ const Services = () => {
             variants={fadeInUp}
           >
             <motion.h2 
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-orange-500 mb-6"
+              className="text-4xl sm:text-5xl lg:text-5xl font-black text-orange-500 mb-6"
               variants={fadeInUp}
             >
               Service Portfolio
-            </motion.h2>
-            <motion.div
-              variants={scaleIn}
-              className="w-40 h-1 mx-auto bg-orange-500 mt-4 rounded-full"
-            />
-            <br />
+            </motion.h2>      
             <motion.p 
               className="text-xl text-gray-600 max-w-4xl mx-auto"
               variants={fadeInUp}
@@ -427,8 +475,12 @@ const Services = () => {
         </motion.div>
       </motion.section>
 
-      <WhyChooseUsSection />
+      <div className="-mt-4">
+        <WhyChooseUsSection />
+      </div>
+      <div className="-mt-18">
       <CTASection />
+      </div>
     </motion.div>
   );
 };

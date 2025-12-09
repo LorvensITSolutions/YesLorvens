@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import WorkTogether from "./WorkTogether";
 
 // Optimized images with Cloudinary transformations for better performance
-const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/w_1920,h_1080,f_auto,q_auto/v1764843926/website_e2hdje.jpg";
-const mobileBg = "https://res.cloudinary.com/di4caiech/image/upload/w_800,h_1200,f_auto,q_auto/v1765001611/ChatGPT_Image_Dec_6_2025_11_42_48_AM_zkhydo.png";
+const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1764843926/website_e2hdje.jpg";
+const mobileBg = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765299829/ChatGPT_Image_Dec_9_2025_10_33_34_PM_bwcswm.png";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,15 +68,16 @@ const Hero = () => {
         }}
       />
 
-      {/* Mobile background */}
+      {/* Mobile background with gradient overlay */}
       <div
         className="md:hidden absolute inset-0 w-full h-full mt-16"
         style={{
           backgroundColor: "#111827",
-          backgroundImage: `url(${mobileBg})`,
+          background: `linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%), url(${mobileBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          backgroundBlendMode: 'overlay'
         }}
       />
 
@@ -84,19 +85,19 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content - Center aligned on mobile, left aligned on md and up */}
-      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-4 md:space-y-6 w-full">
+      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-3 md:space-y-6 w-full -mt-25 md:mt-0">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           animate="show"
         >
           <h1 className="font-extrabold leading-snug ">
-            <span className="block text-white text-4xl sm:text-4xl md:text-3xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block text-white text-4xl sm:text-4xl md:text-3xl lg:text-6xl whitespace-nowrap max-[420px]:text-[34px] mb-3 lg:mb-0">
               Digital solutions built
             </span>
-            <span className="block mt-2 text-4xl sm:text-4xl md:text-3xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block mt-2 text-4xl sm:text-4xl md:text-3xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-[34px] mb-9 lg-mb-0 ">
               <span className="text-white">for </span>
-              <span className="text-orange-500">growth & scale</span>
+              <span className="text-orange-500 max-[420px]:text-4xl">growth & scale</span>
             </span>
           </h1>
         </motion.div>
@@ -107,7 +108,7 @@ const Hero = () => {
           animate="show"
           transition={{ delay: 0.2 }}
         >
-          <p className="text-base sm:text-lg md:text-[15px] text-white max-w-xl max-[420px]:text-sm">
+          <p className="text-base sm:text-lg md:text-[15px] text-white max-w-xl max-[420px]:text-[20px] mb-15 lg:mb-0">
             At <strong className="text-orange-500">YES LORVENS</strong>, we help
             startups & enterprises launch websites, apps, and full-stack digital
             solutions tailored for real results.
@@ -123,7 +124,7 @@ const Hero = () => {
         >
           <Link
             to="/services"
-            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-10 bg-gray-800/90 text-orange-300 border border-orange-500 rounded-md hover:bg-gray-700/90 font-semibold transition-colors"
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-10 bg-gray-800/90 text-orange-300 border border-orange-500 rounded-md hover:bg-gray-700/90 font-semibold transition-colors mb-4 lg:mb-0"
           >
             Our services
           </Link>

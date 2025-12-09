@@ -49,13 +49,7 @@ const CoreValues = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-orange-500 mb-3">
             Our Core Values
           </h2>
-          <motion.div 
-            variants={fadeIn}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="w-32 h-1 mx-auto bg-orange-500 mt-3 rounded-full"
-          />
+         
           <motion.p 
             className="text-base text-gray-600 max-w-2xl mx-auto mt-4"
             variants={fadeIn}

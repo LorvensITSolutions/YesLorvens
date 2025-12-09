@@ -26,7 +26,6 @@ const ReadyTransform = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-4">
             Ready to Transform Your Vision?
           </h2>
-          <div className="w-40 h-1 mx-auto bg-orange-500 mt-4 rounded-full" /><br />
           <p className="text-xl text-gray-500 max-w-4xl mx-auto">
             Let's build something extraordinary together
           </p>
