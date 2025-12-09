@@ -165,7 +165,6 @@ const ContactPage = () => {
     switch (name) {
       case 'name':
         if (!value.trim()) error = 'Name is required';
-        else if (value.trim().length < 2) error = 'Name must be at least 2 characters';
         break;
       case 'email':
         if (!value) error = 'Email is required';
@@ -175,11 +174,9 @@ const ContactPage = () => {
         break;
       case 'subject':
         if (!value.trim()) error = 'Subject is required';
-        else if (value.trim().length < 5) error = 'Subject must be at least 5 characters';
         break;
       case 'message':
         if (!value.trim()) error = 'Message is required';
-        else if (value.trim().length < 10) error = 'Message must be at least 10 characters';
         break;
       default:
         break;
@@ -264,18 +261,52 @@ const ContactPage = () => {
       formPayload.append('_next', window.location.href);
 
       // Submit using fetch API
-      const response = await fetch('https://formsubmit.co/yeslorvenssolutions@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/yeslorvenssolutions@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
         },
         body: formPayload.toString()
       });
 
-      const result = await response.json();
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      let result;
+      
+      if (contentType && contentType.includes('application/json')) {
+        result = await response.json();
+      } else {
+        // If response is HTML, it might be a redirect or error page
+        const text = await response.text();
+        // If response is successful but returns HTML (redirect), consider it a success
+        if (response.ok) {
+          // FormSubmit sometimes returns HTML redirect on success
+          setSuccess(true);
+          setLoading(false);
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: ""
+          });
+          setTouched({
+            name: false,
+            email: false,
+            subject: false,
+            message: false
+          });
+          setErrors({});
+          setTimeout(() => {
+            setSuccess(false);
+          }, 5000);
+          return;
+        } else {
+          throw new Error('Form submission failed. Please try again or contact us directly.');
+        }
+      }
       
       if (response.ok && result.success === 'true') {
-
         // Show success message
         setSuccess(true);
         setLoading(false);

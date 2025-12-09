@@ -74,18 +74,21 @@ const FloatingContact = () => {
             style={{ isolation: 'isolate' }}
           >
             <h3 className="text-sm font-semibold text-gray-800 mb-2">Contact Us</h3>
-            {contactMethods.map((method, index) => (
-              <a
-                key={index}
-                href={method.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center px-3 py-2 text-sm text-white rounded-lg transition-colors ${method.color}`}
-              >
-                <span className="mr-2">{method.icon}</span>
-                {method.label}
-              </a>
-            ))}
+            {contactMethods.map((method, index) => {
+              // Don't use target="_blank" for mailto and tel links
+              const isMailtoOrTel = method.href.startsWith('mailto:') || method.href.startsWith('tel:');
+              return (
+                <a
+                  key={index}
+                  href={method.href}
+                  {...(isMailtoOrTel ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                  className={`flex items-center px-3 py-2 text-sm text-white rounded-lg transition-colors ${method.color}`}
+                >
+                  <span className="mr-2">{method.icon}</span>
+                  {method.label}
+                </a>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

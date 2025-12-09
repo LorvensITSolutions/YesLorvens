@@ -9,6 +9,7 @@ import NetworkError from "./components/NetworkError";
 // Lazy load non-critical components for better initial performance
 const Footer = lazy(() => import("./components/Footer/Footer"));
 const CookieConsent = lazy(() => import("./components/CookieConsent"));
+const FloatingContact = lazy(() => import("./components/FloatingContact"));
 
 // Lazy load routes for code splitting and better performance
 const HomePage = lazy(() => import("./components/HomePage/Homepage"));
@@ -36,6 +37,9 @@ function App() {
   const validRoutes = ["/", "/about", "/services", "/projects", "/contact", "/privacy-policy", "/terms-of-use"];
   const isServiceDetail = location.pathname.startsWith("/service/") && location.pathname.split("/").length === 3;
   const isNotFoundPage = !validRoutes.includes(location.pathname) && !isServiceDetail;
+  
+  // Show FloatingContact on all pages except contact page
+  const showFloatingContact = location.pathname !== "/contact";
 
   // ✔ Show network error page when offline
   if (!isOnline) {
@@ -81,6 +85,11 @@ function App() {
       <Suspense fallback={null}>
         <CookieConsent />
       </Suspense>
+      {showFloatingContact && (
+        <Suspense fallback={null}>
+          <FloatingContact />
+        </Suspense>
+      )}
       <Toaster />
     </div>
   );

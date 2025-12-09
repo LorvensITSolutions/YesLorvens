@@ -5,7 +5,6 @@ import Hero from "./Hero";
 const WhatWeBuild = lazy(() => import("./WhatWeBuild"));
 const WhyUs = lazy(() => import("./WhyChooseUs"));
 const ReadyTransform = lazy(() => import("./ReadyTransform"));
-const FloatingContact = lazy(() => import("../FloatingContact"));
 
 const HomePage = () => {
   return (
@@ -24,10 +23,6 @@ const HomePage = () => {
 
       <Suspense fallback={null}>
         <ReadyTransform />
-      </Suspense>
-
-      <Suspense fallback={null}>
-        <FloatingContact />
       </Suspense>
     </>
   );

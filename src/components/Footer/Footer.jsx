@@ -1,88 +1,42 @@
 // src/components/Footer.jsx
-import { useEffect, useState } from "react";
 import { Instagram, Linkedin, Facebook, Phone, Mail as MailIcon, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const footerBgImage = "https://res.cloudinary.com/durbtkhbz/image/upload/w_1920,h_1080,f_auto,q_auto/v1764907243/software_project_mdtyuu.jpg";
-
 const Footer = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [isIOS, setIsIOS] = useState(false);
-
-  useEffect(() => {
-    // Detect iOS
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    setIsIOS(iOS);
-
-    // Preload the background image
-    const img = new Image();
-    img.src = footerBgImage;
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageLoaded(false);
-  }, []);
-
   return (
     <motion.footer
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="text-white pt-4 pb-4 px-4 sm:px-6 md:px-12 relative overflow-hidden bg-cover bg-center bg-gray-900"
-      style={!isIOS ? {
-        zIndex: 1,
-        backgroundImage: imageLoaded 
-          ? `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('${footerBgImage}')`
-          : 'linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9))',
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
-      } : {
-        backgroundColor: '#111827',
-        zIndex: 1
-      }}
+      className="text-gray-800 pt-7 pb-8 px-4 sm:px-6 md:px-12 relative bg-white border-t border-gray-200"
+      style={{ zIndex: 1 }}
     >
-      {/* Background image layer for iOS - more reliable than background-attachment: fixed */}
-      {isIOS && imageLoaded && (
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('${footerBgImage}')`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            zIndex: 0
-          }}
-        />
-      )}
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/80 z-[1]"></div>
-      
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-18 gap-y-8 px-4 sm:px-6 relative z-[2]">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-6 px-4 sm:px-6 relative">
 
         {/* Brand */}
-        <div className="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
-          <h2 className="text-2xl font-bold text-white mb-4 tracking-wide text-center sm:text-left">
+        <div className="flex flex-col items-center sm:items-start mb-6 sm:mb-0">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 tracking-wide text-center sm:text-left bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
             YES LORVENS
           </h2>
-          <p className="text-sm text-gray-300 transition-colors text-center sm:text-left max-w-xs cursor-default mb-3">
+          <p className="text-sm text-gray-600 leading-relaxed transition-colors text-center sm:text-left max-w-xs cursor-default mb-6">
             Crafting innovative tech solutions tailored to your business goals.
           </p>
 
           {/* Follow Us Section */}
           <div className="mb-4 w-full">
-            <h3 className="text-base font-semibold text-white mb-3 text-center sm:text-left">
+            <h3 className="text-base font-semibold text-orange-600 mb-4 text-center sm:text-left">
               Follow Us
             </h3>
-            <div className="flex gap-4 flex-wrap justify-center">
+            <div className="flex gap-3 flex-wrap justify-center sm:justify-start">
               <motion.a
                 href="https://www.instagram.com/yeslorvenssolutions/"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="Visit our Instagram"
-                whileHover={{ scale: 1.2 }}
-                className="text-orange-400 hover:text-orange-300 transition p-2 -m-2"
+                whileHover={{ scale: 1.15, y: -2 }}
+                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
               >
                 <Instagram className="w-6 h-6" />
               </motion.a>
@@ -91,8 +45,8 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="Connect on LinkedIn"
-                whileHover={{ scale: 1.2 }}
-                className="text-orange-400 hover:text-orange-300 transition p-2 -m-2"
+                whileHover={{ scale: 1.15, y: -2 }}
+                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
               >
                 <Linkedin className="w-6 h-6" />
               </motion.a>
@@ -101,8 +55,8 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="Like us on Facebook"
-                whileHover={{ scale: 1.2 }}
-                className="text-orange-400 hover:text-orange-300 transition p-2 -m-2"
+                whileHover={{ scale: 1.15, y: -2 }}
+                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
               >
                 <Facebook className="w-6 h-6" />
               </motion.a>
@@ -111,8 +65,8 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="Follow us on X (Twitter)"
-                whileHover={{ scale: 1.2, rotate: [0, -10, 10, -10, 0] }}
-                className="text-orange-400 hover:text-orange-300 transition p-2 -m-2"
+                whileHover={{ scale: 1.15, y: -2, rotate: [0, -10, 10, -10, 0] }}
+                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
               >
                 <svg
                   width="24"
@@ -134,40 +88,114 @@ const Footer = () => {
         </div>
         {/* Quick Links */}
         <div className="mb-8 sm:mb-0 text-center sm:text-left">
-          <h3 className="text-lg font-semibold text-orange-400 mb-4">
+          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
             Explore
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
           </h3>
-          <ul className="space-y-3 text-sm">
-            <li><Link to="/" className="text-gray-300 hover:text-orange-400 transition">Home</Link></li>
-            <li><Link to="/about" className="text-gray-300 hover:text-orange-400 transition">About Us</Link></li>
-            <li><Link to="/services" className="text-gray-300 hover:text-orange-400 transition">Services</Link></li>
-            <li><Link to="/projects" className="text-gray-300 hover:text-orange-400 transition">Projects</Link></li>
-            <li><Link to="/contact" className="text-gray-300 hover:text-orange-400 transition">Contact</Link></li>
+          <ul className="space-y-2.5 text-sm mt-4">
+            <li>
+              <Link to="/" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/about" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link to="/projects" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Careers
+              </Link>
+            </li>
           </ul>
         </div>
         {/* Services */}
         <div className="mb-8 sm:mb-0 text-center sm:text-left">
-          <h3 className="text-lg font-semibold text-orange-400 mb-4">Our Services</h3>
-          <ul className="space-y-3 text-sm">
-            <li><Link to="/service/web-development" className="text-gray-300 hover:text-orange-400 transition">Web Development</Link></li>
-            <li><Link to="/service/mobile-development" className="text-gray-300 hover:text-orange-400 transition">Mobile Apps</Link></li>
-            <li><Link to="/service/ui-ux-design" className="text-gray-300 hover:text-orange-400 transition">UI/UX Design</Link></li>
-            <li><Link to="/service/digital-marketing" className="text-gray-300 hover:text-orange-400 transition">Digital Marketing</Link></li>
-            <li><Link to="/service/ai-ml-integration" className="text-gray-300 hover:text-orange-400 transition">AI/ML Integrations</Link></li>
-            <li><Link to="/service/quality-assurance" className="text-gray-300 hover:text-orange-400 transition">Quality Assurance</Link></li>
-           
+          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
+            Our Services
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
+          </h3>
+          <ul className="space-y-2.5 text-sm mt-4">
+            <li>
+              <Link to="/service/web-development" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Web Development
+              </Link>
+            </li>
+            <li>
+              <Link to="/service/mobile-development" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Mobile Apps
+              </Link>
+            </li>
+            <li>
+              <Link to="/service/ui-ux-design" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                UI/UX Design
+              </Link>
+            </li>
+            <li>
+              <Link to="/service/digital-marketing" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Digital Marketing
+              </Link>
+            </li>
+            <li>
+              <Link to="/service/ai-ml-integration" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                AI/ML Integrations
+              </Link>
+            </li>
+            <li>
+              <Link to="/service/quality-assurance" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Quality Assurance
+              </Link>
+            </li>
+          </ul>
+        </div>
+        {/* Policy */}
+        <div className="mb-8 sm:mb-0 text-center sm:text-left">
+          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
+            Policy
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
+          </h3>
+          <ul className="space-y-2.5 text-sm mt-4">
+            <li>
+              <Link to="/privacy-policy" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/terms-of-use" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+                Terms of Use
+              </Link>
+            </li>
           </ul>
         </div>
         {/* Contact */}
         <div className="text-center sm:text-left">
-          <h3 className="text-lg font-semibold text-orange-400 mb-4">Contact Us</h3>
-          <ul className="space-y-3 text-sm">
-            <li className="flex items-center justify-center sm:justify-start gap-2">
-              <Phone className="h-4 w-4 text-orange-600 flex-shrink-0" />
-              <div className="flex flex-col gap-1">
+          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
+            Contact Us
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
+          </h3>
+          <ul className="space-y-3 text-sm mt-4">
+            <li className="flex items-center justify-center sm:justify-start gap-2.5">
+              <Phone className="h-5 w-5 text-orange-600 flex-shrink-0" />
+              <div className="flex flex-col gap-1.5">
                 <a 
                   href="tel:+917013814030" 
-                  className="hover:text-orange-600 transition p-1 -m-1"
+                  className="text-gray-600 hover:text-orange-600 transition-colors duration-200"
                   onClick={(e) => {
                     e.preventDefault();
                     window.location.href = 'tel:+917013814030';
@@ -177,7 +205,7 @@ const Footer = () => {
                 </a>
                 <a 
                   href="tel:+914031985921" 
-                  className="hover:text-orange-600 transition p-1 -m-1"
+                  className="text-gray-600 hover:text-orange-600 transition-colors duration-200"
                   onClick={(e) => {
                     e.preventDefault();
                     window.location.href = 'tel:+914031985921';
@@ -188,12 +216,12 @@ const Footer = () => {
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600 mt-0.5 flex-shrink-0" />
+              <MapPin className="w-5 h-5 text-orange-600 mt-1 flex-shrink-0" />
               <a
                 href="https://maps.app.goo.gl/U2RMhtQJWRT9gtLk9"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-orange-600 transition"
+                className="text-gray-600 hover:text-orange-600 transition-colors duration-200 leading-relaxed"
               >
                 Road No. 86, Jubilee Hills, Hyderabad, Telangana 500096
               </a>
@@ -203,13 +231,10 @@ const Footer = () => {
         {/* Legal */}
       </div>
       {/* Copyright */}
-      <div className="mt-12 pt-6 border-t border-gray-700 text-center text-sm text-gray-500 relative z-[2]">
-        <div className="flex flex-wrap justify-center items-center gap-3">
-          <span>&copy; {new Date().getFullYear()} YES LORVENS. All rights reserved.</span>
-          <span className="text-orange-500">|</span>
-          <Link to="/privacy-policy" className="hover:text-orange-600 transition whitespace-nowrap">Privacy Policy</Link>
-          <span className="text-orange-500">|</span>
-          <Link to="/terms-of-use" className="hover:text-orange-600 transition whitespace-nowrap">Terms of Use</Link>
+      <div className="mt-8 pt-8 border-t border-gray-200 text-center relative">
+        <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
+          <span className="text-gray-600">&copy; {new Date().getFullYear()} YES LORVENS. All rights reserved.</span>
+      
         </div>
       </div>
     </motion.footer>
