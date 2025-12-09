@@ -70,7 +70,7 @@ const Hero = () => {
 
       {/* Mobile background */}
       <div
-        className="md:hidden absolute inset-0 w-full h-full"
+        className="md:hidden absolute inset-0 w-full h-full mt-16"
         style={{
           backgroundColor: "#111827",
           backgroundImage: `url(${mobileBg})`,
