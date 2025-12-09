@@ -28,12 +28,24 @@ const ContactInfoCard = ({ icon: Icon, title, info, gradient }) => {
 
       <div className="text-gray-700 leading-relaxed space-y-1">
         {email && (
-          <a
-            href={`mailto:${email}`}
-            className="font-semibold hover:text-[#FFA559] cursor-pointer transition-all duration-300 block"
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+              
+              if (isMobile) {
+                // For mobile devices, use mailto:
+                window.location.href = `mailto:${email}`;
+              } else {
+                // For desktop, open Gmail compose in a new tab
+                const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+                window.open(gmailUrl, '_blank');
+              }
+            }}
+            className="font-semibold hover:text-[#FFA559] cursor-pointer transition-all duration-300 block text-left w-full"
           >
             {email}
-          </a>
+          </button>
         )}
 
         {phones[0] && (
