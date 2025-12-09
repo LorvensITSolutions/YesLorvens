@@ -1,25 +1,63 @@
 // src/components/Footer.jsx
+import { useEffect, useState } from "react";
 import { Instagram, Linkedin, Facebook, Phone, Mail as MailIcon, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+const footerBgImage = "https://res.cloudinary.com/durbtkhbz/image/upload/w_1920,h_1080,f_auto,q_auto/v1764907243/software_project_mdtyuu.jpg";
+
 const Footer = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    // Detect iOS
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    setIsIOS(iOS);
+
+    // Preload the background image
+    const img = new Image();
+    img.src = footerBgImage;
+    img.onload = () => setImageLoaded(true);
+    img.onerror = () => setImageLoaded(false);
+  }, []);
+
   return (
     <motion.footer
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="text-white pt-4 pb-4 px-4 sm:px-6 md:px-12 relative overflow-hidden bg-cover bg-center"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/durbtkhbz/image/upload/w_1920,h_1080,f_auto,q_auto/v1764907243/software_project_mdtyuu.jpg')`,
+      className="text-white pt-4 pb-4 px-4 sm:px-6 md:px-12 relative overflow-hidden bg-cover bg-center bg-gray-900"
+      style={!isIOS ? {
+        backgroundImage: imageLoaded 
+          ? `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('${footerBgImage}')`
+          : 'linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9))',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      } : {
+        backgroundColor: '#111827'
       }}
     >
+      {/* Background image layer for iOS - more reliable than background-attachment: fixed */}
+      {isIOS && imageLoaded && (
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('${footerBgImage}')`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            zIndex: 0
+          }}
+        />
+      )}
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/80 z-[1]"></div>
       
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-18 gap-y-8 px-4 sm:px-6 relative">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-18 gap-y-8 px-4 sm:px-6 relative z-10">
 
         {/* Brand */}
         <div className="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
