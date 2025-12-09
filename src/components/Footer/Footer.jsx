@@ -31,6 +31,7 @@ const Footer = () => {
       viewport={{ once: true }}
       className="text-white pt-4 pb-4 px-4 sm:px-6 md:px-12 relative overflow-hidden bg-cover bg-center bg-gray-900"
       style={!isIOS ? {
+        zIndex: 1,
         backgroundImage: imageLoaded 
           ? `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('${footerBgImage}')`
           : 'linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9))',
@@ -39,7 +40,8 @@ const Footer = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
       } : {
-        backgroundColor: '#111827'
+        backgroundColor: '#111827',
+        zIndex: 1
       }}
     >
       {/* Background image layer for iOS - more reliable than background-attachment: fixed */}
@@ -57,7 +59,7 @@ const Footer = () => {
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/80 z-[1]"></div>
       
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-18 gap-y-8 px-4 sm:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-18 gap-y-8 px-4 sm:px-6 relative z-[2]">
 
         {/* Brand */}
         <div className="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
@@ -201,7 +203,7 @@ const Footer = () => {
         {/* Legal */}
       </div>
       {/* Copyright */}
-      <div className="mt-12 pt-6 border-t border-gray-700 text-center text-sm text-gray-500">
+      <div className="mt-12 pt-6 border-t border-gray-700 text-center text-sm text-gray-500 relative z-[2]">
         <div className="flex flex-wrap justify-center items-center gap-3">
           <span>&copy; {new Date().getFullYear()} YES LORVENS. All rights reserved.</span>
           <span className="text-orange-500">|</span>
