@@ -48,7 +48,7 @@ const Hero = () => {
       id="home"
       className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 lg:pt-26"
       style={{
-        minHeight: 'calc(var(--vh, 1vh) * 90)',
+        minHeight: 'calc(var(--vh, 1vh) * 100)',
         height: 'auto',
         paddingTop: 'max(4rem, calc(4rem + env(safe-area-inset-top)))',
         paddingBottom: 'env(safe-area-inset-bottom)',

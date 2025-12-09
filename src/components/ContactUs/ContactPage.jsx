@@ -1,6 +1,7 @@
 // ContactPage.jsx
 import { useEffect, useState, useRef } from "react";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Mail,
   MapPin,
@@ -104,6 +105,7 @@ const staggerContainer = {
 };
 
 const ContactPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -157,6 +159,12 @@ const ContactPage = () => {
       return () => clearTimeout(timeout);
     }
   }, [formError]);
+
+  // Handle OK button click - redirect to homepage
+  const handleOkClick = () => {
+    setSuccess(false);
+    navigate('/');
+  };
 
   // Validation functions
   const validateField = (name, value) => {
@@ -297,9 +305,6 @@ const ContactPage = () => {
             message: false
           });
           setErrors({});
-          setTimeout(() => {
-            setSuccess(false);
-          }, 5000);
           return;
         } else {
           throw new Error('Form submission failed. Please try again or contact us directly.');
@@ -331,11 +336,6 @@ const ContactPage = () => {
         }
         throw new Error(errorMessage);
       }
-
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        setSuccess(false);
-      }, 5000);
     } catch (err) {
       console.error("❌ Error submitting contact form:", err);
       setFormError(`Failed to send message: ${err.message}. Please try again or contact us directly.`);
@@ -562,18 +562,6 @@ const ContactPage = () => {
               </form>
 
               <div className="mt-6 space-y-4">
-                {success && (
-                  <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle size={20} className="text-green-600 flex-shrink-0" />
-                      <div>
-                        <p className="text-sm font-medium text-green-800">Message sent successfully!</p>
-                        <p className="text-sm text-green-700">We'll get back to you within 24 hours.</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
                 {formError && (
                   <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
                     <div className="flex items-center gap-3">
@@ -657,6 +645,76 @@ const ContactPage = () => {
           </div>
         </div>
       </motion.section>
+
+      {/* Success Modal */}
+      <AnimatePresence>
+        {success && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[10000]"
+              onClick={handleOkClick}
+            />
+            
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 50 }}
+              transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed inset-0 z-[10001] flex items-center justify-center p-4"
+            >
+              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center relative">
+                {/* Success Icon */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  className="mx-auto mb-6 w-20 h-20 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center"
+                >
+                  <CheckCircle size={48} className="text-white" />
+                </motion.div>
+
+                {/* Thank You Message */}
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-3xl font-bold text-gray-900 mb-4"
+                >
+                  Thank You!
+                </motion.h2>
+
+                {/* We'll Get Back Message */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-gray-600 text-lg mb-8 leading-relaxed"
+                >
+                  Your message has been sent successfully. We'll get back to you within 24 hours.
+                </motion.p>
+
+                {/* OK Button */}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  onClick={handleOkClick}
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-4 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
+                  aria-label="Go to homepage"
+                >
+                  OK
+                </motion.button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
