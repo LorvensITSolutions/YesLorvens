@@ -134,6 +134,7 @@ const ProjectCard = ({ project, index }) => {
       <div
         className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
           }`}
+        style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}
       >
         {/* Enhanced Image Section */}
         <div className="lg:w-1/2 relative group">
@@ -326,7 +327,7 @@ const ProjectsPage = () => {
     : projects.filter((p) => p.category === filter);
 
   return (
-    <div className="min-h-screen relative overflow-hidden md:pt-18 bg-orange-50">
+    <div className="min-h-screen relative overflow-hidden md:pt-18 bg-orange-50" style={{ WebkitOverflowScrolling: 'touch' }}>
       {/* Hero Section */}
       <section
         className="relative min-h-[80vh] flex items-center justify-center px-6 lg:px-12 overflow-hidden"
@@ -390,7 +391,7 @@ const ProjectsPage = () => {
       </motion.div>
 
       {/* Enhanced Projects Section */}
-      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16 max-w-7xl relative">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16 max-w-7xl relative" style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={filter}

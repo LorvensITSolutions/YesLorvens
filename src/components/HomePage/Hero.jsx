@@ -46,10 +46,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-24"
-      style={{
-        height: '110vh' // Full viewport height - content will be centered vertically
-      }}
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-24 min-h-[85vh] md:h-[110vh]"
     >
       {/* Desktop background */}
       <div
@@ -65,14 +62,13 @@ const Hero = () => {
 
       {/* Mobile background */}
       <div
-        className="md:hidden absolute inset-0 w-full h-[20vh]"
+        className="md:hidden absolute inset-0 w-full h-full"
         style={{
           backgroundColor: "#111827",
           backgroundImage: `url(${mobileBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          minHeight: '100%'
+          backgroundRepeat: 'no-repeat'
         }}
       />
 
@@ -87,10 +83,10 @@ const Hero = () => {
           animate="show"
         >
           <h1 className="font-extrabold leading-snug">
-            <span className="block text-white text-3xl sm:text-4xl md:text-4xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block text-white text-4xl sm:text-4xl md:text-4xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
               Digital solutions built
             </span>
-            <span className="block mt-2 text-3xl sm:text-4xl md:text-4xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
+            <span className="block mt-2 text-4xl sm:text-4xl md:text-4xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-2xl">
               <span className="text-white">for </span>
               <span className="text-orange-500">growth & scale</span>
             </span>

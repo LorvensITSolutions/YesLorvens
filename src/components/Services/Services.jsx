@@ -131,7 +131,7 @@ const ServiceCard = ({ service, index }) => {
       viewport={{ once: true }}
       custom={index}
     >
-      <div className="relative h-full bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300">
+      <div className="relative h-full bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300" style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}>
         {/* Image Section */}
         <div className="relative overflow-hidden h-64 sm:h-72">
           <motion.img
@@ -246,6 +246,7 @@ const WhyChooseUsSection = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
+      style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
@@ -313,6 +314,7 @@ const CTASection = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
+      style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
     >
       <div className="max-w-5xl mx-auto text-center">
         <motion.h2 
@@ -368,12 +370,14 @@ const Services = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      style={{ WebkitOverflowScrolling: 'touch' }}
     >
       <HeroSection />
 
       {/* Services Grid Section */}
       <motion.section 
         className="py-16 px-6 lg:px-20"
+        style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
       >
         <motion.div 
           className="max-w-7xl mx-auto"
