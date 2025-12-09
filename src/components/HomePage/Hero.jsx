@@ -124,12 +124,12 @@ const Hero = () => {
         >
           <Link
             to="/services"
-            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-10 bg-gray-800/90 text-orange-300 border border-orange-500 rounded-md hover:bg-gray-700/90 font-semibold transition-colors mb-4 landscape:mb-0"
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 h-12 sm:h-10 bg-gray-800/90 text-orange-300 border border-orange-500 rounded-md hover:bg-gray-700/90 font-semibold transition-colors mb-4 landscape:mb-3"
           >
             Our services
           </Link>
           <button
-            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-10 rounded-md hover:bg-orange-600 font-medium transition-colors"
+            className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-10 rounded-md hover:bg-orange-600 font-medium transition-colors landscape:mb-3"
             onClick={handleWorkTogetherClick}
             aria-label="Open Work Together modal to get in touch"
           >
