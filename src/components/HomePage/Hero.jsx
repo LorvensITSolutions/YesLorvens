@@ -90,7 +90,7 @@ const Hero = () => {
           initial="hidden"
           animate="show"
         >
-          <h1 className="font-extrabold leading-snug">
+          <h1 className="font-extrabold leading-snug ">
             <span className="block text-white text-4xl sm:text-4xl md:text-4xl lg:text-6xl whitespace-nowrap max-[420px]:text-2xl">
               Digital solutions built
             </span>

@@ -264,7 +264,7 @@ const ContactPage = () => {
       formPayload.append('_next', window.location.href);
 
       // Submit using fetch API
-      const response = await fetch('https://formsubmit.co/ajax/harshithaborusu33@gmail.com', {
+      const response = await fetch('https://formsubmit.co/yeslorvenssolutions@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -296,7 +296,7 @@ const ContactPage = () => {
         // Check for activation error specifically
         const errorMessage = result.message || 'Failed to send message';
         if (errorMessage.toLowerCase().includes('activation') || errorMessage.toLowerCase().includes('actived')) {
-          throw new Error('Form activation required. Please check your email (yeslorvens@gmail.com) for the activation link from FormSubmit.co and click it to activate the form.');
+          throw new Error('Form activation required. Please check your email (yeslorvenssolutions@gmail.com) for the activation link from FormSubmit.co and click it to activate the form.');
         }
         throw new Error(errorMessage);
       }
@@ -400,7 +400,7 @@ const ContactPage = () => {
               </div>
 
               <form
-                action="https://formsubmit.co/yeslorvens@gmail.com"
+                action="https://formsubmit.co/yeslorvenssolutions@gmail.com"
                 method="POST"
                 onSubmit={handleSubmit}
                 className="space-y-5"
