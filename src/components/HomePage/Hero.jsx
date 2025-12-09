@@ -85,7 +85,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content - Center aligned on mobile, left aligned on md and up */}
-      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-3 md:space-y-6 w-full -mt-25 md:mt-0">
+      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-3 md:space-y-6 w-full  md:mt-0">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
