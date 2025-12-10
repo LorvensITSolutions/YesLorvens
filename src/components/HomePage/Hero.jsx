@@ -45,14 +45,15 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 md:pt-38 lg:pt-26 "
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-38 lg:pt-26"
       style={{
-        minHeight: 'calc(var(--vh, 1vh) * 100)',
+        minHeight: '100vh',
         height: 'auto',
-        paddingTop: 'max(4rem, calc(4rem + env(safe-area-inset-top)))',
-        paddingBottom: 'env(safe-area-inset-bottom)',
-        paddingLeft: 'max(0.5rem, env(safe-area-inset-left))',
-        paddingRight: 'max(0.5rem, env(safe-area-inset-right))'
+        paddingTop: 'calc(4rem + env(safe-area-inset-top, 0px))',
+        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        paddingLeft: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
+        paddingRight: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
+        paddingBottom: 'env(safe-area-inset-bottom, 0px)'
       }}
     >
       {/* Desktop background */}
@@ -69,14 +70,16 @@ const Hero = () => {
 
       {/* Mobile background with gradient overlay */}
       <div
-        className="md:hidden absolute inset-0 w-full h-full mt-16"
+        className="md:hidden absolute inset-0 w-full h-full"
         style={{
           backgroundColor: "#111827",
           background: `linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%), url(${mobileBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          backgroundBlendMode: 'overlay'
+          backgroundBlendMode: 'overlay',
+          top: '4rem',
+          height: 'calc(100% - 4rem)'
         }}
       />
 
@@ -84,7 +87,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content - Center aligned on mobile, left aligned on md and up */}
-      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-3 md:space-y-6 w-full  md:mt-0">
+      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-3 md:space-y-6 w-full pt-4 md:pt-0">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
