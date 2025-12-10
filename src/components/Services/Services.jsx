@@ -138,7 +138,7 @@ const HeroSection = () => {
     <section 
       className="relative min-h-[80vh]  flex items-center justify-center px-6 md:pt-18 lg:px-12 overflow-hidden"
       style={{
-        backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/v1765341830/ChatGPT_Image_Dec_10_2025_10_13_02_AM_hh6gkp.png)',
+        backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/f_auto,q_70,w_1920/v1765341830/ChatGPT_Image_Dec_10_2025_10_13_02_AM_hh6gkp.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
