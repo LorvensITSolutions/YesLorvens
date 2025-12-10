@@ -1,9 +1,30 @@
 // src/components/Footer.jsx
 import { Instagram, Linkedin, Facebook, Phone, Mail as MailIcon, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+  
+  const handleLinkClick = (e) => {
+    const targetPath = e.currentTarget.getAttribute('href');
+    const currentPath = location.pathname;
+    
+    // List of main navigation paths that should force reload
+    const mainNavPaths = ['/', '/about', '/services', '/projects', '/contact'];
+    
+    // If it's a main nav link and we're already on that page, force a full reload
+    if (mainNavPaths.includes(targetPath) && currentPath === targetPath) {
+      e.preventDefault();
+      window.location.href = targetPath;
+      return;
+    }
+    
+    // For other links or when navigating to a different page
+    if (currentPath === targetPath) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   return (
     <motion.footer
       initial={{ opacity: 0, y: 40 }}
@@ -94,32 +115,32 @@ const Footer = () => {
           </h3>
           <ul className="space-y-2.5 text-sm mt-4">
             <li>
-              <Link to="/" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/about" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/about" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 About Us
               </Link>
             </li>
             <li>
-              <Link to="/services" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/services" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Services
               </Link>
             </li>
             <li>
-              <Link to="/projects" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/projects" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Projects
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/contact" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Contact
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/contact" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Careers
               </Link>
             </li>
@@ -133,32 +154,32 @@ const Footer = () => {
           </h3>
           <ul className="space-y-2.5 text-sm mt-4">
             <li>
-              <Link to="/service/web-development" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/service/web-development" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Web Development
               </Link>
             </li>
             <li>
-              <Link to="/service/mobile-development" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/service/mobile-development" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Mobile Apps
               </Link>
             </li>
             <li>
-              <Link to="/service/ui-ux-design" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/service/ui-ux-design" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 UI/UX Design
               </Link>
             </li>
             <li>
-              <Link to="/service/digital-marketing" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/service/digital-marketing" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Digital Marketing
               </Link>
             </li>
             <li>
-              <Link to="/service/ai-ml-integration" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/service/ai-ml-integration" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 AI/ML Integrations
               </Link>
             </li>
             <li>
-              <Link to="/service/quality-assurance" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/service/quality-assurance" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Quality Assurance
               </Link>
             </li>
@@ -172,12 +193,12 @@ const Footer = () => {
           </h3>
           <ul className="space-y-2.5 text-sm mt-4">
             <li>
-              <Link to="/privacy-policy" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/privacy-policy" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link to="/terms-of-use" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
+              <Link to="/terms-of-use" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Terms of use
               </Link>
             </li>
