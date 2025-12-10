@@ -45,7 +45,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900 pt-16 md:pt-38 lg:pt-26"
+      className="relative flex items-center justify-center md:justify-start w-full overflow-hidden bg-gray-900"
       style={{
         minHeight: '100vh',
         height: 'auto',
@@ -53,7 +53,7 @@ const Hero = () => {
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         paddingLeft: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
         paddingRight: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+        marginTop: 'env(safe-area-inset-top, 0px)'
       }}
     >
       {/* Desktop background */}
@@ -78,8 +78,8 @@ const Hero = () => {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundBlendMode: 'overlay',
-          top: '4rem',
-          height: 'calc(100% - 4rem)'
+          top: 'calc(4rem + env(safe-area-inset-top, 0px))',
+          height: 'calc(100% - 4rem - env(safe-area-inset-top, 0px))'
         }}
       />
 
@@ -87,7 +87,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content - Center aligned on mobile, left aligned on md and up */}
-      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-3 md:space-y-6 w-full pt-4 md:pt-0">
+      <div className="relative z-10 px-2 sm:px-6 md:px-16 lg:px-24 max-w-3xl text-center md:text-left space-y-3 md:space-y-6 w-full py-4">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
