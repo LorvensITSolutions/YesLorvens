@@ -15,14 +15,15 @@ const ReadyTransform = () => {
   };
 
   return (
-    <section className="py-12 px-6 md:px-12 lg:px-20 relative">
+    <section className="py-12 px-6 md:px-12 lg:px-20 relative" style={{ willChange: 'auto', transform: 'translateZ(0)' }}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           variants={fadeInUp}
           className="text-center mb-16"
+          style={{ willChange: 'auto' }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-4">
             Ready to Transform Your Vision?
@@ -53,10 +54,11 @@ const ReadyTransform = () => {
               key={item.title}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               variants={fadeInUp}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group flex flex-col bg-gradient-to-br from-orange-50 to-orange-20 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-8"
+              transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
+              className="group flex flex-col bg-gradient-to-br from-orange-50 to-orange-20 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-orange-100 p-8"
+              style={{ willChange: 'auto', transform: 'translateZ(0)' }}
             >
               <div className="flex-1">
                 <h3 className="text-2xl font-semibold text-gray-600 mb-4">

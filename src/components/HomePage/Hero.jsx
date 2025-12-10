@@ -63,18 +63,26 @@ const Hero = () => {
         paddingTop: 'max(4rem, calc(4rem + env(safe-area-inset-top)))',
         paddingBottom: 'env(safe-area-inset-bottom)',
         paddingLeft: 'max(0.5rem, env(safe-area-inset-left))',
-        paddingRight: 'max(0.5rem, env(safe-area-inset-right))'
+        paddingRight: 'max(0.5rem, env(safe-area-inset-right))',
+        willChange: 'auto',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)'
       }}
     >
       {/* Desktop background with blur-up effect */}
-      <div className="hidden md:block absolute inset-0 w-full h-full bg-gray-900">
+      <div className="hidden md:block absolute inset-0 w-full h-full bg-gray-900" style={{ willChange: 'auto', transform: 'translateZ(0)' }}>
         {/* Low quality placeholder for instant display */}
         <img
           src={desktopBgPlaceholder}
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'blur(10px)', transform: 'scale(1.1)' }}
+          style={{ 
+            filter: 'blur(10px)', 
+            transform: 'scale(1.1) translateZ(0)',
+            willChange: 'auto',
+            backfaceVisibility: 'hidden'
+          }}
         />
         {/* High quality image */}
         <img
@@ -84,6 +92,7 @@ const Hero = () => {
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
+          style={{ willChange: 'opacity', backfaceVisibility: 'hidden' }}
           loading="eager"
           fetchPriority="high"
           onLoad={() => setImageLoaded(true)}
@@ -91,17 +100,22 @@ const Hero = () => {
       </div>
 
       {/* Mobile background with blur-up effect */}
-      <div className="md:hidden absolute inset-0 w-full h-full mt-16 bg-gray-900">
+      <div className="md:hidden absolute inset-0 w-full h-full mt-16 bg-gray-900" style={{ willChange: 'auto', transform: 'translateZ(0)' }}>
         {/* Low quality placeholder */}
         <img
           src={mobileBgPlaceholder}
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'blur(10px)', transform: 'scale(1.1)' }}
+          style={{ 
+            filter: 'blur(10px)', 
+            transform: 'scale(1.1) translateZ(0)',
+            willChange: 'auto',
+            backfaceVisibility: 'hidden'
+          }}
         />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/30" style={{ willChange: 'auto' }} />
         {/* High quality image */}
         <img
           src={mobileBg}
@@ -110,6 +124,7 @@ const Hero = () => {
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
+          style={{ willChange: 'opacity', backfaceVisibility: 'hidden' }}
           loading="eager"
           fetchPriority="high"
           onLoad={() => setImageLoaded(true)}

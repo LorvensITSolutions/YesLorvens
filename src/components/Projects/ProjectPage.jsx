@@ -4,7 +4,7 @@ import { ArrowRight, Target } from "lucide-react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 // Project images - Optimized with Cloudinary transformations for better performance
-const school = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765296136/EDU-2_vs4x5s.png"
+const school = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765349313/edureachweb_rbcuwg.png"
 const lumiere1 = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169181/ChatGPT_Image_Dec_8_2025_10_15_15_AM_ghors1.png"
 const smiles1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169442/ChatGPT_Image_Dec_8_2025_10_20_32_AM_e1ot2u.png"
 const slim1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169560/ChatGPT_Image_Dec_8_2025_10_22_29_AM_q09vhf.png"

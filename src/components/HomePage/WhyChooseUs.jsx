@@ -15,14 +15,15 @@ const WhyChooseUs = () => {
   };
 
   return (
-    <section className="py-12 px-6 md:px-12 lg:px-20 relative bg-orange-50">
+    <section className="py-12 px-6 md:px-12 lg:px-20 relative bg-orange-50" style={{ willChange: 'auto', transform: 'translateZ(0)' }}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           variants={fadeInUp}
           className="text-center mb-16"
+          style={{ willChange: 'auto' }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-4">
             Why Choose Us
@@ -36,9 +37,10 @@ const WhyChooseUs = () => {
           <motion.div 
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             variants={fadeInUp}
             className="w-full md:w-[80%] lg:w-1/2"
+            style={{ willChange: 'auto' }}
           >
             <div className="relative group overflow-hidden rounded-2xl shadow-lg">
               <img 
@@ -85,10 +87,11 @@ const WhyChooseUs = () => {
                 key={item.title}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
                 variants={fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group flex flex-col items-start gap-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-6 h-full"
+                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
+                className="group flex flex-col items-start gap-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-orange-100 p-6 h-full"
+                style={{ willChange: 'auto', transform: 'translateZ(0)' }}
               >
                 <div>
                   {item.icon}

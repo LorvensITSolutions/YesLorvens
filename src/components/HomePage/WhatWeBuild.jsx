@@ -15,13 +15,14 @@ const WhatWeBuild = () => {
   };
 
   return (
-    <section className="relative py-20 px-4 md:px-12 overflow-hidden">
+    <section className="relative py-20 px-4 md:px-12 overflow-hidden" style={{ willChange: 'auto', transform: 'translateZ(0)' }}>
       <motion.div
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-50px" }}
         variants={fadeInUp}
         className="text-center mb-16 relative z-10"
+        style={{ willChange: 'auto' }}
       >
         <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-6">
           What We Build for You
@@ -68,10 +69,11 @@ const WhatWeBuild = () => {
             key={service.title}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             variants={fadeInUp}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group flex items-start gap-4 bg-gradient-to-br from orange-20 to-orange-50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-6"
+            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
+            className="group flex items-start gap-4 bg-gradient-to-br from orange-20 to-orange-50 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-orange-100 p-6"
+            style={{ willChange: 'auto', transform: 'translateZ(0)' }}
           >
             <div>
               {service.icon}
