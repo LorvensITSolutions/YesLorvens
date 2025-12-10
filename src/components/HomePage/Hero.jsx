@@ -94,7 +94,7 @@ const Hero = () => {
           animate="show"
         >
           <h1 className="font-extrabold leading-snug ">
-            <span className="block text-white text-4xl sm:text-4xl md:text-3xl lg:text-6xl whitespace-nowrap max-[420px]:text-[34px] mb-3 lg:mb-0">
+            <span className="block text-white text-4xl sm:text-4xl md:text-3xl lg:text-6xl whitespace-nowrap max-[420px]:text-[34px] mb-3 lg:mb-0 md:mt-6">
               Digital solutions built
             </span>
             <span className="block mt-2 text-4xl sm:text-4xl md:text-3xl lg:text-6xl font-extrabold tracking-tight whitespace-nowrap max-[420px]:text-[34px] mb-9 lg-mb-0 ">
