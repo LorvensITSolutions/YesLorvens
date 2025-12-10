@@ -287,7 +287,7 @@ const ServiceDetail = () => {
 
                   <button
                     onClick={() => navigate("/contact")}
-                    className="w-full mt-6 bg-orange-600 text-white py-4 px-6 rounded-xl font-bold hover:bg-orange-700 transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full mt-6 bg-orange-600 text-white py-4 px-6 rounded-xl font-bold hover:bg-orange-700 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     Start Your Project
                     <ArrowRight className="h-5 w-5" />
@@ -357,13 +357,13 @@ const ServiceDetail = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => navigate("/contact")}
-              className="bg-orange-600 text-white hover:bg-orange-700 px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="bg-orange-600 text-white hover:bg-orange-700 px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
             >
               Get Started
             </button>
             <button
               onClick={() => navigate("/contact")}
-              className="border-2 border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-4 rounded-xl font-bold transition-all duration-300"
+              className="border-2 border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-4 rounded-xl font-bold transition-all duration-300 cursor-pointer"
             >
               Contact Us
             </button>

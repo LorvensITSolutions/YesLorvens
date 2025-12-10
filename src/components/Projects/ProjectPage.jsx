@@ -327,7 +327,7 @@ const ProjectsPage = () => {
                   whileTap={{ scale: 0.98 }}
                   className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 
                            rounded-xl font-bold text-lg flex items-center group 
-                           transition-all"
+                           transition-all cursor-pointer"
                 >
 
                   Start Your Project

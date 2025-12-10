@@ -389,14 +389,14 @@ const CTASection = () => {
           variants={fadeInUp}
         >
           <Link to="/contact" className="w-full sm:w-auto">
-            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1" aria-label="Get started with our services">
+            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer" aria-label="Get started with our services cursor-pointer">
               <span>Get Started Today</span>
               <ArrowRight className="h-5 w-5" />
             </button>
           </Link>
           
           <Link to="/projects" className="w-full sm:w-auto">
-            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1" aria-label="View our portfolio and projects">
+            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer" aria-label="View our portfolio and projects ">
               <Eye className="h-5 w-5" />
               <span>View Our Work</span>
             </button>

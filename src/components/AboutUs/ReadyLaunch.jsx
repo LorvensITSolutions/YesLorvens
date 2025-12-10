@@ -78,7 +78,7 @@ const ReadyLaunch = () => {
             variants={item}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-medium flex items-center justify-center gap-2"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-medium flex items-center justify-center gap-2 cursor-pointer"
           >
             Get Started <ArrowRight size={18} className="inline" />
           </motion.button>
@@ -87,7 +87,7 @@ const ReadyLaunch = () => {
             variants={item}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-3 rounded-full font-medium"
+            className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-3 rounded-full font-medium cursor-pointer"
           >
             View Our Work
           </motion.button>
