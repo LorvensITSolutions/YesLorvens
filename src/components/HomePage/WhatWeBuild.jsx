@@ -3,19 +3,19 @@ import { Lightbulb, Rocket, Building2, UserSearch } from "lucide-react";
 
 const WhatWeBuild = () => {
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     show: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.6
+        duration: 0.4,
+        ease: "easeOut"
       }
     }
   };
 
   return (
     <section className="relative py-20 px-4 md:px-12 overflow-hidden">
-      {/* Section Header */}
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -31,7 +31,6 @@ const WhatWeBuild = () => {
         </p>
       </motion.div>
 
-      {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
         {[
           {

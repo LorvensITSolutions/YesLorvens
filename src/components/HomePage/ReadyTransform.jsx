@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 
 const ReadyTransform = () => {
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     show: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.6
+        duration: 0.4,
+        ease: "easeOut"
       }
     }
   };

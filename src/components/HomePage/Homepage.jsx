@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 import Hero from "./Hero";
 
-// Lazy load non-critical sections for better initial load performance
 const WhatWeBuild = lazy(() => import("./WhatWeBuild"));
 const WhyUs = lazy(() => import("./WhyChooseUs"));
 const ReadyTransform = lazy(() => import("./ReadyTransform"));
@@ -9,10 +8,8 @@ const ReadyTransform = lazy(() => import("./ReadyTransform"));
 const HomePage = () => {
   return (
     <>
-      {/* Hero loads immediately - no lazy loading */}
       <Hero />
 
-      {/* Other sections lazy loaded for better performance */}
       <Suspense fallback={null}>
         <WhatWeBuild />
       </Suspense>

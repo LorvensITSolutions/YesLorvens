@@ -5,13 +5,14 @@ export default function SecurityPolicy() {
     <div className="w-full">
 
       {/* HERO SECTION */}
-      <section className="w-full bg-[#FFEAD1] min-h-[260px] md:min-h-[300px] lg:min-h-[330px] px-8 pt-35 pb-10">
+      <section className="w-full bg-[#FFEAD1] min-h-[200px] md:min-h-[300px] lg:min-h-[330px]  lg:px-8 pt-30 lg:pt-35 pb-10">
   <div className="max-w-7xl mx-auto mt-4">
-    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#BF5500] leading-tight">
+    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#BF5500] leading-tight text-center md:text-left">
       Privacy Policy
     </h1>
   </div>
 </section>
+
 
       {/* ---------- CONTENT SECTION ---------- */}
       <section className="w-full bg-gray-50 py-5 px-4">

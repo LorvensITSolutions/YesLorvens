@@ -97,6 +97,14 @@ const ServiceDetail = () => {
   const navigate = useNavigate();
   const service = services.find((s) => s.id === serviceId);
   const relatedServices = services.filter(s => s.id !== serviceId).slice(0, 3);
+  
+  // Force animation reset when serviceId changes
+  const [animationKey, setAnimationKey] = React.useState(0);
+  
+  React.useEffect(() => {
+    // Reset animation key when serviceId changes to trigger animations
+    setAnimationKey(prev => prev + 1);
+  }, [serviceId]);
 
   if (!service) {
     return (
@@ -122,6 +130,7 @@ const ServiceDetail = () => {
       
       {/* Hero Section */}
       <motion.section 
+        key={`hero-${animationKey}`}
         className="relative min-h-[80vh] flex items-center justify-center px-6 lg:px-12 overflow-hidden"
         style={{
           backgroundImage: `url(${service.image})`,
@@ -131,8 +140,7 @@ const ServiceDetail = () => {
           position: 'relative'
         }}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate="visible"
         variants={{
           hidden: { opacity: 0 },
           visible: { 
@@ -145,15 +153,16 @@ const ServiceDetail = () => {
         <div className="absolute inset-0 bg-black/40"></div>
 
         <motion.div 
+          key={`hero-content-${animationKey}`}
           className="relative z-10 text-center"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          animate="visible"
           variants={{
             hidden: {},
             visible: {
               transition: {
-                staggerChildren: 0.1
+                staggerChildren: 0.1,
+                delayChildren: 0.2
               }
             }
           }}
@@ -175,10 +184,11 @@ const ServiceDetail = () => {
 
       {/* Service Details */}
       <motion.section 
+        key={`details-${animationKey}`}
         className="py-16 md:py-24 bg-white"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: false, margin: "-100px" }}
         variants={{
           hidden: { opacity: 0, y: 20 },
           visible: { 
@@ -189,21 +199,22 @@ const ServiceDetail = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div 
-            className="grid md:grid-cols-3 gap-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.1,
-                  delayChildren: 0.2
+            <motion.div 
+              key={`grid-${animationKey}`}
+              className="grid md:grid-cols-3 gap-12"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, margin: "-100px" }}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.1,
+                    delayChildren: 0.2
+                  }
                 }
-              }
-            }}
-          >
+              }}
+            >
             {/* Main Content */}
             <motion.div 
               className="md:col-span-2"

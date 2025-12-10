@@ -3,12 +3,13 @@ import { CheckCircle, Award, Users, Shield } from "lucide-react";
 
 const WhyChooseUs = () => {
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     show: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.6
+        duration: 0.4,
+        ease: "easeOut"
       }
     }
   };
@@ -32,7 +33,6 @@ const WhyChooseUs = () => {
         </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-10 items-center">
-          {/* Left Side - Image */}
           <motion.div 
             initial="hidden"
             whileInView="show"
@@ -42,10 +42,13 @@ const WhyChooseUs = () => {
           >
             <div className="relative group overflow-hidden rounded-2xl shadow-lg">
               <img 
-                src="https://res.cloudinary.com/durbtkhbz/image/upload/v1764929871/ChatGPT_Image_Dec_5_2025_03_46_49_PM_rsno1r.png" 
+                src="https://res.cloudinary.com/durbtkhbz/image/upload/f_auto,q_auto,w_800/v1764929871/ChatGPT_Image_Dec_5_2025_03_46_49_PM_rsno1r.png" 
                 alt="Team working together"
                 className="w-full h-100 object-cover"
                 loading="lazy"
+                width="800"
+                height="600"
+                decoding="async"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <p className="text-white text-xl font-semibold px-4 text-center">
@@ -55,7 +58,6 @@ const WhyChooseUs = () => {
             </div>
           </motion.div>
 
-          {/* Right Side - 2x2 Grid */}
           <div className="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {

@@ -1,4 +1,4 @@
-// React import not needed in React 17+
+import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye, Shield, CheckCircle2, Globe, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -126,11 +126,19 @@ const services = [
 
 // Hero Section
 const HeroSection = () => {
+  // Use location key to trigger animation on route change
+  const [animationKey, setAnimationKey] = React.useState(0);
+  
+  React.useEffect(() => {
+    // Reset animation when component mounts (on navigation)
+    setAnimationKey(prev => prev + 1);
+  }, []);
+  
   return (
     <section 
       className="relative min-h-[80vh]  flex items-center justify-center px-6 md:pt-18 lg:px-12 overflow-hidden"
       style={{
-        backgroundImage: 'url(https://res.cloudinary.com/di4caiech/image/upload/w_1920,h_1080,f_auto,q_auto/v1764957807/service_g9f7bo.jpg)',
+        backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/v1765341830/ChatGPT_Image_Dec_10_2025_10_13_02_AM_hh6gkp.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -141,6 +149,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       <motion.div
+        key={`services-hero-${animationKey}`}
         className="relative z-10 text-center"
         initial="hidden"
         animate="visible"
@@ -148,7 +157,8 @@ const HeroSection = () => {
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.1
+              staggerChildren: 0.1,
+              delayChildren: 0.1
             }
           }
         }}

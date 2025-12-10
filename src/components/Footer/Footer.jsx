@@ -178,7 +178,7 @@ const Footer = () => {
             </li>
             <li>
               <Link to="/terms-of-use" className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
-                Terms of Use
+                Terms of use
               </Link>
             </li>
           </ul>

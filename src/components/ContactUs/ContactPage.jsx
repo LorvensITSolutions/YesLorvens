@@ -3,85 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {Mail,MapPin,Phone,CheckCircle,Globe,MessageCircle,Send} from "lucide-react";
-
-const ContactInfoCard = ({ icon: Icon, title, info, gradient }) => {
-  const safeInfo = String(info || "");
-
-  const isEmail = safeInfo.includes("@");
-  const isPhone = safeInfo.includes("+91");
-  const isLocation = !isEmail && !isPhone;
-
-  const lines = safeInfo.split("\n").filter(Boolean);
-  const email = isEmail ? lines[0] : null;
-  const phones = isPhone ? lines.slice(0, 2) : [];
-  const location = isLocation ? safeInfo : null;
-  const description = lines[2] || null;
-
-  return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-orange-100 transition-all duration-300">
-      <div className="flex items-center gap-4 mb-4">
-        <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${gradient}`}>
-          <Icon size={28} className="text-white" />
-        </div>
-        <h3 className="text-lg font-bold text-gray-800">{title}</h3>
-      </div>
-
-      <div className="text-gray-700 leading-relaxed space-y-1">
-        {email && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-              
-              if (isMobile) {
-                // For mobile devices, use mailto:
-                window.location.href = `mailto:${email}`;
-              } else {
-                // For desktop, open Gmail compose in a new tab
-                const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
-                window.open(gmailUrl, '_blank');
-              }
-            }}
-            className="font-semibold hover:text-[#FFA559] cursor-pointer transition-all duration-300 block text-left w-full"
-          >
-            {email}
-          </button>
-        )}
-
-        {phones[0] && (
-          <a
-            href={`tel:${phones[0]}`}
-            className="font-semibold hover:text-[#FFA559] cursor-pointer transition-all duration-300 block"
-          >
-            {phones[0]}
-          </a>
-        )}
-        {phones[1] && (
-          <a
-            href={`tel:${phones[1]}`}
-            className="font-semibold hover:text-[#FFA559] cursor-pointer transition-all duration-300 block"
-          >
-            {phones[1]}
-          </a>
-        )}
-
-        {location && !email && !isPhone && (
-          <a
-            href={`https://maps.google.com/?q=${encodeURIComponent(location)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold hover:text-[#FFA559] cursor-pointer transition-all duration-300 block"
-          >
-            {location}
-          </a>
-        )}
-
-        {description && <p className="text-gray-600">{description}</p>}
-      </div>
-    </div>
-  );
-};
-
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -235,6 +156,16 @@ const ContactPage = () => {
     }
   };
 
+  // Sanitize input to prevent pattern matching errors
+  const sanitizeInput = (value) => {
+    if (typeof value !== 'string') return '';
+    // Remove any potentially problematic characters while preserving content
+    return value.trim().replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
+  };
+
+  // Formspree endpoint
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldqpblz';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -257,40 +188,49 @@ const ContactPage = () => {
     setSuccess(false);
     setFormError(null);
 
-    try {
-      // Create form data with all required fields
-      const formPayload = new URLSearchParams();
-      formPayload.append('name', formData.name);
-      formPayload.append('email', formData.email);
-      formPayload.append('subject', formData.subject);
-      formPayload.append('message', formData.message);
-      formPayload.append('_captcha', 'false');
-      formPayload.append('_template', 'table');
-      formPayload.append('_subject', 'New Contact Form Submission from YES LORVENS Website');
-      formPayload.append('_next', window.location.href);
+    // Sanitize all inputs before submission
+    const sanitizedData = {
+      name: sanitizeInput(formData.name),
+      email: sanitizeInput(formData.email),
+      subject: sanitizeInput(formData.subject),
+      message: sanitizeInput(formData.message)
+    };
 
-      // Submit using fetch API
-      const response = await fetch('https://formsubmit.co/ajax/yeslorvenssolutions@gmail.com', {
+    // Submit to Formspree
+    try {
+      // Prepare JSON payload for Formspree
+      const formPayload = {
+        name: sanitizedData.name,
+        email: sanitizedData.email,
+        subject: sanitizedData.subject,
+        message: sanitizedData.message,
+        _subject: 'New Contact Form Submission from YES LORVENS Website'
+      };
+
+      // Submit using fetch API with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: formPayload.toString()
+        body: JSON.stringify(formPayload),
+        signal: controller.signal
       });
 
-      // Check if response is JSON
-      const contentType = response.headers.get('content-type');
+      clearTimeout(timeoutId);
+
+      // Formspree returns JSON response
       let result;
-      
-      if (contentType && contentType.includes('application/json')) {
+      try {
         result = await response.json();
-      } else {
-        // If response is HTML, it might be a redirect or error page
-        const text = await response.text();
-        // If response is successful but returns HTML (redirect), consider it a success
+      } catch (parseError) {
+        // If response is not JSON, check if it's a success (200 status)
         if (response.ok) {
-          // FormSubmit sometimes returns HTML redirect on success
+          // Formspree sometimes returns empty response on success
           setSuccess(true);
           setLoading(false);
           setFormData({
@@ -308,12 +248,13 @@ const ContactPage = () => {
           setErrors({});
           return;
         } else {
-          throw new Error('Form submission failed. Please try again or contact us directly.');
+          throw new Error('Form submission failed. Please try again.');
         }
       }
       
-      if (response.ok && result.success === 'true') {
-        // Show success message
+      // Check Formspree response
+      if (response.ok) {
+        // Formspree returns { ok: true } or similar on success
         setSuccess(true);
         setLoading(false);
         setFormData({
@@ -330,16 +271,24 @@ const ContactPage = () => {
         });
         setErrors({});
       } else {
-        // Check for activation error specifically
-        const errorMessage = result.message || 'Failed to send message';
-        if (errorMessage.toLowerCase().includes('activation') || errorMessage.toLowerCase().includes('actived')) {
-          throw new Error('Form activation required. Please check your email (yeslorvenssolutions@gmail.com) for the activation link from FormSubmit.co and click it to activate the form.');
-        }
+        // Handle Formspree errors
+        const errorMessage = result?.error || result?.message || 'Failed to send message. Please try again.';
         throw new Error(errorMessage);
       }
     } catch (err) {
       console.error("❌ Error submitting contact form:", err);
-      setFormError(`Failed to send message: ${err.message}. Please try again or contact us directly.`);
+      
+      let errorMessage = "Failed to send message. ";
+      
+      if (err.name === 'AbortError') {
+        errorMessage += "Request timed out. Please check your connection and try again.";
+      } else if (err.message) {
+        errorMessage += err.message;
+      } else {
+        errorMessage += "Please try again or contact us directly at yeslorvenssolutions@gmail.com";
+      }
+      
+      setFormError(errorMessage);
       setLoading(false);
     }
   };
@@ -432,18 +381,9 @@ const ContactPage = () => {
               </div>
 
               <form
-                action="https://formsubmit.co/yeslorvenssolutions@gmail.com"
-                method="POST"
                 onSubmit={handleSubmit}
                 className="space-y-5"
               >
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input
-                  type="hidden"
-                  name="_subject"
-                  value="New Contact Form Submission from YES LORVENS Website"
-                />
 
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -588,7 +528,17 @@ const ContactPage = () => {
                   <h3 className="text-xl font-bold text-gray-900">Email Us</h3>
                 </div>
                 <div className="space-y-1 text-gray-600 flex-grow">
-                  <a href="mailto:yeslorvenssolutions@gmail.com" className="block hover:text-orange-600 transition-colors font-medium">
+                  <a 
+                    href="mailto:yeslorvenssolutions@gmail.com"
+                    onClick={(e) => {
+                      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                      if (!isMobile) {
+                        e.preventDefault();
+                        window.open('https://mail.google.com/mail/?view=cm&fs=1&to=yeslorvenssolutions@gmail.com', '_blank');
+                      }
+                    }}
+                    className="block hover:text-orange-600 transition-colors font-medium cursor-pointer"
+                  >
                     yeslorvenssolutions@gmail.com
                   </a>
                   <p className="text-sm text-gray-600 mt-2">Connect with our team for any inquiries</p>

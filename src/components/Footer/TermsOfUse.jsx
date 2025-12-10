@@ -6,9 +6,9 @@ export default function TermsOfUse() {
   return (
     <div className="w-full">
      {/* ---------- HERO SECTION ---------- */}
-   <section className="w-full bg-[#FFEAD1] min-h-[260px] md:min-h-[300px] lg:min-h-[330px] px-8 pt-35 pb-10">
-  <div className="max-w-7xl mx-auto mt-4">
-    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#BF5500] leading-tight">
+   <section className="w-full bg-[#FFEAD1] min-h-[200px] md:min-h-[300px] lg:min-h-[330px]  lg:px-8 pt-30 lg:pt-35 pb-10">
+  <div className="max-w-7xl mx-auto lg:mt-4">
+    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#BF5500] leading-tight text-center md:text-left">
       Terms Of Use
     </h1>
   </div>
@@ -220,14 +220,16 @@ We value your trust and are committed to keeping your personal data safe and sec
            If you have any questions or concerns about these Terms of Use, please feel free to contact us:
           </p>
 
-       {/* Contact Email */}
-{/* Email Link */}
-{/* Email Link */}
 <a
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=yeslorvenssolutions@gmail.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="text-gray-700 font-semibold flex items-center gap-3 hover:text-[#B44A00] transition-all duration-300 group"
+  href="mailto:yeslorvenssolutions@gmail.com"
+  onClick={(e) => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (!isMobile) {
+      e.preventDefault();
+      window.open('https://mail.google.com/mail/?view=cm&fs=1&to=yeslorvenssolutions@gmail.com', '_blank', 'noopener,noreferrer');
+    }
+  }}
+  className="text-gray-700 font-semibold flex items-center gap-3 hover:text-[#B44A00] transition-all duration-300 group cursor-pointer"
 >
   <Mail 
     className="w-6 h-6 text-[#B44A00] group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" 
