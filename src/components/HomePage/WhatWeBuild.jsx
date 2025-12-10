@@ -3,26 +3,25 @@ import { Lightbulb, Rocket, Building2, UserSearch } from "lucide-react";
 
 const WhatWeBuild = () => {
   const fadeInUp = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 0, y: 20 },
     show: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.4,
-        ease: "easeOut"
+        duration: 0.6
       }
     }
   };
 
   return (
-    <section className="relative py-20 px-4 md:px-12 overflow-hidden" style={{ willChange: 'auto', transform: 'translateZ(0)' }}>
+    <section className="relative py-20 px-4 md:px-12 overflow-hidden">
+      {/* Section Header */}
       <motion.div
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, margin: "-50px" }}
+        viewport={{ once: true }}
         variants={fadeInUp}
         className="text-center mb-16 relative z-10"
-        style={{ willChange: 'auto' }}
       >
         <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-6">
           What We Build for You
@@ -32,6 +31,7 @@ const WhatWeBuild = () => {
         </p>
       </motion.div>
 
+      {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
         {[
           {
@@ -69,11 +69,10 @@ const WhatWeBuild = () => {
             key={service.title}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true }}
             variants={fadeInUp}
-            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-            className="group flex items-start gap-4 bg-gradient-to-br from orange-20 to-orange-50 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-orange-100 p-6"
-            style={{ willChange: 'auto', transform: 'translateZ(0)' }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className="group flex items-start gap-4 bg-gradient-to-br from orange-20 to-orange-50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-6"
           >
             <div>
               {service.icon}

@@ -1,5 +1,6 @@
 // ContactPage.jsx
 import { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {Mail,MapPin,Phone,CheckCircle,Globe,MessageCircle,Send} from "lucide-react";
@@ -46,6 +47,7 @@ const ContactPage = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formError, setFormError] = useState(null);
+  const [mounted, setMounted] = useState(false);
   const controls = useAnimation();
   const ref = useRef(null);
   // Optimize useInView to reduce forced reflows - use rootMargin to trigger earlier
@@ -56,6 +58,7 @@ const ContactPage = () => {
   });
 
   useEffect(() => {
+    setMounted(true);
     // Scroll to top - batched to avoid forced reflow
     // ScrollToTop component handles this, but ensure it works here too
     requestAnimationFrame(() => {
@@ -82,6 +85,14 @@ const ContactPage = () => {
     }
   }, [formError]);
 
+  // Scroll to top when success modal appears
+  useEffect(() => {
+    if (success) {
+      // Scroll to top to ensure modal is visible
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  }, [success]);
+
   // Handle OK button click - redirect to homepage
   const handleOkClick = () => {
     setSuccess(false);
@@ -94,7 +105,11 @@ const ContactPage = () => {
     
     switch (name) {
       case 'name':
-        if (!value.trim()) error = 'Name is required';
+        if (!value.trim()) {
+          error = 'Name is required';
+        } else if (!/^[A-Za-z\s]+$/.test(value)) {
+          error = 'Name should only contain letters and spaces';
+        }
         break;
       case 'email':
         if (!value) error = 'Email is required';
@@ -141,6 +156,12 @@ const ContactPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // For name field, only allow alphabetic characters and spaces
+    if (name === 'name' && value && !/^[A-Za-z\s]*$/.test(value)) {
+      return; // Don't update if invalid characters are entered
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -398,6 +419,8 @@ const ContactPage = () => {
                         value={formData.name}
                         onChange={handleChange}
                         onBlur={handleBlur('name')}
+                        pattern="[A-Za-z\s]+"
+                        title="Please enter only letters and spaces"
                         placeholder="John Doe"
                         className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
                           errors.name && touched.name
@@ -597,75 +620,98 @@ const ContactPage = () => {
         </div>
       </motion.section>
 
-      {/* Success Modal */}
-      <AnimatePresence>
-        {success && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[10000]"
-              onClick={handleOkClick}
-            />
-            
-            {/* Modal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 50 }}
-              transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed inset-0 z-[10001] flex items-center justify-center p-4"
-            >
-              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center relative">
-                {/* Success Icon */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                  className="mx-auto mb-6 w-20 h-20 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center"
+      {/* Success Modal - Rendered via Portal to ensure it's always visible */}
+      {mounted && typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {success && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+                style={{ 
+                  zIndex: 100000,
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0
+                }}
+                onClick={handleOkClick}
+              />
+              
+              {/* Modal */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 50 }}
+                transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 30 }}
+                className="fixed inset-0 flex items-center justify-center p-4"
+                style={{ 
+                  zIndex: 100001,
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  pointerEvents: 'none'
+                }}
+              >
+                <div 
+                  className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center relative"
+                  style={{ pointerEvents: 'auto' }}
                 >
-                  <CheckCircle size={48} className="text-white" />
-                </motion.div>
+                  {/* Success Icon */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                    className="mx-auto mb-6 w-20 h-20 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center"
+                  >
+                    <CheckCircle size={48} className="text-white" />
+                  </motion.div>
 
-                {/* Thank You Message */}
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-3xl font-bold text-gray-900 mb-4"
-                >
-                  Thank You!
-                </motion.h2>
+                  {/* Thank You Message */}
+                  <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-3xl font-bold text-gray-900 mb-4"
+                  >
+                    Thank You!
+                  </motion.h2>
 
-                {/* We'll Get Back Message */}
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-gray-600 text-lg mb-8 leading-relaxed"
-                >
-                  Your message has been sent successfully. We'll get back to you within 24 hours.
-                </motion.p>
+                  {/* We'll Get Back Message */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-gray-600 text-lg mb-8 leading-relaxed"
+                  >
+                    Your message has been sent successfully. We'll get back to you within 24 hours.
+                  </motion.p>
 
-                {/* OK Button */}
-                <motion.button
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  onClick={handleOkClick}
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-4 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
-                  aria-label="Go to homepage"
-                >
-                  OK
-                </motion.button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+                  {/* OK Button */}
+                  <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    onClick={handleOkClick}
+                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-4 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
+                    aria-label="Go to homepage"
+                  >
+                    OK
+                  </motion.button>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </motion.div>
   );
 };

@@ -17,13 +17,14 @@ const fadeInUp = {
   }
 };
 
+// Enhanced services data with icons and enhanced details
 const services = [
   {
     id: "web-development",
     title: "Web Development",
     description: "Create dynamic web experiences using the latest technologies",
     fullDetails: "We build modern, fast, and secure web applications tailored to your business needs. Our solutions are designed to look great, work smoothly, and grow with your business. From responsive websites that adapt to any device to progressive web apps that feel like native apps, we ensure reliability, performance, and security. Using the latest technologies like React, Next.js, and Node.js, we deliver user-friendly solutions that help your business succeed.",
-    image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://res.cloudinary.com/durbtkhbz/image/upload/v1765360081/web_tn9lbm.png",
     features: ["Responsive Design", "Progressive Web Apps", "E-commerce Integration", "Performance Optimization", "SEO Friendly", "Secure Authentication"],
     deliveryTime: "4-8 weeks",
     technologies: ["React", "Next.js", "Node.js", "MongoDB", "Tailwind CSS"],
@@ -47,7 +48,7 @@ const services = [
     title: "Digital Marketing",
     description: "Amplify your brand's reach with data-driven strategies",
     fullDetails: "We design targeted digital marketing campaigns to increase your brand's online visibility and drive more conversions. From SEO and content marketing to paid advertising, we use proven strategies to attract the right audience and grow your business. Our goal is to deliver measurable results that help you stand out in the digital space.",
-    image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://res.cloudinary.com/durbtkhbz/image/upload/v1765359692/digital_jh5xll.png",
     features: ["SEO Optimization", "Social Media Marketing", "Content Strategy", "Analytics & Reporting", "PPC Advertising", "Email Marketing"],
     deliveryTime: "2-4 weeks",
     technologies: ["Google Analytics", "Google Ads", "Facebook Ads", "SEO Tools", "Email Marketing Platforms"],
@@ -97,14 +98,6 @@ const ServiceDetail = () => {
   const navigate = useNavigate();
   const service = services.find((s) => s.id === serviceId);
   const relatedServices = services.filter(s => s.id !== serviceId).slice(0, 3);
-  
-  // Force animation reset when serviceId changes
-  const [animationKey, setAnimationKey] = React.useState(0);
-  
-  React.useEffect(() => {
-    // Reset animation key when serviceId changes to trigger animations
-    setAnimationKey(prev => prev + 1);
-  }, [serviceId]);
 
   if (!service) {
     return (
@@ -130,7 +123,6 @@ const ServiceDetail = () => {
       
       {/* Hero Section */}
       <motion.section 
-        key={`hero-${animationKey}`}
         className="relative min-h-[80vh] flex items-center justify-center px-6 lg:px-12 overflow-hidden"
         style={{
           backgroundImage: `url(${service.image})`,
@@ -140,7 +132,8 @@ const ServiceDetail = () => {
           position: 'relative'
         }}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true }}
         variants={{
           hidden: { opacity: 0 },
           visible: { 
@@ -153,16 +146,15 @@ const ServiceDetail = () => {
         <div className="absolute inset-0 bg-black/40"></div>
 
         <motion.div 
-          key={`hero-content-${animationKey}`}
           className="relative z-10 text-center"
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true }}
           variants={{
             hidden: {},
             visible: {
               transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.2
+                staggerChildren: 0.1
               }
             }
           }}
@@ -184,11 +176,10 @@ const ServiceDetail = () => {
 
       {/* Service Details */}
       <motion.section 
-        key={`details-${animationKey}`}
         className="py-16 md:py-24 bg-white"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, margin: "-100px" }}
+        viewport={{ once: true }}
         variants={{
           hidden: { opacity: 0, y: 20 },
           visible: { 
@@ -199,22 +190,21 @@ const ServiceDetail = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <motion.div 
-              key={`grid-${animationKey}`}
-              className="grid md:grid-cols-3 gap-12"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, margin: "-100px" }}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1,
-                    delayChildren: 0.2
-                  }
+          <motion.div 
+            className="grid md:grid-cols-3 gap-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                  delayChildren: 0.2
                 }
-              }}
-            >
+              }
+            }}
+          >
             {/* Main Content */}
             <motion.div 
               className="md:col-span-2"

@@ -51,7 +51,7 @@ const CoreValues = () => {
           </h2>
          
           <motion.p 
-            className="text-base text-gray-600 max-w-2xl mx-auto mt-4"
+            className="text-base text-gray-600 max-w-3xl mx-auto mt-4"
             variants={fadeIn}
             initial="hidden"
             whileInView="show"

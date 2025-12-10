@@ -1,4 +1,4 @@
-import React from "react";
+// React import not needed in React 17+
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye, Shield, CheckCircle2, Globe, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -61,6 +61,7 @@ const scaleIn = {
 };
 
 // Enhanced services data with icons and enhanced details
+// Enhanced services data with icons and enhanced details
 const services = [
   {
     id: "web-development",
@@ -69,7 +70,7 @@ const services = [
     fullDetails: "We build modern, fast, and secure web applications tailored to your business needs. From responsive design to progressive web apps, our solutions are built to perform and scale.",
     gradient: "from-blue-500 to-cyan-600",
     bgGradient: "from-blue-50 to-cyan-50",
-    image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://res.cloudinary.com/durbtkhbz/image/upload/v1765360081/web_tn9lbm.png",
     features: ["Responsive Design", "Progressive Web Apps", "E-commerce Integration", "Performance Optimization"],
   },
   {
@@ -89,7 +90,7 @@ const services = [
     fullDetails: "We create targeted digital marketing campaigns including SEO, content marketing, and paid ads to boost your online visibility and conversions.",
     gradient: "from-green-500 to-emerald-600",
     bgGradient: "from-green-50 to-emerald-50",
-    image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://res.cloudinary.com/durbtkhbz/image/upload/v1765359692/digital_jh5xll.png",
     features: ["SEO Optimization", "Social Media Marketing", "Content Strategy", "Analytics & Reporting"],
   },
   {
@@ -126,19 +127,11 @@ const services = [
 
 // Hero Section
 const HeroSection = () => {
-  // Use location key to trigger animation on route change
-  const [animationKey, setAnimationKey] = React.useState(0);
-  
-  React.useEffect(() => {
-    // Reset animation when component mounts (on navigation)
-    setAnimationKey(prev => prev + 1);
-  }, []);
-  
   return (
     <section 
       className="relative min-h-[80vh]  flex items-center justify-center px-6 md:pt-18 lg:px-12 overflow-hidden"
       style={{
-        backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/f_auto,q_70,w_1920/v1765341830/ChatGPT_Image_Dec_10_2025_10_13_02_AM_hh6gkp.png)',
+        backgroundImage: 'url(https://res.cloudinary.com/di4caiech/image/upload/w_1920,h_1080,f_auto,q_auto/v1764957807/service_g9f7bo.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -149,7 +142,6 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       <motion.div
-        key={`services-hero-${animationKey}`}
         className="relative z-10 text-center"
         initial="hidden"
         animate="visible"
@@ -157,8 +149,7 @@ const HeroSection = () => {
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.1,
-              delayChildren: 0.1
+              staggerChildren: 0.1
             }
           }
         }}

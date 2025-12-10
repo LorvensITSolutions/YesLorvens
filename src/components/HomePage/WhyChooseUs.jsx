@@ -3,27 +3,25 @@ import { CheckCircle, Award, Users, Shield } from "lucide-react";
 
 const WhyChooseUs = () => {
   const fadeInUp = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 0, y: 20 },
     show: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.4,
-        ease: "easeOut"
+        duration: 0.6
       }
     }
   };
 
   return (
-    <section className="py-12 px-6 md:px-12 lg:px-20 relative bg-orange-50" style={{ willChange: 'auto', transform: 'translateZ(0)' }}>
+    <section className="py-12 px-6 md:px-12 lg:px-20 relative bg-orange-50">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true }}
           variants={fadeInUp}
           className="text-center mb-16"
-          style={{ willChange: 'auto' }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-4">
             Why Choose Us
@@ -34,23 +32,20 @@ const WhyChooseUs = () => {
         </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-10 items-center">
+          {/* Left Side - Image */}
           <motion.div 
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true }}
             variants={fadeInUp}
             className="w-full md:w-[80%] lg:w-1/2"
-            style={{ willChange: 'auto' }}
           >
             <div className="relative group overflow-hidden rounded-2xl shadow-lg">
               <img 
-                src="https://res.cloudinary.com/durbtkhbz/image/upload/f_auto,q_auto,w_800/v1764929871/ChatGPT_Image_Dec_5_2025_03_46_49_PM_rsno1r.png" 
+                src="https://res.cloudinary.com/durbtkhbz/image/upload/v1764929871/ChatGPT_Image_Dec_5_2025_03_46_49_PM_rsno1r.png" 
                 alt="Team working together"
                 className="w-full h-100 object-cover"
                 loading="lazy"
-                width="800"
-                height="600"
-                decoding="async"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <p className="text-white text-xl font-semibold px-4 text-center">
@@ -60,6 +55,7 @@ const WhyChooseUs = () => {
             </div>
           </motion.div>
 
+          {/* Right Side - 2x2 Grid */}
           <div className="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
@@ -87,11 +83,10 @@ const WhyChooseUs = () => {
                 key={item.title}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true }}
                 variants={fadeInUp}
-                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-                className="group flex flex-col items-start gap-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-orange-100 p-6 h-full"
-                style={{ willChange: 'auto', transform: 'translateZ(0)' }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group flex flex-col items-start gap-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-6 h-full"
               >
                 <div>
                   {item.icon}

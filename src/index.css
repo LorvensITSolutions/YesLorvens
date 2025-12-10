@@ -3,9 +3,6 @@
 html {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-  /* Enable hardware acceleration for smooth scrolling */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 html,
@@ -19,12 +16,6 @@ body {
   padding: 0;
   -webkit-overflow-scrolling: touch; /* Smooth momentum scrolling on iOS */
   touch-action: pan-y; /* Enable vertical panning for better mobile scrolling */
-  /* Hardware acceleration for smooth scrolling */
-  will-change: scroll-position;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  /* Prevent scroll jank */
-  overscroll-behavior-y: contain;
 }
 
 /* iOS Safe Area Support - Use CSS variables for safe area insets */
@@ -76,24 +67,6 @@ body::-webkit-scrollbar {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Optimize scrolling performance on mobile */
-section {
-  /* Enable hardware acceleration for sections */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  /* Prevent scroll jank */
-  will-change: auto;
-  /* Smooth scrolling */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Optimize motion components for smooth scrolling */
-[data-framer-component] {
-  will-change: auto;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 /* iOS Viewport Height Fix - Use CSS custom properties for better iOS Safari support */
