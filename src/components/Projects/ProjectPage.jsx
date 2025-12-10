@@ -247,7 +247,7 @@ const ProjectsPage = () => {
         >
           <motion.h1
             variants={fadeInUp}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-orange-100 mb-4"
+            className="text-4xl sm:text-5xl md:text-4xl lg:text-6xl font-bold text-orange-100 mb-4"
           >
             Our Projects
           </motion.h1>
