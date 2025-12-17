@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import WorkTogether from "./WorkTogether";
+import { Link, useNavigate } from "react-router-dom";
 
 // Optimized images with Cloudinary transformations for better performance
 const desktopBg = "https://res.cloudinary.com/durbtkhbz/image/upload/f_auto,q_70,w_1920/v1765351082/ChatGPT_Image_Dec_10_2025_12_47_37_PM_o8xw8f.png";
 const mobileBg = "https://res.cloudinary.com/durbtkhbz/image/upload/f_auto,q_70,w_800/v1765351082/ChatGPT_Image_Dec_10_2025_12_47_37_PM_o8xw8f.png";
 const Hero = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -35,11 +34,7 @@ const Hero = () => {
   }, []);
 
   const handleWorkTogetherClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+    navigate('/contact#contact-form');
   };
 
   return (
@@ -133,15 +128,12 @@ const Hero = () => {
           <button
             className="sm:w-auto bg-orange-500 text-white px-6 sm:px-8 h-12 sm:h-10 rounded-md hover:bg-orange-600 font-medium transition-colors landscape:mb-3"
             onClick={handleWorkTogetherClick}
-            aria-label="Open Work Together modal to get in touch"
+            aria-label="Navigate to contact page"
           >
             Work Together
           </button>
         </motion.div>
       </div>
-
-      {/* Work Together Modal */}
-      <WorkTogether isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
   );
 };

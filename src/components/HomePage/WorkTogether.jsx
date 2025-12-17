@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle, Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const WorkTogether = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
@@ -8,6 +9,18 @@ const WorkTogether = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+
+  // EmailJS configuration
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_Lorvens2025';
+  const EMAILJS_WORK_TOGETHER_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WORK_TOGETHER_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID || 'template_contact';
+
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+  }, []);
 
   const handleCloseModal = () => {
     onClose();
@@ -20,7 +33,13 @@ const WorkTogether = ({ isOpen, onClose }) => {
     }, 300);
   };
 
-  const handleSubmit = (e) => {
+  // Sanitize input to prevent issues
+  const sanitizeInput = (value) => {
+    if (typeof value !== 'string') return '';
+    return value.trim().replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate form fields
@@ -42,57 +61,42 @@ const WorkTogether = ({ isOpen, onClose }) => {
     setSuccess(false);
     setError(null);
 
-    // Use iframe method for fast, reliable submission
+    // Sanitize inputs
+    const sanitizedName = sanitizeInput(name);
+    const sanitizedEmail = sanitizeInput(email);
+
+    // Submit to EmailJS
     try {
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.style.width = '0';
-      iframe.style.height = '0';
-      iframe.style.border = 'none';
-      iframe.name = 'hidden_iframe_' + Date.now();
-      document.body.appendChild(iframe);
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        name: sanitizedName,
+        email: sanitizedEmail,
+        subject: 'New Contact from Work Together Form - YES LORVENS Website',
+        message: `${sanitizedName} wants to work together. Email: ${sanitizedEmail}`,
+        // For auto-reply (if configured)
+        user_name: sanitizedName,
+        user_email: sanitizedEmail
+      };
 
-      const tempForm = document.createElement('form');
-      tempForm.method = 'POST';
-      tempForm.action = 'https://formsubmit.co/yeslorvenssolutions@gmail.com';
-      tempForm.target = iframe.name;
-      tempForm.style.display = 'none';
-
-      // Add form fields
-      const fields = [
-        { name: 'name', value: name.trim() },
-        { name: 'email', value: email.trim() },
-        { name: '_captcha', value: 'false' },
-        { name: '_template', value: 'table' },
-        { name: '_subject', value: 'New Contact from Work Together Form - YES LORVENS Website' },
-      ];
-
-      fields.forEach((field) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = field.name;
-        input.value = field.value;
-        tempForm.appendChild(input);
+      // Send email using EmailJS with timeout
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Request timeout')), 15000);
       });
 
-      document.body.appendChild(tempForm);
-      tempForm.submit();
+      const emailPromise = emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_WORK_TOGETHER_TEMPLATE_ID,
+        templateParams
+      );
 
-      // Show success immediately (iframe submission is instant)
+      // Race between email send and timeout
+      await Promise.race([emailPromise, timeoutPromise]);
+
+      // EmailJS returns { status: 200, text: 'OK' } on success
       setSuccess(true);
       setLoading(false);
       setName('');
       setEmail('');
-
-      // Clean up after a short delay
-      setTimeout(() => {
-        if (tempForm.parentNode) {
-          document.body.removeChild(tempForm);
-        }
-        if (iframe.parentNode) {
-          document.body.removeChild(iframe);
-        }
-      }, 1000);
 
       // Hide success message after 5 seconds
       setTimeout(() => {
@@ -100,7 +104,21 @@ const WorkTogether = ({ isOpen, onClose }) => {
       }, 5000);
     } catch (err) {
       console.error('❌ Error submitting form:', err);
-      setError('Failed to send message. Please try again.');
+      
+      let errorMessage = 'Failed to send message. ';
+      
+      if (err.message === 'Request timeout') {
+        errorMessage += 'Request timed out. Please check your connection and try again.';
+      } else if (err.text) {
+        // EmailJS specific error
+        errorMessage += err.text;
+      } else if (err.message) {
+        errorMessage += err.message;
+      } else {
+        errorMessage += 'Please try again.';
+      }
+      
+      setError(errorMessage);
       setLoading(false);
       setTimeout(() => {
         setError(null);

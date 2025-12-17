@@ -48,20 +48,8 @@ const fadeInUp = {
   }
 };
 
-const scaleIn = {
-  hidden: { scale: 0.8, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-};
 
-// Enhanced services data with icons and enhanced details
-// Enhanced services data with icons and enhanced details
+
 const services = [
   {
     id: "web-development",
@@ -131,7 +119,7 @@ const HeroSection = () => {
     <section 
       className="relative min-h-[80vh]  flex items-center justify-center px-6 md:pt-18 lg:px-12 overflow-hidden"
       style={{
-        backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/v1765341830/ChatGPT_Image_Dec_10_2025_10_13_02_AM_hh6gkp.png)',
+        backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/v1765961834/services_hn8yql.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -389,7 +377,7 @@ const CTASection = () => {
           viewport={{ once: true }}
           variants={fadeInUp}
         >
-          <Link to="/contact" className="w-full sm:w-auto">
+          <Link to="/contact#contact-form" className="w-full sm:w-auto">
             <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer" aria-label="Get started with our services cursor-pointer">
               <span>Get Started Today</span>
               <ArrowRight className="h-5 w-5" />

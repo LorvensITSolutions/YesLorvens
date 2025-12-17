@@ -37,7 +37,7 @@ const ReadyTransform = () => {
               title: "Start Your Project",
               description: "Get started with our expert team and bring your ideas to life with cutting-edge solutions.",
               buttonText: "Get Started",
-              buttonLink: "/contact",
+              buttonLink: "/contact#contact-form",
               primary: true
             },
             {

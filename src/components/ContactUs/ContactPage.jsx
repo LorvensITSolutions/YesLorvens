@@ -2,8 +2,9 @@
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {Mail,MapPin,Phone,CheckCircle,Globe,MessageCircle,Send} from "lucide-react";
+import emailjs from '@emailjs/browser';
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -29,9 +30,12 @@ const staggerContainer = {
 
 const ContactPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const formSectionRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: ""
   });
@@ -40,6 +44,7 @@ const ContactPage = () => {
   const [touched, setTouched] = useState({
     name: false,
     email: false,
+    phone: false,
     subject: false,
     message: false
   });
@@ -50,7 +55,6 @@ const ContactPage = () => {
   const [mounted, setMounted] = useState(false);
   const controls = useAnimation();
   const ref = useRef(null);
-  // Optimize useInView to reduce forced reflows - use rootMargin to trigger earlier
   const isInView = useInView(ref, { 
     once: true, 
     amount: 0.1,
@@ -59,12 +63,22 @@ const ContactPage = () => {
 
   useEffect(() => {
     setMounted(true);
-    // Scroll to top - batched to avoid forced reflow
-    // ScrollToTop component handles this, but ensure it works here too
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    });
-  }, []);
+    // Initialize EmailJS
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+    
+    if (location.hash === '#contact-form' && formSectionRef.current) {
+      setTimeout(() => {
+        formSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    } else {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      });
+    }
+  }, [location.hash]);
 
   useEffect(() => {
     // Batch animation start to avoid forced reflow
@@ -115,6 +129,13 @@ const ContactPage = () => {
         if (!value) error = 'Email is required';
         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
           error = 'Invalid email address';
+        }
+        break;
+      case 'phone':
+        if (!value.trim()) {
+          error = 'Phone number is required';
+        } else if (!/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/.test(value)) {
+          error = 'Please enter a valid phone number';
         }
         break;
       case 'subject':
@@ -184,8 +205,9 @@ const ContactPage = () => {
     return value.trim().replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
   };
 
-  // Formspree endpoint
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldqpblz';
+  // EmailJS configuration
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_Lorvens2025';
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID || 'template_contact';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -213,96 +235,68 @@ const ContactPage = () => {
     const sanitizedData = {
       name: sanitizeInput(formData.name),
       email: sanitizeInput(formData.email),
+      phone: sanitizeInput(formData.phone),
       subject: sanitizeInput(formData.subject),
       message: sanitizeInput(formData.message)
     };
 
-    // Submit to Formspree
+    // Submit to EmailJS
     try {
-      // Prepare JSON payload for Formspree
-      const formPayload = {
+      // Prepare template parameters for EmailJS
+      // Note: Variable names must match your EmailJS template placeholders
+      const templateParams = {
         name: sanitizedData.name,
         email: sanitizedData.email,
+        phone: sanitizedData.phone,
         subject: sanitizedData.subject,
         message: sanitizedData.message,
-        _subject: 'New Contact Form Submission from YES LORVENS Website'
+        // For auto-reply (if configured separately)
+        user_name: sanitizedData.name,
+        user_email: sanitizedData.email
       };
 
-      // Submit using fetch API with timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(formPayload),
-        signal: controller.signal
+      // Send email using EmailJS with timeout
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Request timeout')), 15000);
       });
 
-      clearTimeout(timeoutId);
+      const emailPromise = emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
 
-      // Formspree returns JSON response
-      let result;
-      try {
-        result = await response.json();
-      } catch (parseError) {
-        // If response is not JSON, check if it's a success (200 status)
-        if (response.ok) {
-          // Formspree sometimes returns empty response on success
-          setSuccess(true);
-          setLoading(false);
-          setFormData({
-            name: "",
-            email: "",
-            subject: "",
-            message: ""
-          });
-          setTouched({
-            name: false,
-            email: false,
-            subject: false,
-            message: false
-          });
-          setErrors({});
-          return;
-        } else {
-          throw new Error('Form submission failed. Please try again.');
-        }
-      }
-      
-      // Check Formspree response
-      if (response.ok) {
-        // Formspree returns { ok: true } or similar on success
-        setSuccess(true);
-        setLoading(false);
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: ""
-        });
-        setTouched({
-          name: false,
-          email: false,
-          subject: false,
-          message: false
-        });
-        setErrors({});
-      } else {
-        // Handle Formspree errors
-        const errorMessage = result?.error || result?.message || 'Failed to send message. Please try again.';
-        throw new Error(errorMessage);
-      }
+      // Race between email send and timeout
+      await Promise.race([emailPromise, timeoutPromise]);
+
+      // EmailJS returns { status: 200, text: 'OK' } on success
+      setSuccess(true);
+      setLoading(false);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
+      });
+      setTouched({
+        name: false,
+        email: false,
+        phone: false,
+        subject: false,
+        message: false
+      });
+      setErrors({});
     } catch (err) {
       console.error("❌ Error submitting contact form:", err);
       
       let errorMessage = "Failed to send message. ";
       
-      if (err.name === 'AbortError') {
+      if (err.message === 'Request timeout') {
         errorMessage += "Request timed out. Please check your connection and try again.";
+      } else if (err.text) {
+        // EmailJS error response
+        errorMessage += err.text;
       } else if (err.message) {
         errorMessage += err.message;
       } else {
@@ -369,7 +363,9 @@ const ContactPage = () => {
 
       {/* CONTACT SECTION */}
       <motion.section 
-        className="bg-gradient-to-br from-gray-50 to-gray-100 py-12 sm:py-16 lg:py-20"
+        id="contact-form"
+        ref={formSectionRef}
+        className="bg-gradient-to-br from-gray-50 to-gray-100 py-12 sm:py-16 lg:py-20 scroll-mt-20"
         variants={fadeInUp}
       >
         <div className="text-center mb-12 sm:mb-16 px-4">
@@ -454,6 +450,29 @@ const ContactPage = () => {
                         <p className="mt-1 text-sm text-red-600">{errors.email}</p>
                       )}
                     </div>
+                  </div>
+
+                  <div className="relative">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1 ml-1">
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      onBlur={handleBlur('phone')}
+                      placeholder="+91 9876543210"
+                      className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                        errors.phone && touched.phone
+                          ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
+                          : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
+                      }`}
+                    />
+                    {errors.phone && touched.phone && (
+                      <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+                    )}
                   </div>
 
                   <div className="relative">

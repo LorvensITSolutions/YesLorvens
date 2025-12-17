@@ -40,7 +40,7 @@ const ReadyLaunch = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/contact');
+    navigate('/contact#contact-form');
   };
 
   const handleViewWork = () => {
