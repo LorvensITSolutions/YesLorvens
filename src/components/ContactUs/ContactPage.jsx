@@ -463,7 +463,7 @@ const ContactPage = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       onBlur={handleBlur('phone')}
-                      placeholder="+91 9876543210"
+                      placeholder="+91 **********"
                       className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
                         errors.phone && touched.phone
                           ? 'border-red-500 focus:ring-red-200 focus:border-red-500'

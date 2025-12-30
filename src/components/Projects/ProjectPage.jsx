@@ -8,6 +8,7 @@ const school = "https://res.cloudinary.com/durbtkhbz/image/upload/v1765349313/ed
 const lumiere1 = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169181/ChatGPT_Image_Dec_8_2025_10_15_15_AM_ghors1.png"
 const smiles1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169442/ChatGPT_Image_Dec_8_2025_10_20_32_AM_e1ot2u.png"
 const slim1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169560/ChatGPT_Image_Dec_8_2025_10_22_29_AM_q09vhf.png"
+const machines1="https://res.cloudinary.com/do8cpljrz/image/upload/v1766379251/5ce7960d-fb0f-4693-8c80-800e26fcac92_ipd4il_oahm6k.png"
 
 // Animation variants
 const fadeInUp = {
@@ -40,7 +41,8 @@ const projects = [
     subtitle: "Smart Learning Environment",
     description: "A comprehensive educational platform serving over 5,000+ students and 200+ faculty members. The system features automated attendance tracking, grade management, assignment submission, and real-time communication tools. Our solution reduced administrative workload by 60% and improved parent-teacher engagement by 75% through its intuitive interface and mobile responsiveness.",
     images: [school],
-    category: "App Development",
+    category: ["App Development", "Web Development"],
+    link: "https://edureachapp.com/",
     color: "from-orange-500 to-red-600"
   },
   {
@@ -62,6 +64,16 @@ const projects = [
     category: "Web Development",
     color: "from-blue-500 to-cyan-600",
     link: "https://sashasmiles.com/"
+  },
+  {
+    id: 7,
+    title: "Andhra Machines Agencies",
+    subtitle: "Industrial Machinery Supplier Website",
+    description: "A professional, responsive online platform for Andhra Machines Agencies, showcasing a full range of industrial machines, product categories, and detailed product specs. The website includes an intuitive browsing experience, contact forms for inquiries, dealer information, and an easy quote request system. Built for seamless navigation and optimal performance across devices",
+    images: [machines1],
+    category: "Web Development",
+    color: "from-blue-500 to-cyan-600",
+    link: "https://andhramachinesagencies.com/"
   }
 ];
 
@@ -118,11 +130,19 @@ const ProjectCard = ({ project, index }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mb-3"
+            className="mb-3 flex flex-wrap gap-2"
           >
-            <span className="inline-block px-4 py-1 rounded-full text-xs font-semibold bg-orange-500 text-white">
-              {project.category}
-            </span>
+            {Array.isArray(project.category) ? (
+              project.category.map((cat, idx) => (
+                <span key={idx} className="inline-block px-4 py-1 rounded-full text-xs font-semibold bg-orange-500 text-white">
+                  {cat}
+                </span>
+              ))
+            ) : (
+              <span className="inline-block px-4 py-1 rounded-full text-xs font-semibold bg-orange-500 text-white">
+                {project.category}
+              </span>
+            )}
           </motion.div>
 
           {/* Title */}
@@ -182,37 +202,6 @@ const ProjectCard = ({ project, index }) => {
   );
 };
 
-// Marquee Component for horizontal scrolling text
-const Marquee = ({ items, speed = 100, className = "" }) => {
-  return (
-    <div className={`relative overflow-hidden ${className}`}>
-      <div className="flex w-max">
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="flex whitespace-nowrap items-center"
-            animate={{
-              x: ['0%', '-100%'],
-            }}
-            transition={{
-              duration: speed * 2,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            {items.map((item, idx) => (
-              <div key={idx}>
-                <span className="text-xl md:text-2xl font-bold text-orange-500 px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-50 backdrop-blur-sm rounded-full shadow-md mx-2 cursor-default">
-                  {item}
-                </span>
-              </div>
-            ))}
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const ProjectsPage = () => {
 
