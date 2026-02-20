@@ -9,6 +9,7 @@ const lumiere1 = "https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto
 const smiles1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169442/ChatGPT_Image_Dec_8_2025_10_20_32_AM_e1ot2u.png"
 const slim1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169560/ChatGPT_Image_Dec_8_2025_10_22_29_AM_q09vhf.png"
 const machines1="https://res.cloudinary.com/do8cpljrz/image/upload/v1766379251/5ce7960d-fb0f-4693-8c80-800e26fcac92_ipd4il_oahm6k.png"
+const Scrapdig = "https://res.cloudinary.com/durbtkhbz/image/upload/v1771588561/WhatsApp_Image_2026-02-20_at_5.19.19_PM_rixs6d.jpg"
 
 // Animation variants
 const fadeInUp = {
@@ -26,7 +27,27 @@ const fadeInUp = {
 // Projects Data
 const projects = [
   {
-    id: 1,
+      id: 1,
+      title: "Lumiere Luxe",
+      subtitle: "Premium Salon Booking Platform",
+      description: "A sophisticated online booking system designed exclusively for high-end salons, providing seamless appointment scheduling, service management, and client relationship tools. The platform features real-time availability, automated reminders, and a personalized client portal. Our solution increased booking conversions by 65% and reduced no-shows by 50% through smart notifications and a user-friendly interface.",
+      images: [lumiere1],
+      category: "Web Development",
+      color: "from-rose-500 to-pink-600",
+      link: "https://lumiereluxe.in/"
+    },
+    {
+      id: 6,
+      title: "Sasha Smiles",
+      subtitle: "Dental Clinic Booking System",
+      description: "A comprehensive online booking system for Sasha Smiles Dental Clinic, featuring appointment scheduling, service catalog, dentist profiles, and patient management. The platform includes automated reminders, secure payment processing, and a patient portal for managing appointments.",
+      images: [smiles1],
+      category: "Web Development",
+      color: "from-blue-500 to-cyan-600",
+      link: "https://sashasmiles.com/"
+    },  
+    {
+      id: 1,
     title: "Sasha Slimming",
     subtitle: "Slimming Care Clinic Website",
     description: "A modern, responsive website for Sasha Slimming Care Clinic showcasing their weight loss programs, treatments, and success stories. Features include online consultations, program booking, progress tracking, and a blog section.",
@@ -35,6 +56,7 @@ const projects = [
     color: "from-purple-500 to-pink-600",
     link: "https://sashaslimming.com/"
   },
+  
   {
     id: 3,
     title: "Edu Reach",
@@ -45,26 +67,8 @@ const projects = [
     link: "https://edureachapp.com/",
     color: "from-orange-500 to-red-600"
   },
-  {
-    id: 4,
-    title: "Lumiere Luxe",
-    subtitle: "Premium Salon Booking Platform",
-    description: "A sophisticated online booking system designed exclusively for high-end salons, providing seamless appointment scheduling, service management, and client relationship tools. The platform features real-time availability, automated reminders, and a personalized client portal. Our solution increased booking conversions by 65% and reduced no-shows by 50% through smart notifications and a user-friendly interface.",
-    images: [lumiere1],
-    category: "Web Development",
-    color: "from-rose-500 to-pink-600",
-    link: "https://lumiereluxe.in/"
-  },
-  {
-    id: 6,
-    title: "Sasha Smiles",
-    subtitle: "Dental Clinic Booking System",
-    description: "A comprehensive online booking system for Sasha Smiles Dental Clinic, featuring appointment scheduling, service catalog, dentist profiles, and patient management. The platform includes automated reminders, secure payment processing, and a patient portal for managing appointments.",
-    images: [smiles1],
-    category: "Web Development",
-    color: "from-blue-500 to-cyan-600",
-    link: "https://sashasmiles.com/"
-  },
+  
+  
   {
     id: 7,
     title: "Andhra Machines Agencies",
@@ -74,6 +78,16 @@ const projects = [
     category: "Web Development",
     color: "from-blue-500 to-cyan-600",
     link: "https://andhramachinesagencies.com/"
+  },
+  {
+    id: 8,
+    title: "Scrap Dig",
+    subtitle: "Scrap Dig Website & App",
+    description: "ScrapDig is an end-to-end scrap management and recycling platform designed to modernize the traditional scrap collection process. The platform connects customers with verified scrap vendors through an intuitive web application and Android mobile app.",
+    images: [Scrapdig],
+    category: ["Web Development", "App Development"],
+    color: "from-blue-500 to-cyan-600",
+    link: "https://scrapdig.in/"
   }
 ];
 
