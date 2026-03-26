@@ -10,6 +10,7 @@ const smiles1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_
 const slim1="https://res.cloudinary.com/durbtkhbz/image/upload/w_800,f_auto,q_auto/v1765169560/ChatGPT_Image_Dec_8_2025_10_22_29_AM_q09vhf.png"
 const machines1="https://res.cloudinary.com/do8cpljrz/image/upload/v1766379251/5ce7960d-fb0f-4693-8c80-800e26fcac92_ipd4il_oahm6k.png"
 const Scrapdig = "https://res.cloudinary.com/durbtkhbz/image/upload/v1771588561/WhatsApp_Image_2026-02-20_at_5.19.19_PM_rixs6d.jpg"
+const amvifoodsLogo = "https://res.cloudinary.com/dnvpasppl/image/upload/v1773392136/Screenshot_2026-03-04_114703-removebg-preview_a5xoie.png";
 
 // Animation variants
 const fadeInUp = {
@@ -88,6 +89,16 @@ const projects = [
     category: ["Web Development", "App Development"],
     color: "from-blue-500 to-cyan-600",
     link: "https://scrapdig.in/"
+  },
+  {
+    id: 9,
+    title: "AMVI Foods",
+    subtitle: "Dehydrated Food Processing & Export Platform",
+    description: "AMVI Foods is a modern food processing and export company specializing in high-quality dehydrated powders and agricultural products sourced from the fertile Godavari delta region. With a production capacity exceeding one ton per day, the company leverages advanced processing techniques to preserve natural flavor, nutrition, and shelf life. The platform showcases a wide range of products, streamlined sourcing, and efficient supply chain operations, connecting local farmers to broader domestic and international markets. Designed for reliability and scalability, AMVI Foods emphasizes quality, consistency, and sustainable agricultural practices.",
+    images: [amvifoodsLogo],
+    category: "Web Development",
+    color: "from-green-500 to-emerald-600",
+    link: "https://amvifoods.com/"
   }
 ];
 
