@@ -23,7 +23,7 @@ const Marquee = ({ items, speed = 100, className = "" }) => {
           >
             {items.map((item, idx) => (
               <div key={idx}>
-                <span className="text-xl md:text-[18px] font-bold text-orange-500 px-5 py-2 bg-gradient-to-r from-orange-50 to-orange-100 backdrop-blur-sm rounded-full mx-2 cursor-default">
+                <span className="mx-2 cursor-default rounded-full bg-gradient-to-r from-orange-50 to-orange-100 px-4 py-1.5 text-sm font-semibold text-orange-600 md:text-base">
                   {item}
                 </span>
               </div>
@@ -127,7 +127,8 @@ const HeroSection = () => {
       }}
     >
       {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-slate-950/52"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-900/30 to-slate-950/65" />
 
       <motion.div
         className="relative z-10 text-center"
@@ -142,6 +143,8 @@ const HeroSection = () => {
           }
         }}
       >
+
+    
         <motion.h1
           variants={fadeInUp}
           className="text-4xl md:text-4xl lg:text-6xl font-bold text-orange-100 mb-4"
@@ -170,43 +173,43 @@ const ServiceCard = ({ service, index }) => {
       viewport={{ once: true }}
       custom={index}
     >
-      <div className="relative h-full bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300" style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}>
+      <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100/80 bg-white/95 shadow-sm ring-1 ring-white transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl" style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}>
         {/* Image Section */}
-        <div className="relative overflow-hidden h-64 sm:h-72">
+        <div className="relative h-56 overflow-hidden sm:h-64">
           <motion.img
             src={service.image}
             alt={service.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.5 }}
           />
         </div>
 
         {/* Content Section */}
-        <div className="p-8 flex flex-col flex-1">
+        <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-7">
           <motion.h3 
-            className="text-2xl font-bold text-gray-600 mb-3"
+            className="mb-2 text-xl font-bold text-gray-700 sm:text-2xl"
           
             transition={{ duration: 0.3 }}
           >
             {service.title}
           </motion.h3>
 
-          <p className="text-gray-500 leading-relaxed mb-4 text-sm sm:text-base">
+          <p className="mb-4 text-sm leading-relaxed text-gray-600 sm:text-base">
             {service.description}
           </p>
 
           {/* Features List */}
           <div className="mb-4 flex-1">
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               {service.features.map((feature, idx) => (
                 <motion.div 
                   key={idx} 
-                  className="flex items-center gap-2 text-xs text-gray-600"
+                  className="flex items-center gap-2 rounded-lg border border-orange-100/80 bg-orange-50/50 px-2.5 py-1.5 text-xs text-gray-600"
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
+                  <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0 text-orange-500" />
                   <span className="truncate">{feature}</span>
                 </motion.div>
               ))}
@@ -217,13 +220,13 @@ const ServiceCard = ({ service, index }) => {
           <div className="mt-auto pt-2">
             <Link to={`/service/${service.id}`} className="block w-full">
               <motion.button 
-                className="w-full py-4 px-6 bg-orange-500 text-white font-bold rounded-2xl flex items-center justify-center gap-3 hover:bg-orange-600 cursor-pointer"
+                className="flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-orange-400 px-5 py-3.5 font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-200/70"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 aria-label={`Explore ${service.title} solution`}
               >
                 <span>Explore Solution</span>
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-4.5 w-4.5" />
               </motion.button>
             </Link>
           </div>
@@ -280,17 +283,20 @@ const WhyChooseUsSection = () => {
 
   return (
     <motion.section 
-      className="py-20 px-6 lg:px-20 bg-white text-gray-800 relative"
+      className="relative overflow-hidden bg-gradient-to-b from-white via-orange-50/20 to-white px-6 py-20 text-gray-800 lg:px-20"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
       style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+      <div className="pointer-events-none absolute -left-16 top-12 h-52 w-52 rounded-full bg-orange-100/55 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-orange-200/40 blur-3xl" />
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <div className="mb-12 text-center md:mb-16">
+      
           <motion.h2 
-            className="text-4xl sm:text-5xl lg:text-5xl font-black mb-6 text-orange-500"
+            className="mb-4 text-4xl font-black text-orange-500 sm:text-5xl lg:text-5xl"
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -300,7 +306,7 @@ const WhyChooseUsSection = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            className="mx-auto max-w-3xl text-base leading-relaxed text-gray-600 sm:text-xl"
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -312,7 +318,7 @@ const WhyChooseUsSection = () => {
 
         {/* Reasons Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6"
           variants={container}
           initial="hidden"
           whileInView="visible"
@@ -322,12 +328,12 @@ const WhyChooseUsSection = () => {
             <motion.div 
               key={index} 
               variants={item}
-              className="text-center p-8 bg-white border border-orange-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]"
+              className="group rounded-2xl border border-orange-100/80 bg-white/95 p-6 text-center shadow-sm ring-1 ring-white transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-md lg:p-7"
             >
-              <h3 className="text-xl font-semibold mb-3 text-gray-600">
+              <h3 className="mb-2 text-xl font-semibold text-gray-700">
                 {reason.title}
               </h3>
-              <p className="text-gray-600 text-base leading-relaxed">
+              <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
                 {reason.description}
               </p>
             </motion.div>
@@ -342,14 +348,17 @@ const WhyChooseUsSection = () => {
 const CTASection = () => {
   return (
     <motion.section 
-      className="py-24 px-6 lg:px-20 bg-white"
+      className="relative overflow-hidden bg-white px-6 py-24 lg:px-20"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
       style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
     >
-      <div className="max-w-5xl mx-auto text-center">
+      <div className="pointer-events-none absolute -left-14 top-8 h-44 w-44 rounded-full bg-orange-100/55 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 bottom-4 h-48 w-48 rounded-full bg-slate-200/45 blur-3xl" />
+      <div className="relative z-10 max-w-5xl mx-auto text-center">
+  
         <motion.h2 
           className="text-4xl sm:text-5xl lg:text-5xl font-black mb-6 text-orange-500"
           initial="hidden"
@@ -371,22 +380,22 @@ const CTASection = () => {
         </motion.p>
 
         <motion.div 
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-3 justify-center items-center"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
         >
           <Link to="/contact#contact-form" className="w-full sm:w-auto">
-            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer" aria-label="Get started with our services cursor-pointer">
+            <button className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white text-xs sm:text-sm font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer" aria-label="Get started with our services cursor-pointer">
               <span>Get Started Today</span>
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
           </Link>
           
           <Link to="/projects" className="w-full sm:w-auto">
-            <button className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer" aria-label="View our portfolio and projects ">
-              <Eye className="h-5 w-5" />
+            <button className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-transparent border-2 border-orange-500 text-orange-500 text-xs sm:text-sm hover:bg-orange-50 font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer" aria-label="View our portfolio and projects ">
+              <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span>View Our Work</span>
             </button>
           </Link>
@@ -408,7 +417,7 @@ const Services = () => {
       <HeroSection />
 
       {/* Services Marquee */}
-      <div className="py-8 bg-white/90 border-t border-b border-gray-100">
+      <div className="border-y border-gray-100 bg-white/90 py-6">
         <Marquee 
           items={services.map(s => s.title)} 
           speed={100} 
@@ -418,11 +427,13 @@ const Services = () => {
 
       {/* Services Grid Section */}
       <motion.section 
-        className="pt-12 pb-8 px-6 lg:px-20"
+        className="relative overflow-hidden px-4 pb-8 pt-12 sm:px-6 lg:px-20"
         style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
       >
+        <div className="pointer-events-none absolute -left-16 top-8 h-52 w-52 rounded-full bg-orange-100/55 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-60 w-60 rounded-full bg-slate-200/45 blur-3xl" />
         <motion.div 
-          className="max-w-7xl mx-auto"
+          className="relative z-10 max-w-7xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -436,17 +447,17 @@ const Services = () => {
         >
           {/* Section Header */}
           <motion.div 
-            className="text-center mb-12"
+            className="mb-10 text-center md:mb-12"
             variants={fadeInUp}
           >
             <motion.h2 
-              className="text-4xl sm:text-5xl lg:text-5xl font-black text-orange-500 mb-6"
+              className="mb-4 text-3xl font-black text-orange-500 sm:text-5xl lg:text-5xl"
               variants={fadeInUp}
             >
               Service Portfolio
             </motion.h2>      
             <motion.p 
-              className="text-xl text-gray-600 max-w-4xl mx-auto"
+              className="mx-auto max-w-4xl text-base text-gray-600 sm:text-lg"
               variants={fadeInUp}
             >
               Comprehensive digital solutions designed to accelerate your business growth
@@ -455,10 +466,12 @@ const Services = () => {
 
           {/* Services Grid */}
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7"
           >
             {services.map((service, index) => (
-              <ServiceCard key={service.id} service={service} index={index} />
+              <div key={service.id}>
+                <ServiceCard service={service} index={index} />
+              </div>
             ))}
           </motion.div>
         </motion.div>

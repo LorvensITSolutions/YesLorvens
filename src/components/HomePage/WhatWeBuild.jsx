@@ -14,54 +14,57 @@ const WhatWeBuild = () => {
   };
 
   return (
-    <section className="relative py-20 px-4 md:px-12 overflow-hidden">
+    <section className="relative overflow-hidden bg-white px-4 py-14 sm:px-6 sm:py-16 md:px-12 md:py-20">
+      <div className="pointer-events-none absolute -left-16 top-8 h-44 w-44 rounded-full bg-orange-100/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-6 h-52 w-52 rounded-full bg-slate-200/45 blur-3xl" />
       {/* Section Header */}
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         variants={fadeInUp}
-        className="text-center mb-16 relative z-10"
+        className="relative z-10 mb-10 text-center sm:mb-12 md:mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-orange-500 mb-6">
+      
+        <h2 className="mb-4 text-3xl font-bold text-orange-500 sm:mb-5 sm:text-4xl md:mb-6 md:text-5xl">
           What We Build for You
         </h2>
-        <p className="max-w-5xl mx-auto text-gray-500 text-base sm:text-lg md:text-xl font-normal px-4 sm:px-6 text-center">
+        <p className="mx-auto max-w-3xl px-1 text-center text-sm font-normal leading-relaxed text-gray-500 sm:px-4 sm:text-base md:max-w-5xl md:px-6 md:text-xl">
           From idea to launch — we craft solutions that are fast, scalable, and designed for impact.
         </p>
       </motion.div>
 
       {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+      <div className="relative z-10 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-8">
         {[
           {
             title: "Web Development",
-            icon: <Lightbulb className="h-10 w-10 text-orange-400" />,
+            icon: <Lightbulb className="h-8 w-8 text-orange-400 sm:h-9 sm:w-9 md:h-10 md:w-10" />,
             desc: "Custom websites built for speed, scalability & conversions.",
           },
           {
             title: "Mobile Applications",
-            icon: <Rocket className="h-10 w-10 text-orange-400" />,
+            icon: <Rocket className="h-8 w-8 text-orange-400 sm:h-9 sm:w-9 md:h-10 md:w-10" />,
             desc: "iOS & Android apps with seamless UX & robust performance.",
           },
           {
             title: "Startup Acceleration",
-            icon: <Building2 className="h-10 w-10 text-orange-400" />,
+            icon: <Building2 className="h-8 w-8 text-orange-400 sm:h-9 sm:w-9 md:h-10 md:w-10" />,
             desc: "Turn ideas into MVPs that attract users & investors.",
           },
           {
             title: "Tech Talent as a Service",
-            icon: <UserSearch className="h-10 w-10 text-orange-400" />,
+            icon: <UserSearch className="h-8 w-8 text-orange-400 sm:h-9 sm:w-9 md:h-10 md:w-10" />,
             desc: "Access expert designers & developers to scale faster.",
           },
           {
             title: "Digital Product Design (UI/UX)",
-            icon: <UserSearch className="h-10 w-10 text-orange-400" />,
+            icon: <UserSearch className="h-8 w-8 text-orange-400 sm:h-9 sm:w-9 md:h-10 md:w-10" />,
             desc: "User-first designs that blend beauty with usability.",
           },
           {
             title: "Cloud & DevOps Solutions",
-            icon: <Rocket className="h-10 w-10 text-orange-400" />,
+            icon: <Rocket className="h-8 w-8 text-orange-400 sm:h-9 sm:w-9 md:h-10 md:w-10" />,
             desc: "Secure, scalable, and future-ready deployments.",
           },
         ].map((service, index) => (
@@ -72,16 +75,16 @@ const WhatWeBuild = () => {
             viewport={{ once: true }}
             variants={fadeInUp}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group flex items-start gap-4 bg-gradient-to-br from orange-20 to-orange-50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-orange-100 p-6"
+            className="group flex items-start gap-3 rounded-2xl border border-orange-100/80 bg-white/95 p-4 shadow-sm ring-1 ring-white transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-md sm:gap-4 sm:p-5 md:p-6"
           >
-            <div>
+            <div className="rounded-xl bg-orange-50 p-2.5">
               {service.icon}
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-gray-600 mb-1">
+              <h3 className="mb-1 text-lg font-semibold text-gray-700 sm:text-[1.15rem] md:text-xl">
                 {service.title}
               </h3>
-              <p className="text-gray-600 text-sm">{service.desc}</p>
+              <p className="text-xs leading-relaxed text-gray-600 sm:text-sm">{service.desc}</p>
             </div>
           </motion.div>
         ))}

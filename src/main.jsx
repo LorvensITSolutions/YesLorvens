@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
+import IntroSplash from "./components/IntroSplash.jsx";
+import { SplashProvider } from "./context/SplashContext.jsx";
 import "./index.css";
 
 // Fix iOS Safari viewport height issues - update CSS variable dynamically
@@ -28,9 +30,12 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <SplashProvider>
+        <BrowserRouter>
+          <IntroSplash />
+          <App />
+        </BrowserRouter>
+      </SplashProvider>
     </React.StrictMode>
   );
 }

@@ -31,35 +31,35 @@ const Footer = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="text-gray-800 pt-7 pb-8 px-4 sm:px-6 md:px-12 relative bg-white border-t border-gray-200"
+      className="relative border-t border-gray-200 bg-white px-3 pb-7 pt-7 text-gray-800 sm:px-6 sm:pb-8 md:px-12"
       style={{ zIndex: 1 }}
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-6 px-4 sm:px-6 relative">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-7 px-1 sm:grid-cols-2 sm:gap-6 sm:px-4 lg:grid-cols-5 lg:gap-6 lg:px-6">
 
         {/* Brand */}
-        <div className="flex flex-col items-center sm:items-start mb-6 sm:mb-0">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4 tracking-wide text-center sm:text-left bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+        <div className="mb-3 flex flex-col items-center sm:mb-0 sm:items-start">
+          <h2 className="mb-3 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-center text-2xl font-bold tracking-wide text-transparent sm:mb-4 sm:text-left sm:text-3xl">
             YES LORVENS
           </h2>
-          <p className="text-sm text-gray-600 leading-relaxed transition-colors text-center sm:text-left max-w-xs cursor-default mb-6">
+          <p className="mb-5 max-w-[18rem] cursor-default text-center text-xs leading-relaxed text-gray-600 transition-colors sm:mb-6 sm:max-w-xs sm:text-left sm:text-sm">
             Crafting innovative tech solutions tailored to your business goals.
           </p>
 
           {/* Follow Us Section */}
-          <div className="mb-4 w-full">
-            <h3 className="text-base font-semibold text-orange-600 mb-4 text-center sm:text-left">
+          <div className="mb-2 w-full">
+            <h3 className="mb-3 text-center text-sm font-semibold text-orange-600 sm:mb-4 sm:text-left sm:text-base">
               Follow Us
             </h3>
-            <div className="flex gap-3 flex-wrap justify-center sm:justify-start">
+            <div className="flex flex-wrap justify-center gap-2.5 sm:justify-start sm:gap-3">
               <motion.a
                 href="https://www.instagram.com/yeslorvenssolutions/"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="Visit our Instagram"
                 whileHover={{ scale: 1.15, y: -2 }}
-                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
+                className="rounded-lg p-1.5 text-orange-500 transition-all duration-300 hover:bg-orange-50 hover:text-orange-600 sm:p-2"
               >
-                <Instagram className="w-6 h-6" />
+                <Instagram className="h-5 w-5 sm:h-6 sm:w-6" />
               </motion.a>
               <motion.a
                 href="https://www.linkedin.com/company/yes-lorvens-solutions-pvt-ltd"
@@ -67,9 +67,9 @@ const Footer = () => {
                 rel="noopener noreferrer nofollow"
                 aria-label="Connect on LinkedIn"
                 whileHover={{ scale: 1.15, y: -2 }}
-                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
+                className="rounded-lg p-1.5 text-orange-500 transition-all duration-300 hover:bg-orange-50 hover:text-orange-600 sm:p-2"
               >
-                <Linkedin className="w-6 h-6" />
+                <Linkedin className="h-5 w-5 sm:h-6 sm:w-6" />
               </motion.a>
               <motion.a
                 href="https://www.facebook.com/yeslorvens"
@@ -77,9 +77,9 @@ const Footer = () => {
                 rel="noopener noreferrer nofollow"
                 aria-label="Like us on Facebook"
                 whileHover={{ scale: 1.15, y: -2 }}
-                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
+                className="rounded-lg p-1.5 text-orange-500 transition-all duration-300 hover:bg-orange-50 hover:text-orange-600 sm:p-2"
               >
-                <Facebook className="w-6 h-6" />
+                <Facebook className="h-5 w-5 sm:h-6 sm:w-6" />
               </motion.a>
               <motion.a
                 href="https://twitter.com/yeslorvens"
@@ -87,7 +87,7 @@ const Footer = () => {
                 rel="noopener noreferrer nofollow"
                 aria-label="Follow us on X (Twitter)"
                 whileHover={{ scale: 1.15, y: -2, rotate: [0, -10, 10, -10, 0] }}
-                className="text-orange-500 hover:text-orange-600 transition-all duration-300 p-2 rounded-lg hover:bg-orange-50"
+                className="rounded-lg p-1.5 text-orange-500 transition-all duration-300 hover:bg-orange-50 hover:text-orange-600 sm:p-2"
               >
                 <svg
                   width="24"
@@ -95,7 +95,7 @@ const Footer = () => {
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   aria-hidden="true"
                 >
                   <path
@@ -108,12 +108,12 @@ const Footer = () => {
           </div>
         </div>
         {/* Quick Links */}
-        <div className="mb-8 sm:mb-0 text-center sm:text-left">
-          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
+        <div className="mb-2 text-center sm:mb-0 sm:text-left">
+          <h3 className="relative mb-2 inline-block text-base font-semibold text-orange-600 sm:mb-3 sm:text-lg">
             Explore
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
           </h3>
-          <ul className="space-y-2.5 text-sm mt-4">
+          <ul className="mt-3 space-y-2 text-xs sm:mt-4 sm:space-y-2.5 sm:text-sm">
             <li>
               <Link to="/" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Home
@@ -147,12 +147,12 @@ const Footer = () => {
           </ul>
         </div>
         {/* Services */}
-        <div className="mb-8 sm:mb-0 text-center sm:text-left">
-          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
+        <div className="mb-2 text-center sm:mb-0 sm:text-left">
+          <h3 className="relative mb-2 inline-block text-base font-semibold text-orange-600 sm:mb-3 sm:text-lg">
             Our Services
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
           </h3>
-          <ul className="space-y-2.5 text-sm mt-4">
+          <ul className="mt-3 space-y-2 text-xs sm:mt-4 sm:space-y-2.5 sm:text-sm">
             <li>
               <Link to="/service/web-development" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Web Development
@@ -186,12 +186,12 @@ const Footer = () => {
           </ul>
         </div>
         {/* Policy */}
-        <div className="mb-8 sm:mb-0 text-center sm:text-left">
-          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
+        <div className="mb-2 text-center sm:mb-0 sm:text-left">
+          <h3 className="relative mb-2 inline-block text-base font-semibold text-orange-600 sm:mb-3 sm:text-lg">
             Policy
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
           </h3>
-          <ul className="space-y-2.5 text-sm mt-4">
+          <ul className="mt-3 space-y-2 text-xs sm:mt-4 sm:space-y-2.5 sm:text-sm">
             <li>
               <Link to="/privacy-policy" onClick={handleLinkClick} className="text-gray-600 hover:text-orange-600 transition-colors duration-200 inline-block hover:translate-x-1">
                 Privacy Policy
@@ -206,13 +206,13 @@ const Footer = () => {
         </div>
         {/* Contact */}
         <div className="text-center sm:text-left">
-          <h3 className="text-lg font-semibold text-orange-600 mb-3 relative inline-block">
+          <h3 className="relative mb-2 inline-block text-base font-semibold text-orange-600 sm:mb-3 sm:text-lg">
             Contact Us
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></span>
           </h3>
-          <ul className="space-y-3 text-sm mt-4">
-            <li className="flex items-center justify-center sm:justify-start gap-2.5">
-              <Phone className="h-5 w-5 text-orange-600 flex-shrink-0" />
+          <ul className="mt-3 space-y-3 text-xs sm:mt-4 sm:text-sm">
+            <li className="flex items-start justify-center gap-2 sm:justify-start sm:gap-2.5">
+              <Phone className="h-4 w-4 flex-shrink-0 text-orange-600 sm:h-5 sm:w-5" />
               <div className="flex flex-col gap-1.5">
                 <a 
                   href="tel:+917013814030" 
@@ -236,13 +236,13 @@ const Footer = () => {
                 </a>
               </div>
             </li>
-            <li className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-orange-600 mt-1 flex-shrink-0" />
+            <li className="flex items-start gap-2 sm:gap-3">
+              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-orange-600 sm:mt-1 sm:h-5 sm:w-5" />
               <a
                 href="https://maps.app.goo.gl/U2RMhtQJWRT9gtLk9"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-orange-600 transition-colors duration-200 leading-relaxed"
+                className="max-w-[19rem] leading-relaxed text-gray-600 transition-colors duration-200 hover:text-orange-600 sm:max-w-none"
               >
                 Road No. 86, Jubilee Hills, Hyderabad, Telangana 500096
               </a>
@@ -252,8 +252,8 @@ const Footer = () => {
         {/* Legal */}
       </div>
       {/* Copyright */}
-      <div className="mt-8 pt-8 border-t border-gray-200 text-center relative">
-        <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
+      <div className="relative mt-7 border-t border-gray-200 pt-6 text-center sm:mt-8 sm:pt-8">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:gap-4 sm:text-sm">
           <span className="text-gray-600">&copy; {new Date().getFullYear()} YES LORVENS. All rights reserved.</span>
       
         </div>

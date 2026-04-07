@@ -31,10 +31,10 @@ const WhatBelieve = () => {
   ];
 
   return (
-    <section className="py-14 px-4 md:px-8 bg-white">
+    <section className="relative overflow-hidden bg-white px-4 py-14 md:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div 
-          className="text-center mb-12"
+          className="relative z-10 mb-12 text-center"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
@@ -43,11 +43,8 @@ const WhatBelieve = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-orange-500 mb-4">
             Our Core Beliefs
           </h2>
-          
-         
-
           <motion.p 
-            className="text-lg text-gray-600 max-w-3xl mx-auto"
+            className="mx-auto max-w-3xl text-base leading-relaxed text-gray-600 sm:text-lg"
             variants={fadeIn}
             initial="hidden"
             whileInView="show"
@@ -55,29 +52,25 @@ const WhatBelieve = () => {
             transition={{ delay: 0.3 }}
           >
             At the heart of everything we do are the fundamental principles that guide our decisions and shape our work.
-          </motion.p><br />
-
-          <h2 className="text-2xl md:text-2xl font-semibold text-orange-500 mb-4">
-            Technology + Creativity + Purpose
-          </h2>
-
+          </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="relative z-10 grid grid-cols-1 gap-5 md:grid-cols-3 md:items-stretch md:gap-6">
           {coreBeliefs.map((belief, index) => (
             <motion.div
-              key={index}
-              className="bg-gradient-to-br from orange-20 to-orange-50 p-6 rounded-2xl border border-orange-100"
+              key={belief.title}
+                className="group rounded-2xl border border-orange-100/80 bg-white/95 p-6 shadow-sm ring-1 ring-white transition-all duration-300 hover:-translate-y-0.5 hover:border-orange-200 hover:shadow-md"
               variants={fadeIn}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              transition={{ delay: 0.3 + (index * 0.1) }}
+              transition={{ delay: 0.25 + index * 0.1 }}
             >
-              <h3 className="text-xl font-semibold text-gray-600 mb-3">
+              <div className="mb-3 h-1 w-12 rounded-full bg-gradient-to-r from-orange-300 to-orange-500" />
+              <h3 className="mb-3 text-xl font-semibold text-gray-700">
                 {belief.title}
               </h3>
-              <p className="text-gray-500">
+              <p className="text-sm leading-relaxed text-gray-600">
                 {belief.description}
               </p>
             </motion.div>

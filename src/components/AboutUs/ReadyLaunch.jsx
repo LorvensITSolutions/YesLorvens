@@ -53,9 +53,12 @@ const ReadyLaunch = () => {
       whileInView="show"
       viewport={{ once: true }}
       variants={staggerContainer}
-      className="py-16 px-4 md:px-12 bg-white"
+      className="relative overflow-hidden bg-white px-4 py-16 md:px-12"
     >
+      <div className="pointer-events-none absolute -left-12 top-8 h-44 w-44 rounded-full bg-orange-100/55 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-2 h-56 w-56 rounded-full bg-slate-200/45 blur-3xl" />
       <div className="max-w-7xl mx-auto text-center">
+
         <motion.h2 
           variants={item}
           className="text-3xl md:text-5xl font-bold text-orange-500 mb-6"
@@ -78,7 +81,7 @@ const ReadyLaunch = () => {
             variants={item}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-medium flex items-center justify-center gap-2 cursor-pointer"
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-gradient-to-r from-orange-500 to-orange-400 px-8 py-3 font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-orange-200/70"
           >
             Get Started <ArrowRight size={18} className="inline" />
           </motion.button>
@@ -87,7 +90,7 @@ const ReadyLaunch = () => {
             variants={item}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-3 rounded-full font-medium cursor-pointer"
+            className="cursor-pointer rounded-full border-2 border-orange-500 px-8 py-3 font-medium text-orange-500 transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-50"
           >
             View Our Work
           </motion.button>

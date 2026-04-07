@@ -5,14 +5,15 @@ import { useNetworkStatus } from "./hooks/useNetworkStatus";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
 import NetworkError from "./components/NetworkError";
+// Home loads with the main bundle so the intro text isn’t replaced by a Suspense spinner
+import HomePage from "./components/HomePage/Homepage";
 
 // Lazy load non-critical components for better initial performance
 const Footer = lazy(() => import("./components/Footer/Footer"));
 const CookieConsent = lazy(() => import("./components/CookieConsent"));
 const FloatingContact = lazy(() => import("./components/FloatingContact"));
 
-// Lazy load routes for code splitting and better performance
-const HomePage = lazy(() => import("./components/HomePage/Homepage"));
+// Lazy load other routes for code splitting
 const ContactPage = lazy(() => import("./components/ContactUs/ContactPage"));
 const Services = lazy(() => import("./components/Services/Services"));
 const ServiceDetail = lazy(() => import("./components/Services/ServiceDetail"));
@@ -22,11 +23,9 @@ const PrivacyPolicy = lazy(() => import("./components/Footer/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./components/Footer/TermsOfUse"));
 const ErrorPage = lazy(() => import("./components/ErrorPage"));
 
-// Loading fallback component
+// Quiet fallback — avoids a spinning “activity indicator” over the layout
 const LoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-  </div>
+  <div className="min-h-[50vh] w-full bg-white" aria-hidden />
 );
 
 function App() {
@@ -60,11 +59,11 @@ function App() {
 
   // ✔ When online → whole website loads normally
   return (
-    <div className="min-h-screen text-[#1F1F1F] relative">
+    <div className="relative min-h-screen bg-white text-[#1F1F1F]">
       <ScrollToTop />
       <Navbar />
 
-      <main className="relative z-10">
+      <main className="relative z-10 bg-white">
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />

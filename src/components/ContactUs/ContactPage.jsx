@@ -318,7 +318,7 @@ const ContactPage = () => {
     >
       {/* HERO SECTION */}
       <motion.section 
-        className="relative py-16 sm:py-20 lg:py-30 text-center bg-cover bg-center" 
+        className="relative py-12 sm:py-20 lg:py-30 text-center bg-cover bg-center" 
         style={{
           backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=75')",
           backgroundPosition: 'center',
@@ -334,7 +334,7 @@ const ContactPage = () => {
         <div className="absolute inset-0"></div>
         <div className="relative z-10">
           <motion.h1 
-            className="text-4xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg"
             variants={fadeInUp}
           >
             Join{" "}
@@ -344,14 +344,14 @@ const ContactPage = () => {
           </motion.h1>
 
           <motion.h2 
-            className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white mt-3 mb-6 drop-shadow-md"
+            className="mt-2 mb-4 text-lg font-semibold text-white drop-shadow-md sm:mt-3 sm:mb-6 sm:text-2xl lg:text-3xl"
             variants={fadeInUp}
           >
             Build Your Future with Us
           </motion.h2>
 
           <motion.p 
-            className="text-white/90 max-w-2xl mx-auto text-lg leading-relaxed px-4 drop-shadow-sm"
+            className="mx-auto max-w-2xl px-4 text-sm leading-relaxed text-white/90 drop-shadow-sm sm:text-lg"
             variants={fadeInUp}
           >
             At <span className="font-bold text-orange-200">YES LORVENS</span>, we
@@ -365,12 +365,15 @@ const ContactPage = () => {
       <motion.section 
         id="contact-form"
         ref={formSectionRef}
-        className="bg-gradient-to-br from-gray-50 to-gray-100 py-12 sm:py-16 lg:py-20 scroll-mt-20"
+        className="relative scroll-mt-20 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 py-10 sm:py-16 lg:py-20"
         variants={fadeInUp}
       >
-        <div className="text-center mb-12 sm:mb-16 px-4">
+        <div className="pointer-events-none absolute -left-16 top-8 h-56 w-56 rounded-full bg-orange-100/55 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-slate-200/45 blur-3xl" />
+        <div className="mb-10 px-4 text-center sm:mb-16">
+       
           <motion.h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3"
+            className="mb-2 text-2xl font-bold text-gray-900 sm:mb-3 sm:text-4xl lg:text-5xl"
             variants={fadeInUp}
           >
             Get In{" "}
@@ -378,32 +381,29 @@ const ContactPage = () => {
               Touch
             </span>
           </motion.h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mt-3 text-lg sm:text-xl">
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-gray-600 sm:mt-3 sm:text-xl">
             Ready to start your journey with us? Contact us anytime.
           </p>
         </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-3 gap-8 sm:gap-10 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 sm:gap-10 sm:px-6 lg:px-8 xl:grid-cols-3 xl:items-stretch">
           {/* FORM */}
-          <div className="xl:col-span-2">
-            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 border border-gray-100 transition-all duration-300 hover:shadow-2xl">
-              <div className="mb-8 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 mb-4">
-                  <Send className="text-white" size={28} />
+          <div className="xl:col-span-2 flex">
+            <div className="h-full w-full rounded-2xl border border-orange-100/80 bg-white/95 p-4 shadow-xl ring-1 ring-white transition-all duration-300 hover:shadow-2xl sm:p-8 md:p-9">
+              <div className="mb-4 text-center sm:mb-6">
+                <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 sm:mb-4 sm:h-16 sm:w-16 sm:rounded-2xl">
+                  <Send className="text-white" size={22} />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 sm:text-2xl md:text-3xl">
                   Send us a Message
                 </h3>
-                <p className="text-gray-600 mt-2">We'll get back to you within 24 hours</p>
+                <p className="mt-1 text-sm text-gray-600 sm:mt-2 sm:text-base">We'll get back to you within 24 hours</p>
               </div>
 
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-5"
-              >
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
 
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:gap-5">
                     <div className="relative">
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1 ml-1">
                         Name <span className="text-red-500">*</span>
@@ -418,7 +418,7 @@ const ContactPage = () => {
                         pattern="[A-Za-z\s]+"
                         title="Please enter only letters and spaces"
                         placeholder="John Doe"
-                        className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                        className={`w-full rounded-xl border bg-white/50 px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 sm:px-5 sm:py-3 sm:text-base ${
                           errors.name && touched.name
                             ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
                             : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
@@ -440,7 +440,7 @@ const ContactPage = () => {
                         onChange={handleChange}
                         onBlur={handleBlur('email')}
                         placeholder="john@example.com"
-                        className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                        className={`w-full rounded-xl border bg-white/50 px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 sm:px-5 sm:py-3 sm:text-base ${
                           errors.email && touched.email
                             ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
                             : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
@@ -464,7 +464,7 @@ const ContactPage = () => {
                       onChange={handleChange}
                       onBlur={handleBlur('phone')}
                       placeholder="+91 **********"
-                      className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                      className={`w-full rounded-xl border bg-white/50 px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 sm:px-5 sm:py-3 sm:text-base ${
                         errors.phone && touched.phone
                           ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
                           : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
@@ -487,7 +487,7 @@ const ContactPage = () => {
                       onChange={handleChange}
                       onBlur={handleBlur('subject')}
                       placeholder="How can we help you?"
-                      className={`w-full px-5 py-3 text-base border rounded-xl focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                      className={`w-full rounded-xl border bg-white/50 px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 sm:px-5 sm:py-3 sm:text-base ${
                         errors.subject && touched.subject
                           ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
                           : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
@@ -509,12 +509,12 @@ const ContactPage = () => {
                       onChange={handleChange}
                       onBlur={handleBlur('message')}
                       placeholder="Tell us more about your project..."
-                      className={`w-full px-5 py-3 text-base border rounded-xl resize-none focus:ring-2 focus:outline-none transition-all bg-white/50 backdrop-blur-sm ${
+                      className={`w-full resize-none rounded-xl border bg-white/50 px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 sm:px-5 sm:py-3 sm:text-base ${
                         errors.message && touched.message
                           ? 'border-red-500 focus:ring-red-200 focus:border-red-500'
                           : 'border-gray-200 focus:ring-orange-200 focus:border-orange-500'
                       }`}
-                      rows="5"
+                      rows="3"
                     ></textarea>
                     {errors.message && touched.message && (
                       <p className="mt-1 text-sm text-red-600">{errors.message}</p>
@@ -522,11 +522,11 @@ const ContactPage = () => {
                   </div>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-4 sm:mt-6">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-4 px-6 rounded-xl font-semibold shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 text-lg flex items-center justify-center gap-3 group"
+                    className="group flex w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:from-orange-600 hover:to-orange-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70 sm:gap-3 sm:px-6 sm:py-3.5 sm:text-lg"
                     aria-label={loading ? "Sending message" : "Submit contact form"}
                   >
                     {loading ? (
@@ -536,7 +536,7 @@ const ContactPage = () => {
                       </>
                     ) : (
                       <>
-                        <Send size={20} className="group-hover:translate-x-1 transition-transform" />
+                        <Send size={18} className="transition-transform group-hover:translate-x-1" />
                         <span>Send Message</span>
                       </>
                     )}
@@ -544,7 +544,7 @@ const ContactPage = () => {
                 </div>
               </form>
 
-              <div className="mt-6 space-y-4">
+              <div className="mt-4 space-y-3 sm:mt-6 sm:space-y-4">
                 {formError && (
                   <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
                     <div className="flex items-center gap-3">
@@ -560,14 +560,14 @@ const ContactPage = () => {
           </div>
 
           {/* CONTACT CARDS */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          <div className="flex h-full flex-col space-y-3 sm:space-y-4">
+            <div className="flex-1 rounded-2xl border border-orange-100/80 bg-white/95 p-5 shadow-xl ring-1 ring-white transition-all duration-300 hover:shadow-2xl sm:p-7">
               <div className="flex flex-col h-full">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-orange-100 to-orange-50">
-                    <Mail size={24} className="text-orange-600" />
+                <div className="mb-4 flex items-center gap-3 sm:mb-6 sm:gap-4">
+                  <div className="rounded-xl bg-gradient-to-br from-orange-100 to-orange-50 p-2.5 sm:p-3">
+                    <Mail size={20} className="text-orange-600 sm:h-6 sm:w-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Email Us</h3>
+                  <h3 className="text-lg font-bold text-gray-900 sm:text-xl">Email Us</h3>
                 </div>
                 <div className="space-y-1 text-gray-600 flex-grow">
                   <a 
@@ -588,13 +588,13 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div className="flex-1 rounded-2xl border border-orange-100/80 bg-white/95 p-5 shadow-xl ring-1 ring-white transition-all duration-300 hover:shadow-2xl sm:p-7">
               <div className="flex flex-col h-full">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50">
-                    <Phone size={24} className="text-blue-600" />
+                <div className="mb-4 flex items-center gap-3 sm:mb-6 sm:gap-4">
+                  <div className="rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 p-2.5 sm:p-3">
+                    <Phone size={20} className="text-blue-600 sm:h-6 sm:w-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Call Us</h3>
+                  <h3 className="text-lg font-bold text-gray-900 sm:text-xl">Call Us</h3>
                 </div>
                 <div className="space-y-1 text-gray-600">
                   <a href="tel:+917013814030" className="block hover:text-blue-600 transition-colors font-medium">
@@ -608,13 +608,13 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300">
+            <div className="flex-1 rounded-2xl border border-orange-100/80 bg-white/95 p-5 shadow-xl ring-1 ring-white transition-all duration-300 hover:shadow-2xl sm:p-7">
               <div className="flex flex-col h-full">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-green-100 to-green-50">
-                    <MapPin size={24} className="text-green-600" />
+                <div className="mb-4 flex items-center gap-3 sm:mb-6 sm:gap-4">
+                  <div className="rounded-xl bg-gradient-to-br from-green-100 to-green-50 p-2.5 sm:p-3">
+                    <MapPin size={20} className="text-green-600 sm:h-6 sm:w-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Visit Us</h3>
+                  <h3 className="text-lg font-bold text-gray-900 sm:text-xl">Visit Us</h3>
                 </div>
                 <div className="space-y-1 text-gray-600">
                   <p className="font-medium">YES LORVENS SOLUTIONS PVT LTD</p>

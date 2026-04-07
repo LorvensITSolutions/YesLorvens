@@ -123,7 +123,7 @@ const ServiceDetail = () => {
       
       {/* Hero Section */}
       <motion.section 
-        className="relative min-h-[80vh] flex items-center justify-center px-6 lg:px-12 overflow-hidden"
+        className="relative min-h-[80vh] flex items-center justify-center overflow-hidden px-6 lg:px-12"
         style={{
           backgroundImage: `url(${service.image})`,
           backgroundSize: 'cover',
@@ -143,7 +143,8 @@ const ServiceDetail = () => {
         }}
       >
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-slate-950/52"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-900/30 to-slate-950/65" />
 
         <motion.div 
           className="relative z-10 text-center"
@@ -159,6 +160,12 @@ const ServiceDetail = () => {
             }
           }}
         >
+          <motion.p
+            variants={fadeInUp}
+            className="mx-auto mb-3 inline-flex rounded-full border border-orange-200/70 bg-orange-100/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-100 sm:text-xs"
+          >
+            Service Details
+          </motion.p>
           <motion.h1 
             variants={fadeInUp}
             className="text-4xl md:text-6xl font-bold text-orange-100 mb-4"
@@ -176,7 +183,7 @@ const ServiceDetail = () => {
 
       {/* Service Details */}
       <motion.section 
-        className="py-16 md:py-24 bg-white"
+        className="relative overflow-hidden bg-white py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -189,7 +196,9 @@ const ServiceDetail = () => {
           }
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="pointer-events-none absolute -left-16 top-8 h-52 w-52 rounded-full bg-orange-100/55 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-slate-200/45 blur-3xl" />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="grid md:grid-cols-3 gap-12"
             initial="hidden"
@@ -269,7 +278,7 @@ const ServiceDetail = () => {
               variants={fadeInUp}
               className="sticky top-24"
             >
-              <div className="sticky top-24 bg-white rounded-2xl shadow-lg p-6 mb-8">
+              <div className="sticky top-24 mb-8 rounded-2xl border border-orange-100/80 bg-white/95 p-6 shadow-lg ring-1 ring-white">
                 <div className="text-5xl mb-6">{service.icon}</div>
                 <h3 className="text-2xl font-bold mb-4">Service Details</h3>
                 
@@ -288,7 +297,7 @@ const ServiceDetail = () => {
 
                   <button
                     onClick={() => navigate("/contact")}
-                    className="w-full mt-6 bg-orange-600 text-white py-4 px-6 rounded-xl font-bold hover:bg-orange-700 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    className="mt-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-orange-400 px-6 py-4 font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-orange-200/70"
                   >
                     Start Your Project
                     <ArrowRight className="h-5 w-5" />
@@ -309,8 +318,10 @@ const ServiceDetail = () => {
 
       {/* Related Services */}
       {relatedServices.length > 0 && (
-        <section className="py-16 md:py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <section className="relative overflow-hidden bg-gray-50 py-16 md:py-24">
+          <div className="pointer-events-none absolute -left-16 top-10 h-48 w-48 rounded-full bg-orange-100/45 blur-3xl" />
+          <div className="pointer-events-none absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-slate-200/40 blur-3xl" />
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Explore Our Other Services</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Discover more solutions to help grow your business</p>
@@ -320,7 +331,7 @@ const ServiceDetail = () => {
               {relatedServices.map((relatedService) => (
                 <div 
                   key={relatedService.id}
-                  className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+                  className="overflow-hidden rounded-2xl border border-orange-100/80 bg-white/95 shadow-md ring-1 ring-white transition-shadow duration-300 hover:shadow-xl"
                 >
                   <div className="h-48 overflow-hidden">
                     <img 
