@@ -1,7 +1,9 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const WhoWeAre = () => {
+  const reduceMotion = useReducedMotion();
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     show: { 
@@ -15,40 +17,68 @@ const WhoWeAre = () => {
 
   return (
     <>
-      <section 
-        className="relative flex min-h-[62vh] items-center justify-center overflow-hidden px-6 pt-20 lg:min-h-[66vh] lg:px-12"
-        style={{
-          backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/v1764936823/ChatGPT_Image_Dec_5_2025_05_43_26_PM_pjzpe6.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          position: 'relative'
-        }}
-      >
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-slate-950/55"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-900/30 to-slate-950/70" />
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-6 pb-10 pt-20 lg:min-h-[min(60vh,36rem)] lg:px-12 lg:pb-12 lg:pt-22">
+        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-orange-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
 
-        <motion.div 
-          className="relative z-10 text-center"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="show"
-        >
-          <motion.h1 
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-16">
+          <motion.div
+            className="order-2 text-center lg:order-1 lg:pl-8 lg:text-left"
             variants={fadeInUp}
-            className="mb-3 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+            initial="hidden"
+            animate="show"
           >
-            About Us
-          </motion.h1>
-          <motion.h2 
-            variants={fadeInUp}
-            transition={{ delay: 0.2 }}
-            className="mx-auto max-w-2xl text-lg font-normal leading-relaxed text-slate-100 sm:text-2xl"
+        
+            <motion.h1
+              variants={fadeInUp}
+              className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+            >
+              About{" "}
+              <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
+                Us
+              </span>
+            </motion.h1>
+            <motion.h2
+              variants={fadeInUp}
+              transition={{ delay: 0.15 }}
+              className="mx-auto mt-4 max-w-xl text-base font-normal leading-relaxed text-slate-200 sm:text-lg lg:mx-0 lg:max-w-lg lg:text-xl"
+            >
+              We turn ideas into powerful, user-friendly digital experiences.
+            </motion.h2>
+        
+          </motion.div>
+
+          <motion.div
+            className="order-1 flex justify-center lg:order-2 lg:justify-end"
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
-            We turn ideas into powerful, user-friendly digital experiences.
-          </motion.h2>
-        </motion.div>
+            <div className="relative w-full max-w-md lg:max-w-lg">
+              <div className="pointer-events-none absolute -inset-4 rounded-full bg-gradient-to-br from-orange-300/25 via-transparent to-sky-300/20 blur-2xl" />
+              <motion.div
+                className="relative mx-auto h-68 w-68 overflow-hidden rounded-full border-4 border-orange-100/90 bg-white/90 p-2 shadow-xl ring-1 ring-white backdrop-blur-sm sm:h-76 sm:w-76 lg:h-84 lg:w-84"
+                animate={reduceMotion ? { y: 0 } : { y: [0, -5, 0] }}
+                transition={
+                  reduceMotion
+                    ? undefined
+                    : { duration: 6, repeat: Infinity, ease: 'easeInOut' }
+                }
+              >
+                <img
+                  src="/about-hero.png"
+                  alt="Illustration of a developer building digital products"
+                  className="h-full w-full rounded-full object-cover"
+                  width={640}
+                  height={480}
+                  loading="eager"
+                  decoding="async"
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </section>
       
       {/* Content Section */}

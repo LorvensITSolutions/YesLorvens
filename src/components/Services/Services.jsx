@@ -1,6 +1,6 @@
 // React import not needed in React 17+
 import { Link } from "react-router-dom";
-import { ArrowRight, Eye, Shield, CheckCircle2, Globe, Users } from "lucide-react";
+import { ArrowRight, Eye, Shield, CheckCircle2, Globe, Zap, Headset } from "lucide-react";
 import { motion } from "framer-motion";
 
 // Marquee Component for horizontal scrolling text
@@ -113,51 +113,61 @@ const services = [
   },
 ];
 
-// Hero Section
+const SERVICES_HERO_IMG = "/services-hero-new.png";
+
+// Hero: dark panel (matches illustration); white navbar spacer unchanged
 const HeroSection = () => {
   return (
-    <section 
-      className="relative min-h-[80vh]  flex items-center justify-center px-6 md:pt-18 lg:px-12 overflow-hidden"
-      style={{
-        backgroundImage: 'url(https://res.cloudinary.com/durbtkhbz/image/upload/v1765961834/services_hn8yql.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        position: 'relative'
-      }}
-    >
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-slate-950/52"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-900/30 to-slate-950/65" />
+    <section className="w-full max-w-full overflow-hidden bg-white">
+      <div className="h-16 shrink-0 bg-white sm:h-[4.75rem] md:h-20" aria-hidden />
 
-      <motion.div
-        className="relative z-10 text-center"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: {
-            transition: {
-              staggerChildren: 0.1
-            }
-          }
-        }}
-      >
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_70%_50%_at_20%_30%,rgba(249,115,22,0.07),transparent)]"
+          aria-hidden
+        />
 
-    
-        <motion.h1
-          variants={fadeInUp}
-          className="text-4xl md:text-4xl lg:text-6xl font-bold text-orange-100 mb-4"
-        >
-          Our Services
-        </motion.h1>
-        <motion.h2
-          variants={fadeInUp}
-          className="text-xl md:text-2xl font-normal text-orange-100 max-w-2xl mx-auto"
-        >
-          We provide a range of cutting-edge solutions designed to help your business grow and thrive in the digital landscape.
-        </motion.h2>
-      </motion.div>
+        <div className="relative z-10 grid w-full min-h-0 grid-cols-1 lg:grid-cols-[11fr_14fr] lg:min-h-[min(66vh,40rem)]">
+          <motion.div
+            className="relative min-h-[40vh] w-full max-w-full overflow-hidden bg-cover bg-center bg-no-repeat sm:min-h-[42vh] lg:min-h-full lg:bg-[position:45%_center]"
+            style={{ backgroundImage: `url(${SERVICES_HERO_IMG})` }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            role="img"
+            aria-label="Digital analytics and business intelligence illustration"
+          >
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 hidden w-32 bg-gradient-to-l from-slate-950 via-slate-950/35 to-transparent lg:block"
+              aria-hidden
+            />
+          </motion.div>
+
+          <motion.div
+            className="flex min-w-0 flex-col justify-center border-t border-white/10 bg-slate-950 px-6 py-10 text-center sm:px-8 sm:py-12 lg:border-t-0 lg:bg-slate-950 lg:px-12 lg:pl-16 lg:py-14 lg:text-left xl:pl-20 xl:pr-16"
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+          >
+          <motion.h1
+            variants={fadeInUp}
+            className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[2.6rem] xl:text-[3rem] xl:leading-[1.12]"
+          >
+            Our{" "}
+            <span className="text-orange-400">
+              Services
+            </span>
+          </motion.h1>
+          <motion.h2
+            variants={fadeInUp}
+            transition={{ delay: 0.12 }}
+            className="mx-auto mt-5 max-w-md text-[0.98rem] font-normal leading-relaxed text-slate-300 sm:text-lg lg:mx-0 lg:max-w-xl lg:text-[1.1rem]"
+          >
+            Cutting-edge digital solutions tailored to your business goals, from planning to product growth.
+          </motion.h2>
+        </motion.div>
+        </div>
+      </div>
     </section>
   );
 };
@@ -262,22 +272,22 @@ const WhyChooseUsSection = () => {
     {
       title: "Proven Expertise",
       description: "Years of experience delivering world-class solutions",
-      bgColor: "bg-blue-500",
+      icon: Shield,
     },
     {
       title: "Fast Delivery",
       description: "Quick turnaround without compromising on quality",
-      bgColor: "bg-orange-500",
+      icon: Zap,
     },
     {
       title: "Dedicated Support",
       description: "24/7 support and maintenance for peace of mind",
-      bgColor: "bg-green-500"
+      icon: Headset,
     },
     {
       title: "Global Standards",
       description: "International quality standards and best practices",
-      bgColor: "bg-purple-500"
+      icon: Globe,
     }
   ];
 
@@ -316,28 +326,69 @@ const WhyChooseUsSection = () => {
           </motion.p>
         </div>
 
-        {/* Reasons Grid */}
-        <motion.div 
-          className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+        {/* Dashed-line journey (mobile: vertical, desktop: horizontal) */}
+        <motion.div
           variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          className="relative"
         >
-          {reasons.map((reason, index) => (
-            <motion.div 
-              key={index} 
-              variants={item}
-              className="group rounded-2xl border border-orange-100/80 bg-white/95 p-6 text-center shadow-sm ring-1 ring-white transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-md lg:p-7"
-            >
-              <h3 className="mb-2 text-xl font-semibold text-gray-700">
-                {reason.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
-                {reason.description}
-              </p>
-            </motion.div>
-          ))}
+          {/* Mobile / tablet: vertical dashed line */}
+          <div className="relative space-y-10 pl-1 sm:pl-2 lg:hidden">
+            <div
+              className="absolute left-[15px] top-3 bottom-3 w-0 border-l-2 border-dashed border-orange-300/90 sm:left-[17px]"
+              aria-hidden
+            />
+            {reasons.map((reason, index) => {
+              const Icon = reason.icon;
+              return (
+              <motion.div
+                key={index}
+                variants={item}
+                className="relative pl-11 sm:pl-12"
+              >
+                <div className="absolute left-[7px] top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full border border-orange-300 bg-white text-orange-500 shadow-sm sm:left-[9px]" aria-hidden>
+                  <Icon className="h-3 w-3" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {reason.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+                  {reason.description}
+                </p>
+              </motion.div>
+            )})}
+          </div>
+
+          {/* Desktop: horizontal dashed line with stops */}
+          <div className="relative hidden px-2 lg:block lg:px-4">
+            <div
+              className="pointer-events-none absolute left-[10%] right-[10%] top-[7.25rem] border-t-2 border-dashed border-orange-300/90 xl:left-[8%] xl:right-[8%]"
+              aria-hidden
+            />
+            <div className="grid grid-cols-4 gap-3 xl:gap-6">
+              {reasons.map((reason, index) => {
+                const Icon = reason.icon;
+                return (
+                <motion.div
+                  key={index}
+                  variants={item}
+                  className="relative flex flex-col items-center text-center"
+                >
+                  <h3 className="min-h-[2.75rem] text-base font-semibold leading-snug text-gray-800 xl:text-lg">
+                    {reason.title}
+                  </h3>
+                  <p className="mt-2 min-h-[4.5rem] text-sm leading-relaxed text-gray-600 xl:min-h-[4rem] xl:text-[0.9375rem]">
+                    {reason.description}
+                  </p>
+                  <div className="relative z-10 mt-7 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-orange-300 bg-white text-orange-500 shadow-sm" aria-hidden>
+                    <Icon className="h-4 w-4" />
+                  </div>
+                </motion.div>
+              )})}
+            </div>
+          </div>
         </motion.div>
       </div>
     </motion.section>
@@ -408,7 +459,7 @@ const CTASection = () => {
 const Services = () => {
   return (
     <motion.div 
-      className="min-h-screen bg-white"
+      className="min-h-screen overflow-x-hidden bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
