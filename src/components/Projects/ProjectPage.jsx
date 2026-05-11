@@ -17,6 +17,8 @@ const Scrapdig =
   "https://res.cloudinary.com/durbtkhbz/image/upload/f_auto,q_auto,w_800/v1771588561/WhatsApp_Image_2026-02-20_at_5.19.19_PM_rixs6d.jpg";
 const amvifoodsLogo =
   "https://res.cloudinary.com/dnvpasppl/image/upload/f_auto,q_auto,w_800/v1773392136/Screenshot_2026-03-04_114703-removebg-preview_a5xoie.png";
+const ariseDelhi ="https://res.cloudinary.com/dabmwltsh/image/upload/v1777097315/BLUE_300x_u3unex.png"
+const mbprime ="https://res.cloudinary.com/durbtkhbz/image/upload/v1773638223/mb_smwjsa_paldaw.png"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 16 },
@@ -89,6 +91,16 @@ const projects = [
     link: "https://scrapdig.in/",
   },
   {
+    id: "mb-prime-projects",
+    title: "MB Prime Projects",
+    subtitle: "Real Estate Business Website",
+    description:
+      "MB Prime Projects is a modern real estate platform developed to showcase premium residential and commercial properties with a seamless user experience. The project includes a powerful admin panel for managing property listings and inquiries, along with automated form-to-email integration to ensure customer inquiries are instantly delivered to the management team. The website features responsive property browsing, dynamic content management, and a clean professional interface optimized for engagement and lead generation.",
+    images: [mbprime],
+    category: "Web Development",
+    link: "https://mbprimeprojects.com/",
+  },
+  {
     id: "amvi-foods",
     title: "AMVI Foods",
     subtitle: "Dehydrated Food Processing & Export Platform",
@@ -98,6 +110,17 @@ const projects = [
     category: "Web Development",
     link: "https://amvifoods.com/",
   },
+  {
+    id: "arise-delhi",
+    title: "Arise Delhi",
+    subtitle: "Medical Education & FMGE Preparation Platform",
+    description:
+      "Arise Delhi is a modern medical education and FMGE preparation platform dedicated to helping aspiring doctors achieve academic excellence through structured learning programs, expert mentorship, and advanced preparation resources. The platform offers comprehensive course information, student-focused learning support, interactive guidance, and a streamlined digital experience for medical aspirants preparing for competitive examinations. Designed with a clean and professional interface, the website enhances accessibility, engagement, and trust for students across India.",
+    images: [ariseDelhi],
+    category: "Web Development",
+    link: "https://arisedelhi.com/",
+  },
+  
 ];
 
 function categoryList(project) {

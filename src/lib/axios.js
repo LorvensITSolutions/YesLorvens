@@ -1,9 +1,11 @@
 // src/lib/axios.js
 import axios from "axios";
 
+const baseURL = `${String(import.meta.env.VITE_API_URL || "").replace(/\/$/, "")}/api`;
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api", // or use VITE_API_URL env var
+  baseURL,
   withCredentials: true,
 });
 
-export default axiosInstance; // ✅ default export
+export default axiosInstance;

@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 import {Mail,MapPin,Phone,CheckCircle,Globe,MessageCircle,Send} from "lucide-react";
-import emailjs from '@emailjs/browser';
+import axiosInstance from "../../lib/axios";
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -63,12 +63,6 @@ const ContactPage = () => {
 
   useEffect(() => {
     setMounted(true);
-    // Initialize EmailJS
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    if (publicKey) {
-      emailjs.init(publicKey);
-    }
-    
     if (location.hash === '#contact-form' && formSectionRef.current) {
       setTimeout(() => {
         formSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -205,10 +199,6 @@ const ContactPage = () => {
     return value.trim().replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
   };
 
-  // EmailJS configuration
-  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_Lorvens2025';
-  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID || 'template_contact';
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -240,36 +230,9 @@ const ContactPage = () => {
       message: sanitizeInput(formData.message)
     };
 
-    // Submit to EmailJS
     try {
-      // Prepare template parameters for EmailJS
-      // Note: Variable names must match your EmailJS template placeholders
-      const templateParams = {
-        name: sanitizedData.name,
-        email: sanitizedData.email,
-        phone: sanitizedData.phone,
-        subject: sanitizedData.subject,
-        message: sanitizedData.message,
-        // For auto-reply (if configured separately)
-        user_name: sanitizedData.name,
-        user_email: sanitizedData.email
-      };
+      await axiosInstance.post("/contact", sanitizedData);
 
-      // Send email using EmailJS with timeout
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('Request timeout')), 15000);
-      });
-
-      const emailPromise = emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams
-      );
-
-      // Race between email send and timeout
-      await Promise.race([emailPromise, timeoutPromise]);
-
-      // EmailJS returns { status: 200, text: 'OK' } on success
       setSuccess(true);
       setLoading(false);
       setFormData({
@@ -289,20 +252,21 @@ const ContactPage = () => {
       setErrors({});
     } catch (err) {
       console.error("❌ Error submitting contact form:", err);
-      
+
       let errorMessage = "Failed to send message. ";
-      
-      if (err.message === 'Request timeout') {
-        errorMessage += "Request timed out. Please check your connection and try again.";
-      } else if (err.text) {
-        // EmailJS error response
-        errorMessage += err.text;
-      } else if (err.message) {
-        errorMessage += err.message;
+      if (err.response?.data?.message) {
+        errorMessage = err.response.data.message;
+      } else if (err.response?.data?.error) {
+        errorMessage = err.response.data.error;
+      } else if (err.message === "Network Error" || err.code === "ECONNABORTED") {
+        errorMessage = "Unable to reach server. Please check your connection and try again.";
+      } else if (err.response?.status === 400 && err.response?.data) {
+        const details = err.response.data;
+        errorMessage = typeof details === "string" ? details : (details.message || "Invalid request. Please check your entries.");
       } else {
         errorMessage += "Please try again or contact us directly at yeslorvenssolutions@gmail.com";
       }
-      
+
       setFormError(errorMessage);
       setLoading(false);
     }
