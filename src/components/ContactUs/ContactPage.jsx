@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 import {Mail,MapPin,Phone,CheckCircle,Globe,MessageCircle,Send} from "lucide-react";
-import axiosInstance from "../../lib/axios";
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -230,8 +230,33 @@ const ContactPage = () => {
       message: sanitizeInput(formData.message)
     };
 
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setFormError("Contact form is not configured. Please email us at yeslorvenssolutions@gmail.com");
+      setLoading(false);
+      return;
+    }
+
     try {
-      await axiosInstance.post("/contact", sanitizedData);
+      const payload = new FormData();
+      payload.append("access_key", accessKey);
+      payload.append("name", sanitizedData.name);
+      payload.append("email", sanitizedData.email);
+      payload.append("phone", sanitizedData.phone);
+      payload.append("subject", sanitizedData.subject);
+      payload.append("message", sanitizedData.message);
+      payload.append("from_name", sanitizedData.name);
+
+      const response = await fetch(WEB3FORMS_URL, {
+        method: "POST",
+        body: payload,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Failed to send message.");
+      }
 
       setSuccess(true);
       setLoading(false);
@@ -251,21 +276,12 @@ const ContactPage = () => {
       });
       setErrors({});
     } catch (err) {
-      console.error("❌ Error submitting contact form:", err);
+      console.error("Error submitting contact form:", err);
 
-      let errorMessage = "Failed to send message. ";
-      if (err.response?.data?.message) {
-        errorMessage = err.response.data.message;
-      } else if (err.response?.data?.error) {
-        errorMessage = err.response.data.error;
-      } else if (err.message === "Network Error" || err.code === "ECONNABORTED") {
-        errorMessage = "Unable to reach server. Please check your connection and try again.";
-      } else if (err.response?.status === 400 && err.response?.data) {
-        const details = err.response.data;
-        errorMessage = typeof details === "string" ? details : (details.message || "Invalid request. Please check your entries.");
-      } else {
-        errorMessage += "Please try again or contact us directly at yeslorvenssolutions@gmail.com";
-      }
+      const errorMessage =
+        err.message === "Failed to fetch"
+          ? "Unable to send your message. Please check your connection and try again."
+          : `${err.message || "Failed to send message."} You can also email us at yeslorvenssolutions@gmail.com`;
 
       setFormError(errorMessage);
       setLoading(false);
