@@ -4,7 +4,11 @@ import { createPortal } from "react-dom";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 import {Mail,MapPin,Phone,CheckCircle,Globe,MessageCircle,Send} from "lucide-react";
-const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+import {
+  WEB3FORMS_ACCESS_KEY,
+  WEB3FORMS_SUBMIT_URL,
+  CONTACT_EMAIL,
+} from "../../config/web3forms";
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -230,16 +234,9 @@ const ContactPage = () => {
       message: sanitizeInput(formData.message)
     };
 
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-    if (!accessKey) {
-      setFormError("Contact form is not configured. Please email us at yeslorvenssolutions@gmail.com");
-      setLoading(false);
-      return;
-    }
-
     try {
       const payload = new FormData();
-      payload.append("access_key", accessKey);
+      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
       payload.append("name", sanitizedData.name);
       payload.append("email", sanitizedData.email);
       payload.append("phone", sanitizedData.phone);
@@ -247,7 +244,7 @@ const ContactPage = () => {
       payload.append("message", sanitizedData.message);
       payload.append("from_name", sanitizedData.name);
 
-      const response = await fetch(WEB3FORMS_URL, {
+      const response = await fetch(WEB3FORMS_SUBMIT_URL, {
         method: "POST",
         body: payload,
       });
@@ -281,7 +278,7 @@ const ContactPage = () => {
       const errorMessage =
         err.message === "Failed to fetch"
           ? "Unable to send your message. Please check your connection and try again."
-          : `${err.message || "Failed to send message."} You can also email us at yeslorvenssolutions@gmail.com`;
+          : `${err.message || "Failed to send message."} You can also email us at ${CONTACT_EMAIL}`;
 
       setFormError(errorMessage);
       setLoading(false);
@@ -551,17 +548,17 @@ const ContactPage = () => {
                 </div>
                 <div className="space-y-1 text-gray-600 flex-grow">
                   <a 
-                    href="mailto:yeslorvenssolutions@gmail.com"
+                    href={`mailto:${CONTACT_EMAIL}`}
                     onClick={(e) => {
                       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                       if (!isMobile) {
                         e.preventDefault();
-                        window.open('https://mail.google.com/mail/?view=cm&fs=1&to=yeslorvenssolutions@gmail.com', '_blank');
+                        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}`, '_blank');
                       }
                     }}
                     className="block hover:text-orange-600 transition-colors font-medium cursor-pointer"
                   >
-                    yeslorvenssolutions@gmail.com
+                    {CONTACT_EMAIL}
                   </a>
                   <p className="text-sm text-gray-600 mt-2">Connect with our team for any inquiries</p>
                 </div>
